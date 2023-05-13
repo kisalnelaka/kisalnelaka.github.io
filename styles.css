@@ -1,0 +1,62 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  padding: 20px;
+}
+
+h1, h2, h3, h4 {
+  margin: 0;
+}
+
+section {
+  padding: 40px 20px;
+}
+
+section h3 {
+  margin-bottom:
+10px;
+}
+
+ul, li {
+list-style: none;
+padding: 0;
+margin: 0;
+}
+
+.social-links a {
+margin-right: 10px;
+color: #333;
+text-decoration: none;
+}
+
+article {
+margin-bottom: 20px;
+}
+
+article h4 {
+margin-bottom: 5px;
+}
+
+#contact ul li:first-child {
+margin-top: 10px;
+}
+
+#experience article:last-child,
+#education article:last-child {
+margin-bottom: 0;
+}
+
+#tech-stack ul li:last-child {
+margin-bottom: 10px;
+}
+
+#extra-activities ul li:last-child {
+margin-bottom: 0;
+}
