@@ -50,7 +50,7 @@ const CONFIG = {
   //       },
   //     ],
   //   },
-  // },
+   },
   seo: {
     title: 'Portfolio of Kisal Nelaka',
     description: '',
