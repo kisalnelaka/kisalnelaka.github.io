@@ -76,7 +76,7 @@ const CONFIG = {
   },
   resume: {
     fileUrl:
-      'https://www.kisalnelaka.github.io/resume', // Empty fileUrl will hide the `Download Resume` button.
+      'https://kisalnelaka.github.io/resume/', // Empty fileUrl will hide the `Download Resume` button.
   },
   skills: [
     'PHP',
