@@ -13,11 +13,11 @@ const CONFIG = {
   projects: {
     github: {
       display: true, // Display GitHub projects?
-      header: 'Github Projects',
+      header: 'My Github Projects',
       mode: 'automatic', // Mode can be: 'automatic' or 'manual'
       automatic: {
         sortBy: 'stars', // Sort projects by 'stars' or 'updated'
-        limit: 8, // How many projects to display.
+        limit: 16, // How many projects to display.
         exclude: {
           forks: false, // Forked projects will not be displayed if set to true.
           projects: [], // These projects will not be displayed. example: ['arifszn/my-project1', 'arifszn/my-project2']
@@ -25,61 +25,62 @@ const CONFIG = {
       },
       manual: {
         // Properties for manually specifying projects
-        projects: ['arifszn/gitprofile', 'arifszn/pandora'], // List of repository names to display. example: ['arifszn/my-project1', 'arifszn/my-project2']
+        projects: [], // List of repository names to display. example: ['arifszn/my-project1', 'arifszn/my-project2']
       },
     },
-    external: {
-      header: 'My Projects',
-      // To hide the `External Projects` section, keep it empty.
-      projects: [
-        {
-          title: 'Project Name',
-          description:
-            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nunc ut.',
-          imageUrl:
-            'https://img.freepik.com/free-vector/illustration-gallery-icon_53876-27002.jpg',
-          link: 'https://example.com',
-        },
-        {
-          title: 'Project Name',
-          description:
-            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nunc ut.',
-          imageUrl:
-            'https://img.freepik.com/free-vector/illustration-gallery-icon_53876-27002.jpg',
-          link: 'https://example.com',
-        },
-      ],
-    },
-  },
+  //   external: {
+  //     header: 'My Projects',
+  //     // To hide the `External Projects` section, keep it empty.
+  //     projects: [
+  //       {
+  //         title: 'Project Name',
+  //         description:
+  //           'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nunc ut.',
+  //         imageUrl:
+  //           'https://img.freepik.com/free-vector/illustration-gallery-icon_53876-27002.jpg',
+  //         link: 'https://example.com',
+  //       },
+  //       {
+  //         title: 'Project Name',
+  //         description:
+  //           'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nunc ut.',
+  //         imageUrl:
+  //           'https://img.freepik.com/free-vector/illustration-gallery-icon_53876-27002.jpg',
+  //         link: 'https://example.com',
+  //       },
+  //     ],
+  //   },
+  // },
   seo: {
-    title: 'Portfolio of Ariful Alam',
+    title: 'Portfolio of Kisal Nelaka',
     description: '',
     imageURL: '',
   },
   social: {
-    linkedin: 'ariful-alam',
-    twitter: 'arif_szn',
-    mastodon: 'arifszn@mastodon.social',
-    facebook: '',
-    instagram: '',
-    youtube: '', // example: 'pewdiepie'
-    dribbble: '',
-    behance: '',
-    medium: 'arifszn',
-    dev: 'arifszn',
-    stackoverflow: '', // example: '1/jeff-atwood'
-    skype: '',
-    telegram: '',
-    website: 'https://www.arifszn.com',
+    linkedin: 'kisalnelaka',
+    // twitter: 'arif_szn',
+    // mastodon: 'arifszn@mastodon.social',
+    // facebook: '',
+    // instagram: '',
+    // youtube: '', // example: 'pewdiepie'
+    // dribbble: '',
+    // behance: '',
+    medium: 'kisalnelaka6',
+    dev: 'kisalnelaka',
+    // stackoverflow: '', // example: '1/jeff-atwood'
+    // skype: '',
+    // telegram: '',
+    website: 'https://www.knockknockneo.cloud',
     phone: '',
-    email: 'arifulalamszn@gmail.com',
+    email: 'kisalnelaka6@gmail.com',
   },
   resume: {
     fileUrl:
-      'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf', // Empty fileUrl will hide the `Download Resume` button.
+      'https://www.kisalnelaka.github.io/resume', // Empty fileUrl will hide the `Download Resume` button.
   },
   skills: [
     'PHP',
+    'Python',
     'Laravel',
     'JavaScript',
     'React.js',
@@ -96,47 +97,61 @@ const CONFIG = {
   ],
   experiences: [
     {
-      company: 'Company Name',
-      position: 'Position',
-      from: 'September 2021',
+      company: 'socialrabbit.Inc',
+      position: 'Freelance Web Developer',
+      from: 'December 2022',
       to: 'Present',
-      companyLink: 'https://example.com',
+      companyLink: 'https://knocknockneo.cloud',
     },
     {
-      company: 'Company Name',
-      position: 'Position',
-      from: 'July 2019',
-      to: 'August 2021',
-      companyLink: 'https://example.com',
+      company: 'Medfuture Global',
+      position: 'Manager Website Development and Maintenance',
+      from: 'June 2022',
+      to: 'December 2022',
+      companyLink: 'https://medfuture.com.au',
     },
-  ],
-  certifications: [
     {
-      name: 'Lorem ipsum',
-      body: 'Lorem ipsum dolor sit amet',
-      year: 'March 2022',
-      link: 'https://example.com',
+      company: 'Core IT Solutions',
+      position: 'Web Developer',
+      from: 'January 2021',
+      to: 'June 2022',
+      // companyLink: 'https://medfuture.com.au',
+    },
+    {
+      company: 'Elegant Media',
+      position: 'Trainee Backend Engineer',
+      from: 'June 2020',
+      to: 'January 2021',
+      // companyLink: 'https://medfuture.com.au',
     },
   ],
+  // certifications: [
+  //   {
+  //     name: 'Lorem ipsum',
+  //     body: 'Lorem ipsum dolor sit amet',
+  //     year: 'March 2022',
+  //     link: 'https://example.com',
+  //   },
+  // ],
   educations: [
     {
-      institution: 'Institution Name',
-      degree: 'Degree',
-      from: '2015',
-      to: '2019',
+      institution: 'Kingston University - United Kingdom',
+      degree: 'Bachelor in Cybersecurity and Digital Forensics',
+      from: '2023',
+      to: '2024',
     },
     {
-      institution: 'Institution Name',
-      degree: 'Degree',
-      from: '2012',
-      to: '2014',
+      institution: 'SLIIT',
+      degree: 'HND in IT',
+      from: '2016',
+      to: '2020',
     },
   ],
   // Display articles from your medium or dev account. (Optional)
   blog: {
-    source: 'dev', // medium | dev
-    username: 'arifszn', // to hide blog section, keep it empty
-    limit: 3, // How many articles to display. Max is 10.
+    source: 'medium', // medium | dev
+    username: 'kisalnelaka6', // to hide blog section, keep it empty
+    limit: 6, // How many articles to display. Max is 10.
   },
   googleAnalytics: {
     id: '', // GA3 tracking id/GA4 tag id UA-XXXXXXXXX-X | G-XXXXXXXXXX
@@ -210,11 +225,7 @@ const CONFIG = {
   },
 
   // Optional Footer. Supports plain text or HTML.
-  footer: `Made with <a 
-      class="text-primary" href="https://github.com/arifszn/gitprofile"
-      target="_blank"
-      rel="noreferrer"
-    >GitProfile</a> and ❤️`,
+  footer: `socialrabbit.Inc &copy; ${new Date().getFullYear()}`,
 
   enablePWA: true,
 };
