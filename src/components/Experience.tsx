@@ -31,11 +31,11 @@ const experiences = [
 
 const Experience: React.FC = () => {
     return (
-        <section id="experience" className="section-padding relative">
+        <section id="experience" className="section-padding bg-bg-secondary/20">
             <div className="container">
-                <div className="flex flex-col items-center mb-20 text-center">
-                    <h2 className="text-5xl font-bold mb-4">The <span className="text-gradient">Trajectory</span></h2>
-                    <p className="text-text-dim max-w-lg">A chronicle of professional evolution and technical leadership.</p>
+                <div className="flex flex-col items-center mb-24 text-center">
+                    <h2 className="text-5xl font-bold mb-6 italic tracking-tighter">The <span className="text-gradient">Trajectory</span></h2>
+                    <p className="text-text-dim max-w-lg font-light text-lg">A chronicle of professional evolution and technical leadership.</p>
                 </div>
 
                 <div className="relative max-w-5xl mx-auto">
@@ -48,25 +48,28 @@ const Experience: React.FC = () => {
                             initial={{ opacity: 0, y: 30 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
-                            transition={{ duration: 0.6, delay: index * 0.1 }}
-                            className={`relative flex flex-col md:flex-row gap-12 mb-20 ${index % 2 === 0 ? 'md:flex-row-reverse' : ''}`}
+                            transition={{ duration: 0.8, delay: index * 0.1 }}
+                            className={`relative flex flex-col md:flex-row gap-12 mb-32 last:mb-0 ${index % 2 === 0 ? 'md:flex-row-reverse' : ''}`}
                         >
                             {/* Dot */}
-                            <div className="absolute left-[-5px] md:left-1/2 top-2 w-3 h-3 rounded-full bg-primary border-4 border-bg-dark -translate-x-1/2 z-10 hidden md:block shadow-[0_0_10px_rgba(99,102,241,0.5)]" />
+                            <div className="absolute left-[-5px] md:left-1/2 top-8 w-4 h-4 rounded-full bg-primary border-[3px] border-bg-dark -translate-x-1/2 z-10 hidden md:block shadow-[0_0_15px_rgba(99,102,241,0.6)]" />
 
                             <div className="md:w-1/2">
-                                <div className={`glass-card p-8 md:p-10 hover:border-primary/30 ${index % 2 === 0 ? 'md:mr-8' : 'md:ml-8'}`}>
-                                    <div className="flex items-center gap-2 mb-4">
-                                        <Calendar size={14} className="text-primary" />
-                                        <span className="text-xs font-bold text-primary uppercase tracking-widest">{exp.period}</span>
+                                <motion.div
+                                    whileHover={{ y: -5 }}
+                                    className={`glass-card p-10 md:p-12 border-white/5 hover:border-primary/40 ${index % 2 === 0 ? 'md:mr-10' : 'md:ml-10'}`}
+                                >
+                                    <div className="flex items-center gap-3 mb-6">
+                                        <Calendar size={16} className="text-primary" />
+                                        <span className="text-xs font-bold text-primary uppercase tracking-[0.2em]">{exp.period}</span>
                                     </div>
-                                    <h3 className="text-2xl font-bold mb-1 text-white">{exp.company}</h3>
-                                    <p className="text-text-muted font-medium mb-6 text-sm">{exp.role}</p>
-                                    <p className="text-text-dim leading-relaxed font-light">{exp.description}</p>
-                                </div>
+                                    <h3 className="text-3xl font-bold mb-2 text-white italic tracking-tight">{exp.company}</h3>
+                                    <p className="text-primary/80 font-medium mb-8 text-sm uppercase tracking-widest">{exp.role}</p>
+                                    <p className="text-text-dim leading-relaxed font-light text-justify text-lg">{exp.description}</p>
+                                </motion.div>
                             </div>
-                            <div className="md:w-1/2 flex items-center justify-center opacity-10 grayscale hover:grayscale-0 transition-all duration-500 hover:opacity-50 pointer-events-none">
-                                <Briefcase size={120} />
+                            <div className="md:w-1/2 flex items-center justify-center opacity-5 grayscale hover:grayscale-0 transition-all duration-700 hover:opacity-20 pointer-events-none">
+                                <Briefcase size={160} strokeWidth={0.5} />
                             </div>
                         </motion.div>
                     ))}

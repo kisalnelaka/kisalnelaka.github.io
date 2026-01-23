@@ -1,22 +1,46 @@
 import React from 'react';
+import { motion, useScroll, useSpring } from 'framer-motion';
 import ThreeBackground from './components/ThreeBackground';
 import Hero from './components/Hero';
 import About from './components/About';
 import Experience from './components/Experience';
 import Projects from './components/Projects';
-import { GraduationCap } from 'lucide-react';
-import { motion } from 'framer-motion';
+import CustomCursor from './components/CustomCursor';
+import { GraduationCap, Mail, Phone, MapPin } from 'lucide-react';
 
 const Footer: React.FC = () => (
-    <footer className="py-12 border-t border-white/5 mt-20">
-        <div className="container flex flex-col md:flex-row justify-between items-center gap-6">
-            <p className="text-text-muted">
-                &copy; {new Date().getFullYear()} Kisal Nelaka. Built with Three.js & React.
-            </p>
-            <div className="flex gap-8 text-text-muted text-sm">
-                <a href="https://github.com/kisalnelaka" className="hover:text-white transition-colors">GitHub</a>
-                <a href="https://linkedin.com/in/kisalnelaka" className="hover:text-white transition-colors">LinkedIn</a>
-                <a href="mailto:kisalnelaka6@gmail.com" className="hover:text-white transition-colors">Email</a>
+    <footer className="py-20 border-t border-white/5 mt-20">
+        <div className="container">
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+                <div className="col-span-1 lg:col-span-2">
+                    <h2 className="text-2xl font-bold mb-6 italic">KISAL <span className="text-gradient">NELAKA</span></h2>
+                    <p className="text-text-muted font-light max-w-sm leading-relaxed">
+                        Building the next generation of web applications with security,
+                        performance, and scalability in mind.
+                    </p>
+                </div>
+                <div>
+                    <h4 className="text-white font-bold mb-6 text-sm uppercase tracking-widest">Connect</h4>
+                    <div className="space-y-4 text-text-muted text-sm">
+                        <a href="https://github.com/kisalnelaka" className="block hover:text-white transition-colors">GitHub</a>
+                        <a href="https://linkedin.com/in/kisalnelaka" className="block hover:text-white transition-colors">LinkedIn</a>
+                    </div>
+                </div>
+                <div>
+                    <h4 className="text-white font-bold mb-6 text-sm uppercase tracking-widest">Contact</h4>
+                    <div className="space-y-4 text-text-muted text-sm">
+                        <a href="mailto:kisalnelaka6@gmail.com" className="flex items-center gap-2 hover:text-white transition-colors">
+                            <Mail size={14} /> kisalnelaka6@gmail.com
+                        </a>
+                        <div className="flex items-center gap-2">
+                            <Phone size={14} /> +974 7753 3967
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div className="flex flex-col md:flex-row justify-between items-center gap-6 pt-12 border-t border-white/5 text-xs text-text-muted uppercase tracking-[0.2em]">
+                <p>&copy; {new Date().getFullYear()} Kisal Nelaka. All rights reserved.</p>
+                <p>Built with Three.js, React & Framer Motion</p>
             </div>
         </div>
     </footer>
@@ -24,8 +48,8 @@ const Footer: React.FC = () => (
 
 const Education: React.FC = () => (
     <section className="section-padding container">
-        <h2 className="text-4xl font-bold mb-16 text-center">Education</h2>
-        <div className="max-w-3xl mx-auto space-y-8">
+        <h2 className="text-5xl font-bold mb-20 text-center tracking-tighter">Academics</h2>
+        <div className="max-w-4xl mx-auto grid md:grid-cols-2 gap-8">
             {[
                 {
                     school: 'Kingston University',
@@ -33,26 +57,26 @@ const Education: React.FC = () => (
                     location: 'London, UK',
                 },
                 {
-                    school: 'Sri Lanka Institute of Information Technology',
+                    school: 'SLIIT',
                     degree: 'HND in Information Technology',
                     location: 'Colombo, LK',
                 }
             ].map((edu, index) => (
                 <motion.div
                     key={index}
-                    initial={{ opacity: 0, y: 10 }}
+                    initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    className="flex gap-6 p-8 glass-pane items-center"
+                    className="flex flex-col p-10 glass-card"
                 >
-                    <div className="w-14 h-14 bg-indigo-500/10 rounded-2xl flex items-center justify-center shrink-0">
-                        <GraduationCap className="text-indigo-400" size={30} />
+                    <div className="w-14 h-14 bg-primary/10 rounded-2xl flex items-center justify-center mb-8">
+                        <GraduationCap className="text-primary" size={30} />
                     </div>
-                    <div>
-                        <h3 className="text-xl font-bold">{edu.school}</h3>
-                        <p className="text-indigo-400 text-sm font-medium">{edu.degree}</p>
-                        <p className="text-text-muted text-xs mt-1">{edu.location}</p>
-                    </div>
+                    <h3 className="text-2xl font-bold mb-2">{edu.school}</h3>
+                    <p className="text-primary font-medium text-sm mb-4">{edu.degree}</p>
+                    <p className="text-text-muted text-xs mt-auto flex items-center gap-2">
+                        <MapPin size={12} /> {edu.location}
+                    </p>
                 </motion.div>
             ))}
         </div>
@@ -60,10 +84,22 @@ const Education: React.FC = () => (
 );
 
 const Portfolio: React.FC = () => {
+    const { scrollYProgress } = useScroll();
+    const scaleX = useSpring(scrollYProgress, {
+        stiffness: 100,
+        damping: 30,
+        restDelta: 0.001
+    });
+
     return (
         <>
+            <CustomCursor />
             <ThreeBackground />
-            <main className="relative z-10">
+            <motion.div
+                className="fixed top-0 left-0 right-0 h-1 bg-primary z-[100] origin-left"
+                style={{ scaleX }}
+            />
+            <main className="relative z-10 w-full overflow-hidden">
                 <Hero />
                 <About />
                 <Experience />

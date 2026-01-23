@@ -8,20 +8,20 @@ const projects = [
         category: 'Framework • PHP',
         description: 'A rapid-development scaffolding framework for Laravel, built to standardize production-ready architectures with pre-configured security layers.',
         link: 'https://github.com/socialrabbit/bunny',
-        image: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=1200&q=80',
+        image: '/bunny.png',
     },
     {
-        title: 'VulnScan SaaS',
-        category: 'Security • Python',
-        description: 'Enterprise-grade vulnerability orchestrator utilizing OWASP ZAP core. Automated scanning, reporting, and threat scoring for internal web assets.',
-        link: 'https://github.com/kisalnelaka',
-        image: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=1200&q=80',
+        title: 'MyWitch AI Assistant',
+        category: 'AI • Python • RAG',
+        description: 'PDF Learning Assistant powered by FastAPI, LangChain, and Ollama. Upload PDFs, index content with Chroma vector DB, and query using local LLMs—fully self-contained with no external APIs.',
+        link: 'https://github.com/kisalnelaka/mywitch',
+        image: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=1200&q=80',
     },
     {
         title: 'Oha Asa Daily',
         category: 'Mobile • Flutter • Node',
         description: 'Cross-platform mobile experience for the Japan-exclusive Oha Asa horoscope. Real-time scraping backend with high-availability cluster.',
-        link: '#',
+        link: 'https://github.com/kisalnelaka/oha_asa_app',
         image: 'https://images.unsplash.com/photo-1532968961962-8a0cb3a2d4c5?auto=format&fit=crop&w=1200&q=80',
     },
 ];
@@ -31,19 +31,19 @@ const Projects: React.FC = () => {
         <section id="projects" className="section-padding container">
             <div className="flex flex-col md:flex-row md:items-end justify-between mb-20 gap-8">
                 <div>
-                    <h2 className="text-5xl font-bold mb-4 italic tracking-tight">The <span className="text-gradient">Portfolio</span></h2>
-                    <p className="text-text-dim text-lg">Selective showcase of systems and frameworks.</p>
+                    <h2 className="text-5xl font-bold mb-4 italic tracking-tighter">The <span className="text-gradient">Portfolio</span></h2>
+                    <p className="text-text-dim text-lg font-light">Selective showcase of high-impact systems.</p>
                 </div>
                 <a
                     href="https://github.com/kisalnelaka"
                     target="_blank"
-                    className="group flex items-center gap-3 text-sm font-bold uppercase tracking-widest text-primary hover:text-white transition-colors"
+                    className="group flex items-center gap-3 text-sm font-bold uppercase tracking-[0.2em] text-primary hover:text-white transition-colors"
                 >
                     View Full Archive <ArrowRight size={16} className="group-hover:translate-x-2 transition-transform" />
                 </a>
             </div>
 
-            <div className="grid md:grid-cols-1 gap-12 overflow-hidden">
+            <div className="grid md:grid-cols-1 gap-12">
                 {projects.map((project, index) => (
                     <motion.div
                         key={index}
@@ -66,17 +66,17 @@ const Projects: React.FC = () => {
                             <span className="text-xs font-bold text-primary uppercase tracking-[0.3em] mb-6 block">
                                 {project.category}
                             </span>
-                            <h3 className="text-4xl font-bold mb-6 group-hover:text-primary transition-colors italic leading-tight">{project.title}</h3>
-                            <p className="text-text-dim text-lg mb-10 font-light leading-relaxed">
+                            <h3 className="text-4xl font-bold mb-6 group-hover:text-primary transition-colors italic leading-tight tracking-tighter">{project.title}</h3>
+                            <p className="text-text-dim text-lg mb-10 font-light leading-relaxed text-justify">
                                 {project.description}
                             </p>
 
                             <div className="flex gap-4">
-                                <a href={project.link} className="w-14 h-14 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center hover:bg-white hover:text-black transition-all">
+                                <a href={project.link} target="_blank" rel="noopener noreferrer" className="w-14 h-14 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center hover:bg-white hover:text-black transition-all">
                                     <Github size={24} />
                                 </a>
-                                <a href="#" className="flex-1 h-14 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center gap-3 hover:bg-white hover:text-black transition-all font-bold">
-                                    Review Case Study <ExternalLink size={20} />
+                                <a href={project.link} target="_blank" rel="noopener noreferrer" className="flex-1 h-14 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center gap-3 hover:bg-white hover:text-black transition-all font-bold">
+                                    View Repository <ExternalLink size={20} />
                                 </a>
                             </div>
                         </div>
