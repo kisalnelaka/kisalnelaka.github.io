@@ -1,84 +1,73 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Briefcase } from 'lucide-react';
+import { Briefcase, Calendar } from 'lucide-react';
 
 const experiences = [
     {
         company: 'ASMORPHIC',
         role: 'Senior Full Stack Developer',
-        period: 'Apr 2025 – July 2025',
-        description: [
-            'Developed Laravel and Filament-based backend systems for telecom operations.',
-            'Implemented DID ordering, porting workflows, and inventory management.',
-            'Built Python integrations with Odoo ERP for automated data sync.',
-        ],
+        period: '2025',
+        description: 'Lead architect for telecom backend systems. Orchestrated complex DID workflows and Odoo ERP integrations using Python & Laravel Filament.',
     },
     {
         company: 'AMPLIFYD',
         role: 'Full-stack Web Developer',
-        period: 'May 2024 – Dec 2024',
-        description: [
-            'Maintained production Laravel and WordPress applications.',
-            'Refactored legacy PHP codebases to improve performace.',
-            'Resolved critical production issues and implemented security fixes.',
-        ],
+        period: '2024',
+        description: 'Stabilized and refactored high-traffic production PHP codebases. Implemented critical security auditing and performance optimization layers.',
     },
     {
         company: 'CORE IT SOLUTIONS',
         role: 'Full-stack Web Developer',
-        period: 'May 2023 – May 2024',
-        description: [
-            'Designed and implemented REST APIs and admin dashboards.',
-            'Implemented automation scripts, monitoring, and deployment workflows.',
-        ],
+        period: '2023 – 2024',
+        description: 'Engineered RESTful ecosystems and automated deployment pipelines. Focused on scalable dashboard architectures and real-time monitoring.',
     },
     {
-        company: 'MEDFUTURE MEDICAL RECRUITMENT',
-        role: 'Manager Website Development',
-        period: 'Sept 2022 – Dec 2022',
-        description: [
-            'Migrated legacy CakePHP applications to Laravel.',
-            'Improved database schemas and query performance.',
-        ],
+        company: 'MEDFUTURE',
+        role: 'Development Manager',
+        period: '2022',
+        description: 'Headed legacy migration project from CakePHP to modern Laravel, resulting in a 40% improvement in query performance.',
     },
 ];
 
 const Experience: React.FC = () => {
     return (
-        <section id="experience" className="section-padding bg-bg-secondary/50">
+        <section id="experience" className="section-padding relative">
             <div className="container">
-                <h2 className="text-4xl font-bold mb-16 text-center">Work <span className="text-gradient">History</span></h2>
+                <div className="flex flex-col items-center mb-20 text-center">
+                    <h2 className="text-5xl font-bold mb-4">The <span className="text-gradient">Trajectory</span></h2>
+                    <p className="text-text-dim max-w-lg">A chronicle of professional evolution and technical leadership.</p>
+                </div>
 
-                <div className="max-w-4xl mx-auto space-y-8">
+                <div className="relative max-w-5xl mx-auto">
+                    {/* Vertical Line */}
+                    <div className="absolute left-0 md:left-1/2 top-0 bottom-0 w-[1px] bg-gradient-to-b from-transparent via-white/10 to-transparent -translate-x-1/2 hidden md:block" />
+
                     {experiences.map((exp, index) => (
                         <motion.div
                             key={index}
-                            initial={{ opacity: 0, y: 20 }}
+                            initial={{ opacity: 0, y: 30 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
-                            transition={{ delay: index * 0.1 }}
-                            className="glass-card p-8 md:p-10 rounded-3xl"
+                            transition={{ duration: 0.6, delay: index * 0.1 }}
+                            className={`relative flex flex-col md:flex-row gap-12 mb-20 ${index % 2 === 0 ? 'md:flex-row-reverse' : ''}`}
                         >
-                            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
-                                <div>
-                                    <h3 className="text-2xl font-bold flex items-center gap-3">
-                                        <Briefcase className="text-indigo-500" size={24} />
-                                        {exp.company}
-                                    </h3>
-                                    <p className="text-indigo-400 font-medium">{exp.role}</p>
-                                </div>
-                                <div className="text-text-muted font-medium bg-white/5 px-4 py-2 rounded-full text-sm">
-                                    {exp.period}
+                            {/* Dot */}
+                            <div className="absolute left-[-5px] md:left-1/2 top-2 w-3 h-3 rounded-full bg-primary border-4 border-bg-dark -translate-x-1/2 z-10 hidden md:block shadow-[0_0_10px_rgba(99,102,241,0.5)]" />
+
+                            <div className="md:w-1/2">
+                                <div className={`glass-card p-8 md:p-10 hover:border-primary/30 ${index % 2 === 0 ? 'md:mr-8' : 'md:ml-8'}`}>
+                                    <div className="flex items-center gap-2 mb-4">
+                                        <Calendar size={14} className="text-primary" />
+                                        <span className="text-xs font-bold text-primary uppercase tracking-widest">{exp.period}</span>
+                                    </div>
+                                    <h3 className="text-2xl font-bold mb-1 text-white">{exp.company}</h3>
+                                    <p className="text-text-muted font-medium mb-6 text-sm">{exp.role}</p>
+                                    <p className="text-text-dim leading-relaxed font-light">{exp.description}</p>
                                 </div>
                             </div>
-                            <ul className="space-y-3">
-                                {exp.description.map((item, i) => (
-                                    <li key={i} className="flex items-start gap-3 text-text-secondary">
-                                        <span className="mt-2 w-1.5 h-1.5 rounded-full bg-indigo-500 shrink-0" />
-                                        {item}
-                                    </li>
-                                ))}
-                            </ul>
+                            <div className="md:w-1/2 flex items-center justify-center opacity-10 grayscale hover:grayscale-0 transition-all duration-500 hover:opacity-50 pointer-events-none">
+                                <Briefcase size={120} />
+                            </div>
                         </motion.div>
                     ))}
                 </div>

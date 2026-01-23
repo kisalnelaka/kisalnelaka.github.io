@@ -1,63 +1,84 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 
-const About: React.FC = () => {
-    const skills = [
-        { name: 'Laravel', category: 'Backend' },
-        { name: 'PHP', category: 'Backend' },
-        { name: 'Python', category: 'Backend' },
-        { name: 'Node.js', category: 'Backend' },
-        { name: 'React', category: 'Frontend' },
-        { name: 'Vue.js', category: 'Frontend' },
-        { name: 'Tailwind CSS', category: 'Frontend' },
-        { name: 'MySQL', category: 'Database' },
-        { name: 'PostgreSQL', category: 'Database' },
-        { name: 'Docker', category: 'DevOps' },
-        { name: 'CI/CD', category: 'DevOps' },
-        { name: 'AWS', category: 'DevOps' },
-    ];
+const skills = [
+    { name: 'Laravel', level: '95%' },
+    { name: 'PHP', level: '98%' },
+    { name: 'React', level: '90%' },
+    { name: 'Vue.js', level: '85%' },
+    { name: 'Python', level: '80%' },
+    { name: 'Node.js', level: '82%' },
+    { name: 'Docker', level: '88%' },
+    { name: 'AWS', level: '75%' },
+    { name: 'PostgreSQL', level: '92%' },
+    { name: 'Security', level: '85%' },
+];
 
+const About: React.FC = () => {
     return (
-        <section id="about" className="section-padding container">
-            <div className="grid md:grid-cols-2 gap-16 items-start">
+        <section id="about" className="section-padding container relative overflow-hidden">
+            <div className="grid lg:grid-cols-2 gap-20 items-center">
                 <motion.div
-                    initial={{ opacity: 0, x: -30 }}
+                    initial={{ opacity: 0, x: -50 }}
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.8 }}
                 >
-                    <h2 className="text-4xl font-bold mb-8">About <span className="text-gradient">Me</span></h2>
-                    <div className="space-y-6 text-text-secondary text-lg leading-relaxed">
+                    <h2 className="text-4xl md:text-5xl font-bold mb-10">Engineering <span className="text-gradient">Philosophy</span></h2>
+                    <div className="space-y-6 text-text-dim text-lg md:text-xl leading-relaxed font-light">
                         <p>
-                            With over 8 years of experience, I am a seasoned Full Stack Developer passionate about
-                            building high-performance, secure, and user-centric web applications. My journey spans
-                            from crafting complex Laravel backends to architecting seamless React frontends.
+                            With over 8 years in the field, I don't just write code; I architect solutions.
+                            My background in <span className="text-white font-medium">Cybersecurity & Digital Forensics</span>
+                            means every architecture is built with a security-first mindset.
                         </p>
                         <p>
-                            I thrive in challenging environments where I can leverage my deep understanding of
-                            PHP and JavaScript to solve critical production issues and optimize system scalability.
-                            My background in Cybersecurity and Digital Forensics adds a layer of security-first
-                            thinking to every line of code I write.
+                            I specialize in taking complex, legacy backends and transforming them into
+                            <span className="text-white font-medium"> high-performance, scalable ecosystems</span>.
+                            Whether it's Laravel, React, or Python-driven automation, my focus is always on
+                            maintainability and pixel-perfect execution.
                         </p>
+                    </div>
+
+                    <div className="mt-12 grid grid-cols-2 gap-8">
+                        <div>
+                            <h4 className="text-3xl font-bold text-white mb-1">8+</h4>
+                            <p className="text-text-muted text-sm uppercase tracking-wider">Years Exp</p>
+                        </div>
+                        <div>
+                            <h4 className="text-3xl font-bold text-white mb-1">50+</h4>
+                            <p className="text-text-muted text-sm uppercase tracking-wider">Projects</p>
+                        </div>
                     </div>
                 </motion.div>
 
                 <motion.div
-                    initial={{ opacity: 0, x: 30 }}
+                    initial={{ opacity: 0, x: 50 }}
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.8 }}
-                    className="glass-pane p-8 md:p-12"
+                    className="glass-card p-10 md:p-14"
                 >
-                    <h3 className="text-2xl font-bold mb-8">Tech Stack</h3>
-                    <div className="flex flex-wrap gap-3">
+                    <h3 className="text-2xl font-bold mb-10 flex items-center gap-4">
+                        <span className="w-8 h-[1px] bg-primary"></span>
+                        Core Expertise
+                    </h3>
+                    <div className="space-y-6">
                         {skills.map((skill, index) => (
-                            <span
-                                key={index}
-                                className="px-4 py-2 rounded-xl bg-white/5 border border-white/10 hover:border-indigo-500/50 transition-colors text-sm font-medium"
-                            >
-                                {skill.name}
-                            </span>
+                            <div key={index} className="group">
+                                <div className="flex justify-between items-center mb-2">
+                                    <span className="text-sm font-medium text-white group-hover:text-primary transition-colors">{skill.name}</span>
+                                    <span className="text-xs text-text-muted">{skill.level}</span>
+                                </div>
+                                <div className="h-1.5 w-full bg-white/5 rounded-full overflow-hidden">
+                                    <motion.div
+                                        initial={{ width: 0 }}
+                                        whileInView={{ width: skill.level }}
+                                        viewport={{ once: true }}
+                                        transition={{ duration: 1.5, ease: "easeOut", delay: index * 0.1 }}
+                                        className="h-full bg-gradient-to-r from-primary to-secondary"
+                                    />
+                                </div>
+                            </div>
                         ))}
                     </div>
                 </motion.div>
