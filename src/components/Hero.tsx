@@ -1,8 +1,23 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Download, Github, Linkedin, Mail, ChevronDown } from 'lucide-react';
 
 const Hero: React.FC = () => {
+    const titles = [
+        "KISAL NELAKA",
+        "FULL-STACK ARCHITECT",
+        "SECURITY ENGINEER",
+        "SCALABLE ECOSYSTEMS"
+    ];
+    const [index, setIndex] = useState(0);
+
+    useEffect(() => {
+        const timer = setInterval(() => {
+            setIndex((prev) => (prev + 1) % titles.length);
+        }, 3000);
+        return () => clearInterval(timer);
+    }, []);
+
     return (
         <section className="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden">
             <div className="container relative z-10">
@@ -18,19 +33,30 @@ const Hero: React.FC = () => {
                                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
                                 <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
                             </span>
-                            Building at the intersection of Logic & Security
+                            Logic-Driven Engineering & Security
                         </span>
                     </motion.div>
 
-                    <motion.h1
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.8, delay: 0.2 }}
-                        className="text-7xl md:text-9xl font-bold mb-8 leading-[0.9] tracking-tighter uppercase"
-                    >
-                        ARCHITECTING <br />
-                        <span className="text-gradient">SCALABLE ECOSYSTEMS</span>
-                    </motion.h1>
+                    <div className="h-[200px] md:h-[280px] flex flex-col justify-center items-center overflow-hidden mb-8">
+                        <AnimatePresence mode="wait">
+                            <motion.h1
+                                key={index}
+                                initial={{ opacity: 0, y: 40 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                exit={{ opacity: 0, y: -40 }}
+                                transition={{ duration: 0.6, ease: "circOut" }}
+                                className="text-6xl md:text-9xl font-bold leading-[0.9] tracking-tighter uppercase whitespace-pre-wrap"
+                            >
+                                {titles[index].split(' ').map((word, i) => (
+                                    <React.Fragment key={i}>
+                                        {i === 1 ? <br /> : ''}
+                                        <span className={i === 1 ? "text-gradient" : ""}>{word}</span>
+                                        {i === 0 ? ' ' : ''}
+                                    </React.Fragment>
+                                ))}
+                            </motion.h1>
+                        </AnimatePresence>
+                    </div>
 
                     <motion.p
                         initial={{ opacity: 0, y: 20 }}
@@ -38,8 +64,9 @@ const Hero: React.FC = () => {
                         transition={{ duration: 0.8, delay: 0.4 }}
                         className="text-lg md:text-2xl text-text-dim max-w-3xl mx-auto mb-12 font-light leading-relaxed"
                     >
-                        I engineer high-performance full-stack systems with a security-first mindset.
-                        Specializing in robust architectures, scalable cloud migrations, and mission-critical reliability.
+                        I design systems that don't just work: they survive. From mission-critical
+                        cloud architecture to high-performance security auditing, I engineer
+                        solutions that prioritize deterministic logic and long-term integrity.
                     </motion.p>
 
                     <motion.div

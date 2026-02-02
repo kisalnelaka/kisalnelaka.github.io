@@ -7,25 +7,25 @@ const experiences = [
         company: 'ASMORPHIC',
         role: 'Senior Full Stack Developer',
         period: '2025',
-        description: 'Lead architect for enterprise telecom backend systems. Orchestrated complex DID workflows and mission-critical data integrations using Python, Laravel, and asynchronous processing.',
+        description: 'Senior architect for enterprise-scale telecom infrastructure. I designed and deployed high-availability DID management systems and complex data processing pipelines using Python and Laravel. My focus was on deterministic state management and eliminating single points of failure in mission-critical environments.',
     },
     {
         company: 'AMPLIFYD',
         role: 'Full-stack Web Developer',
         period: '2024',
-        description: 'Stabilized and refactored high-traffic production codebases. Implemented critical security auditing layers and performance optimization strategies to ensure platform reliability.',
+        description: 'Lead refactoring efforts for high-traffic production codebases. I implemented deep security auditing layers and optimized core database queries to resolve critical performance bottlenecks: ensuring 99.9% uptime during peak traffic periods.',
     },
     {
         company: 'CORE IT SOLUTIONS',
         role: 'Full-stack Web Developer',
         period: '2023 – 2024',
-        description: 'Engineered RESTful ecosystems and automated deployment pipelines. Designed scalable dashboard architectures and real-time monitoring solutions for enterprise clients.',
+        description: 'Developed scalable RESTful ecosystems and automated CI/CD pipelines. I architected multi-tenant dashboard systems with real-time analytics for enterprise clients: focusing on modular design and developer-friendly documentation.',
     },
     {
         company: 'MEDFUTURE',
         role: 'Development Manager',
         period: '2022',
-        description: 'Headed legacy migration project from CakePHP to modern Laravel, resulting in a 40% improvement in system performance and significantly reduced technical debt.',
+        description: 'Orchestrated the migration of a large-scale legacy CakePHP monolith to a modern Laravel architecture. This transition resulted in a 40% performance gain and allowed for the implementation of modern security standards across the entire medical platform.',
     },
 ];
 

@@ -6,21 +6,21 @@ const projects = [
     {
         title: 'IntraFlow',
         category: 'Enterprise • Laravel • Filament',
-        description: 'A multi-tenant SaaS ecosystem architected for telecom MSPs. Engineered complex inventory synchronization and automated billing workflows with a focus on high availability and data integrity.',
+        description: 'A multi-tenant SaaS ecosystem architected for telecom MSPs. I engineered complex inventory synchronization and automated billing workflows with a focus on high availability and data integrity.',
         link: 'https://github.com/kisalnelaka/intraflow',
-        image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80',
+        image: 'https://images.unsplash.com/photo-1551288049-bbda38a5f452?auto=format&fit=crop&w=1200&q=80',
     },
     {
         title: 'ASAN (Adaptive Symmetry-Aware Network)',
         category: 'AI • Deep Learning • Python',
-        description: 'A deep learning framework for molecular property prediction. Implemented custom symmetry-aware neural layers to achieve high-precision chemical modeling and state-of-the-art accuracy.',
+        description: 'A deep learning framework for molecular property prediction. I implemented custom symmetry-aware neural layers to achieve high-precision chemical modeling and state-of-the-art accuracy.',
         link: 'https://github.com/kisalnelaka/asan',
-        image: 'https://images.unsplash.com/photo-1532187875605-2fe358a3d4d2?auto=format&fit=crop&w=1200&q=80',
+        image: 'https://images.unsplash.com/photo-1614935151651-0bea6508db6b?auto=format&fit=crop&w=1200&q=80',
     },
     {
         title: 'SocialRabbit Bunny',
         category: 'Framework • PHP • Architecture',
-        description: 'A high-performance boilerplate engine designed for rapid deployment of secure Laravel backends. Optimized for developer productivity while enforcing strict architectural patterns and security standards.',
+        description: 'A high-performance boilerplate engine designed for rapid deployment of secure Laravel backends. It enforces strict architectural patterns and security standards out of the box.',
         link: 'https://github.com/socialrabbit/bunny',
         image: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=1200&q=80',
     },
@@ -34,16 +34,16 @@ const projects = [
     {
         title: 'PhishCatcher',
         category: 'Security • ML • JavaScript',
-        description: 'Advanced phishing detection system utilizing machine learning to analyze URL patterns and protect users in real-time. Leverages defensive programming patterns to identify and mitigate digital threats.',
+        description: 'An advanced phishing detection system utilizing machine learning to analyze URL patterns. It leverages defensive programming patterns to identify and mitigate digital threats in real-time.',
         link: 'https://github.com/kisalnelaka/phishcatcher',
-        image: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=1200&q=80',
+        image: 'https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&w=1200&q=80',
     },
     {
         title: 'Oha Asa Daily',
         category: 'Mobile • Flutter • Dart',
-        description: 'Cross-platform mobile application featuring high-performance data scraping and real-time state synchronization. Built with Flutter to deliver a seamless user experience across iOS and Android.',
+        description: 'A cross-platform mobile application featuring high-performance data scraping and real-time state synchronization. Built to deliver a seamless user experience across iOS and Android.',
         link: 'https://github.com/kisalnelaka/oha_asa_app',
-        image: 'https://images.unsplash.com/photo-1532968961962-8a0cb3a2d4c5?auto=format&fit=crop&w=1200&q=80',
+        image: 'https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&fit=crop&w=1200&q=80',
     },
 ];
 

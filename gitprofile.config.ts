@@ -52,8 +52,8 @@ const CONFIG = {
     //   },
   },
   seo: {
-    title: 'Kisal Nelaka',
-    description: '',
+    title: 'Kisal Nelaka | Full-Stack Architect & Security Engineer',
+    description: 'Masterful full-stack systems design with a security-first mindset. Specilizing in scalable architecture and deterministic engineering.',
     imageURL: '',
   },
   social: {

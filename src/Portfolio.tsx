@@ -46,9 +46,10 @@ const Footer: React.FC = () => (
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
                 <div className="col-span-1 lg:col-span-2">
                     <h2 className="text-2xl font-bold mb-6 italic">KISAL <span className="text-gradient">NELAKA</span></h2>
-                    <p className="text-text-muted font-light max-w-sm leading-relaxed">
-                        I build things that shouldn't exist because the ones that do are broken.
-                        Engineering is just a highly specialized form of paranoia.
+                    <p className="text-text-muted font-light max-w-sm leading-relaxed text-justify">
+                        I design and deploy systems that stay online when everything else fails.
+                        My work is defined by deterministic logic and a refusal to accept "good enough"
+                        infrastructure: specializing in mission-critical architecture and security.
                     </p>
                 </div>
                 <div>
