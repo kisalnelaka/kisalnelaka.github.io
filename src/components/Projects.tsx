@@ -4,23 +4,44 @@ import { ExternalLink, Github, ArrowRight } from 'lucide-react';
 
 const projects = [
     {
-        title: 'SocialRabbit Bunny',
-        category: 'Framework • PHP',
-        description: 'A rapid-development scaffolding framework for Laravel, built to standardize production-ready architectures with pre-configured security layers.',
-        link: 'https://github.com/socialrabbit/bunny',
-        image: '/bunny.png',
+        title: 'IntraFlow',
+        category: 'Enterprise • Laravel • Filament',
+        description: 'A multi-tenant SaaS ecosystem architected for telecom MSPs. Engineered complex inventory synchronization and automated billing workflows with a focus on high availability and data integrity.',
+        link: 'https://github.com/kisalnelaka/intraflow',
+        image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80',
     },
     {
-        title: 'MyWitch AI Assistant',
-        category: 'AI • Python • RAG',
-        description: 'PDF Learning Assistant powered by FastAPI, LangChain, and Ollama. Upload PDFs, index content with Chroma vector DB, and query using local LLMs—fully self-contained with no external APIs.',
-        link: 'https://github.com/kisalnelaka/mywitch',
-        image: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=1200&q=80',
+        title: 'ASAN (Adaptive Symmetry-Aware Network)',
+        category: 'AI • Deep Learning • Python',
+        description: 'A deep learning framework for molecular property prediction. Implemented custom symmetry-aware neural layers to achieve high-precision chemical modeling and state-of-the-art accuracy.',
+        link: 'https://github.com/kisalnelaka/asan',
+        image: 'https://images.unsplash.com/photo-1532187875605-2fe358a3d4d2?auto=format&fit=crop&w=1200&q=80',
+    },
+    {
+        title: 'SocialRabbit Bunny',
+        category: 'Framework • PHP • Architecture',
+        description: 'A high-performance boilerplate engine designed for rapid deployment of secure Laravel backends. Optimized for developer productivity while enforcing strict architectural patterns and security standards.',
+        link: 'https://github.com/socialrabbit/bunny',
+        image: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=1200&q=80',
+    },
+    {
+        title: 'BatSignal',
+        category: 'Systems • C++ • DBus',
+        description: 'A native Linux system integration utilizing DBus to monitor Bluetooth device metrics in real-time. Engineered for low-overhead performance and seamless integration with modern desktop environments.',
+        link: 'https://github.com/kisalnelaka/BatSignal',
+        image: 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200&q=80',
+    },
+    {
+        title: 'PhishCatcher',
+        category: 'Security • ML • JavaScript',
+        description: 'Advanced phishing detection system utilizing machine learning to analyze URL patterns and protect users in real-time. Leverages defensive programming patterns to identify and mitigate digital threats.',
+        link: 'https://github.com/kisalnelaka/phishcatcher',
+        image: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=1200&q=80',
     },
     {
         title: 'Oha Asa Daily',
-        category: 'Mobile • Flutter • Node',
-        description: 'Cross-platform mobile experience for the Japan-exclusive Oha Asa horoscope. Real-time scraping backend with high-availability cluster.',
+        category: 'Mobile • Flutter • Dart',
+        description: 'Cross-platform mobile application featuring high-performance data scraping and real-time state synchronization. Built with Flutter to deliver a seamless user experience across iOS and Android.',
         link: 'https://github.com/kisalnelaka/oha_asa_app',
         image: 'https://images.unsplash.com/photo-1532968961962-8a0cb3a2d4c5?auto=format&fit=crop&w=1200&q=80',
     },
@@ -31,8 +52,8 @@ const Projects: React.FC = () => {
         <section id="projects" className="section-padding container">
             <div className="flex flex-col md:flex-row md:items-end justify-between mb-20 gap-8">
                 <div>
-                    <h2 className="text-5xl font-bold mb-4 italic tracking-tighter">The <span className="text-gradient">Portfolio</span></h2>
-                    <p className="text-text-dim text-lg font-light">Selective showcase of high-impact systems.</p>
+                    <h2 className="text-5xl font-bold mb-4 italic tracking-tighter uppercase leading-none">SELECTED <span className="text-gradient">ENGINEERING</span> WORKS</h2>
+                    <p className="text-text-dim text-lg font-light">A technical summary of systems design and development.</p>
                 </div>
                 <a
                     href="https://github.com/kisalnelaka"

@@ -18,7 +18,7 @@ const Hero: React.FC = () => {
                                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
                                 <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
                             </span>
-                            Available for New Challenges
+                            Building at the intersection of Logic & Security
                         </span>
                     </motion.div>
 
@@ -26,20 +26,20 @@ const Hero: React.FC = () => {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.8, delay: 0.2 }}
-                        className="text-7xl md:text-9xl font-bold mb-8 leading-[0.9] tracking-tighter"
+                        className="text-7xl md:text-9xl font-bold mb-8 leading-[0.9] tracking-tighter uppercase"
                     >
-                        KISAL <br />
-                        <span className="text-gradient">NELAKA</span>
+                        ARCHITECTING <br />
+                        <span className="text-gradient">SCALABLE ECOSYSTEMS</span>
                     </motion.h1>
 
                     <motion.p
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.8, delay: 0.4 }}
-                        className="text-lg md:text-2xl text-text-dim max-w-2xl mx-auto mb-12 font-light leading-relaxed"
+                        className="text-lg md:text-2xl text-text-dim max-w-3xl mx-auto mb-12 font-light leading-relaxed"
                     >
-                        Architecting <span className="text-white font-medium">high-performance ecosystems</span>.
-                        8+ years of engineering scalable Laravel & React applications with a logic-first approach.
+                        I engineer high-performance full-stack systems with a security-first mindset.
+                        Specializing in robust architectures, scalable cloud migrations, and mission-critical reliability.
                     </motion.p>
 
                     <motion.div
@@ -48,13 +48,13 @@ const Hero: React.FC = () => {
                         transition={{ duration: 0.8, delay: 0.6 }}
                         className="flex flex-wrap items-center justify-center gap-6"
                     >
-                        <a href="mailto:kisalnelaka6@gmail.com" className="btn-primary group">
+                        <a href="mailto:kisalnelaka6@gmail.com" className="btn-primary group selection:bg-black">
                             <Mail size={20} className="group-hover:rotate-12 transition-transform" />
-                            Start a Conversation
+                            Direct Inquiry
                         </a>
                         <a href="https://knockknockneo.cloud/stuff/Kisal%20Nelaka%20-%20Resume.pdf" target="_blank" className="btn-secondary group">
                             <Download size={20} className="group-hover:-translate-y-1 transition-transform" />
-                            Download CV
+                            Curriculum Vitae (PDF)
                         </a>
                     </motion.div>
 

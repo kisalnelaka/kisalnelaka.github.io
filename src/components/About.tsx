@@ -2,16 +2,16 @@ import React from 'react';
 import { motion } from 'framer-motion';
 
 const skills = [
-    { name: 'Laravel', level: '95%' },
-    { name: 'PHP', level: '98%' },
-    { name: 'React', level: '90%' },
-    { name: 'Vue.js', level: '85%' },
-    { name: 'Python', level: '80%' },
-    { name: 'Node.js', level: '82%' },
-    { name: 'Docker', level: '88%' },
-    { name: 'AWS', level: '75%' },
-    { name: 'PostgreSQL', level: '92%' },
-    { name: 'Security', level: '85%' },
+    { name: 'Laravel (Enterprise)', level: '98%' },
+    { name: 'AI & Deep Learning', level: '82%' },
+    { name: 'Systems Programming (C++)', level: '78%' },
+    { name: 'React (Advanced)', level: '92%' },
+    { name: 'Cybersecurity Architecture', level: '88%' },
+    { name: 'Infrastructure (Docker/K8s)', level: '85%' },
+    { name: 'Digital Forensics', level: '80%' },
+    { name: 'Machine Learning', level: '75%' },
+    { name: 'Cloud (AWS/GCP)', level: '82%' },
+    { name: 'Full-stack Performance', level: '95%' },
 ];
 
 const About: React.FC = () => {
@@ -25,29 +25,24 @@ const About: React.FC = () => {
                     transition={{ duration: 0.8 }}
                     className="lg:w-1/2"
                 >
-                    <h2 className="text-4xl md:text-5xl font-bold mb-10 italic tracking-tighter">Engineering <span className="text-gradient">Philosophy</span></h2>
+                    <h2 className="text-4xl md:text-5xl font-bold mb-10 italic tracking-tighter">engineering <span className="text-gradient">philosophy</span> & core expertise</h2>
                     <div className="space-y-6 text-text-dim text-lg md:text-xl leading-relaxed font-light text-justify">
                         <p>
-                            With over 8 years in the field, I don't just write code; I architect solutions.
-                            My background in <span className="text-white font-medium">Cybersecurity & Digital Forensics</span>
-                            means every architecture is built with a security-first mindset.
+                            With a career focused on the most demanding production environments, I don't just "architect solutions"—I <span className="text-white font-medium">design deterministic systems</span> engineered to withstand extreme scale and complexity.
                         </p>
                         <p>
-                            I specialize in taking complex, legacy backends and transforming them into
-                            <span className="text-white font-medium"> high-performance, scalable ecosystems</span>.
-                            Whether it's Laravel, React, or Python-driven automation, my focus is always on
-                            maintainability and pixel-perfect execution.
+                            My background in <span className="text-white font-medium">Cybersecurity & Digital Forensics</span> informs every line of code I write. I treat security not as a layer, but as the foundation, building robust systems that prioritize integrity, performance, and long-term maintainability.
                         </p>
                     </div>
 
                     <div className="mt-12 flex gap-12">
                         <div>
-                            <h4 className="text-3xl font-bold text-white mb-1 tracking-tighter italic">8+</h4>
-                            <p className="text-text-muted text-xs uppercase tracking-[0.2em]">Years Exp</p>
+                            <h4 className="text-3xl font-bold text-white mb-1 tracking-tighter italic">10+</h4>
+                            <p className="text-text-muted text-xs uppercase tracking-[0.2em]">Years Experience</p>
                         </div>
                         <div>
                             <h4 className="text-3xl font-bold text-white mb-1 tracking-tighter italic">50+</h4>
-                            <p className="text-text-muted text-xs uppercase tracking-[0.2em]">Projects</p>
+                            <p className="text-text-muted text-xs uppercase tracking-[0.2em]">Production Deployments</p>
                         </div>
                     </div>
                 </motion.div>

@@ -7,25 +7,25 @@ const experiences = [
         company: 'ASMORPHIC',
         role: 'Senior Full Stack Developer',
         period: '2025',
-        description: 'Lead architect for telecom backend systems. Orchestrated complex DID workflows and Odoo ERP integrations using Python & Laravel Filament.',
+        description: 'Lead architect for enterprise telecom backend systems. Orchestrated complex DID workflows and mission-critical data integrations using Python, Laravel, and asynchronous processing.',
     },
     {
         company: 'AMPLIFYD',
         role: 'Full-stack Web Developer',
         period: '2024',
-        description: 'Stabilized and refactored high-traffic production PHP codebases. Implemented critical security auditing and performance optimization layers.',
+        description: 'Stabilized and refactored high-traffic production codebases. Implemented critical security auditing layers and performance optimization strategies to ensure platform reliability.',
     },
     {
         company: 'CORE IT SOLUTIONS',
         role: 'Full-stack Web Developer',
         period: '2023 – 2024',
-        description: 'Engineered RESTful ecosystems and automated deployment pipelines. Focused on scalable dashboard architectures and real-time monitoring.',
+        description: 'Engineered RESTful ecosystems and automated deployment pipelines. Designed scalable dashboard architectures and real-time monitoring solutions for enterprise clients.',
     },
     {
         company: 'MEDFUTURE',
         role: 'Development Manager',
         period: '2022',
-        description: 'Headed legacy migration project from CakePHP to modern Laravel, resulting in a 40% improvement in query performance.',
+        description: 'Headed legacy migration project from CakePHP to modern Laravel, resulting in a 40% improvement in system performance and significantly reduced technical debt.',
     },
 ];
 
@@ -34,8 +34,8 @@ const Experience: React.FC = () => {
         <section id="experience" className="section-padding bg-bg-secondary/20">
             <div className="container">
                 <div className="flex flex-col items-center mb-24 text-center">
-                    <h2 className="text-5xl font-bold mb-6 italic tracking-tighter">The <span className="text-gradient">Trajectory</span></h2>
-                    <p className="text-text-dim max-w-lg font-light text-lg">A chronicle of professional evolution and technical leadership.</p>
+                    <h2 className="text-5xl font-bold mb-6 italic tracking-tighter uppercase leading-none">PROFESSIONAL <span className="text-gradient">TRAJECTORY</span></h2>
+                    <p className="text-text-dim max-w-lg font-light text-lg">A chronicle of professional evolution, technical leadership, and system excellence.</p>
                 </div>
 
                 <div className="relative max-w-5xl mx-auto">

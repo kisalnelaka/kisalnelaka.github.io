@@ -8,6 +8,38 @@ import Projects from './components/Projects';
 import CustomCursor from './components/CustomCursor';
 import { GraduationCap, Mail, Phone, MapPin } from 'lucide-react';
 
+const GitHubStats: React.FC = () => (
+    <section className="section-padding container">
+        <h2 className="text-5xl font-bold mb-20 text-center tracking-tighter italic uppercase leading-none">TECHNICAL <span className="text-gradient">FOOTPRINT</span></h2>
+        <div className="grid lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
+            <motion.div
+                initial={{ opacity: 0, x: -30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                className="glass-card p-4 flex items-center justify-center overflow-hidden"
+            >
+                <img
+                    src="https://github-readme-stats.vercel.app/api?username=kisalnelaka&show_icons=true&theme=tokyonight&hide_border=true&bg_color=0D0D0D00"
+                    alt="GitHub Stats"
+                    className="w-full h-auto"
+                />
+            </motion.div>
+            <motion.div
+                initial={{ opacity: 0, x: 30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                className="glass-card p-4 flex items-center justify-center overflow-hidden"
+            >
+                <img
+                    src="https://github-readme-stats.vercel.app/api/top-langs/?username=kisalnelaka&layout=compact&theme=tokyonight&hide_border=true&bg_color=0D0D0D00"
+                    alt="Top Languages"
+                    className="w-full h-auto"
+                />
+            </motion.div>
+        </div>
+    </section>
+);
+
 const Footer: React.FC = () => (
     <footer className="py-20 border-t border-white/5 mt-20">
         <div className="container">
@@ -15,19 +47,19 @@ const Footer: React.FC = () => (
                 <div className="col-span-1 lg:col-span-2">
                     <h2 className="text-2xl font-bold mb-6 italic">KISAL <span className="text-gradient">NELAKA</span></h2>
                     <p className="text-text-muted font-light max-w-sm leading-relaxed">
-                        Building the next generation of web applications with security,
-                        performance, and scalability in mind.
+                        I build things that shouldn't exist because the ones that do are broken.
+                        Engineering is just a highly specialized form of paranoia.
                     </p>
                 </div>
                 <div>
-                    <h4 className="text-white font-bold mb-6 text-sm uppercase tracking-widest">Connect</h4>
+                    <h4 className="text-white font-bold mb-6 text-sm uppercase tracking-widest italic">Digital Presence</h4>
                     <div className="space-y-4 text-text-muted text-sm">
                         <a href="https://github.com/kisalnelaka" className="block hover:text-white transition-colors">GitHub</a>
                         <a href="https://linkedin.com/in/kisalnelaka" className="block hover:text-white transition-colors">LinkedIn</a>
                     </div>
                 </div>
                 <div>
-                    <h4 className="text-white font-bold mb-6 text-sm uppercase tracking-widest">Contact</h4>
+                    <h4 className="text-white font-bold mb-6 text-sm uppercase tracking-widest italic">Direct Contact</h4>
                     <div className="space-y-4 text-text-muted text-sm">
                         <a href="mailto:kisalnelaka6@gmail.com" className="flex items-center gap-2 hover:text-white transition-colors">
                             <Mail size={14} /> kisalnelaka6@gmail.com
@@ -39,8 +71,8 @@ const Footer: React.FC = () => (
                 </div>
             </div>
             <div className="flex flex-col md:flex-row justify-between items-center gap-6 pt-12 border-t border-white/5 text-xs text-text-muted uppercase tracking-[0.2em]">
-                <p>&copy; {new Date().getFullYear()} Kisal Nelaka. All rights reserved.</p>
-                <p>Built with Three.js, React & Framer Motion</p>
+                <p>&copy; {new Date().getFullYear()} KISAL NELAKA • ALL RIGHTS RESERVED</p>
+                <p>ENGINEERED FOR SCALE</p>
             </div>
         </div>
     </footer>
@@ -48,7 +80,7 @@ const Footer: React.FC = () => (
 
 const Education: React.FC = () => (
     <section className="section-padding container">
-        <h2 className="text-5xl font-bold mb-20 text-center tracking-tighter">Academics</h2>
+        <h2 className="text-5xl font-bold mb-20 text-center tracking-tighter uppercase leading-none">ACADEMIC <span className="text-gradient">BACKGROUND</span></h2>
         <div className="max-w-4xl mx-auto grid md:grid-cols-2 gap-8">
             {[
                 {
@@ -104,6 +136,7 @@ const Portfolio: React.FC = () => {
                 <About />
                 <Experience />
                 <Projects />
+                <GitHubStats />
                 <Education />
                 <Footer />
             </main>

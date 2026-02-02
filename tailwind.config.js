@@ -18,6 +18,16 @@ export default {
         sans: ['Inter', 'sans-serif'],
         outfit: ['Outfit', 'sans-serif'],
       },
+      container: {
+        center: true,
+        padding: {
+          DEFAULT: '1rem',
+          sm: '2rem',
+          lg: '4rem',
+          xl: '5rem',
+          '2xl': '6rem',
+        },
+      },
       animation: {
         'pulse-slow': 'pulse 6s cubic-bezier(0.4, 0, 0.6, 1) infinite',
       }
