@@ -19,8 +19,8 @@ const GitHubStats: React.FC = () => (
                 className="glass-card p-4 flex items-center justify-center overflow-hidden"
             >
                 <img
-                    src="https://github-readme-streak-stats.herokuapp.com/?user=kisalnelaka&theme=dark&hide_border=true"
-                    alt="GitHub Streak"
+                    src="https://github-profile-summary-cards.vercel.app/api/cards/stats?username=kisalnelaka&theme=dark"
+                    alt="GitHub Stats"
                     className="w-full h-auto"
                 />
             </motion.div>
