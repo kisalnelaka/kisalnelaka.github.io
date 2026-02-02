@@ -19,8 +19,8 @@ const GitHubStats: React.FC = () => (
                 className="glass-card p-4 flex items-center justify-center overflow-hidden"
             >
                 <img
-                    src="https://github-readme-stats.vercel.app/api?username=kisalnelaka&show_icons=true&theme=dark&hide_border=true"
-                    alt="GitHub Stats"
+                    src="https://github-readme-streak-stats.herokuapp.com/?user=kisalnelaka&theme=dark&hide_border=true"
+                    alt="GitHub Streak"
                     className="w-full h-auto"
                 />
             </motion.div>
@@ -31,7 +31,7 @@ const GitHubStats: React.FC = () => (
                 className="glass-card p-4 flex items-center justify-center overflow-hidden"
             >
                 <img
-                    src="https://github-readme-stats.vercel.app/api/top-langs/?username=kisalnelaka&layout=compact&theme=dark&hide_border=true"
+                    src="https://github-profile-summary-cards.vercel.app/api/cards/most-commit-language?username=kisalnelaka&theme=dark"
                     alt="Top Languages"
                     className="w-full h-auto"
                 />
