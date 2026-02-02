@@ -8,7 +8,7 @@ const projects = [
         category: 'Enterprise • Laravel • Filament',
         description: 'A multi-tenant SaaS ecosystem architected for telecom MSPs. I engineered complex inventory synchronization and automated billing workflows with a focus on high availability and data integrity.',
         link: 'https://github.com/kisalnelaka/intraflow',
-        image: 'https://images.unsplash.com/photo-1551288049-bbda38a5f452?auto=format&fit=crop&w=1200&q=80',
+        image: 'https://images.unsplash.com/photo-1558494949-ef010958384e?auto=format&fit=crop&w=1200&q=80',
     },
     {
         title: 'ASAN (Adaptive Symmetry-Aware Network)',

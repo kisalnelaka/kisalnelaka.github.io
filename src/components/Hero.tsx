@@ -49,9 +49,8 @@ const Hero: React.FC = () => {
                             >
                                 {titles[index].split(' ').map((word, i) => (
                                     <React.Fragment key={i}>
-                                        {i === 1 ? <br /> : ''}
-                                        <span className={i === 1 ? "text-gradient" : ""}>{word}</span>
-                                        {i === 0 ? ' ' : ''}
+                                        {i > 0 && <br />}
+                                        <span className={i > 0 ? "text-gradient" : ""}>{word}</span>
                                     </React.Fragment>
                                 ))}
                             </motion.h1>
@@ -64,9 +63,7 @@ const Hero: React.FC = () => {
                         transition={{ duration: 0.8, delay: 0.4 }}
                         className="text-lg md:text-2xl text-text-dim max-w-3xl mx-auto mb-12 font-light leading-relaxed"
                     >
-                        I design systems that don't just work: they survive. From mission-critical
-                        cloud architecture to high-performance security auditing, I engineer
-                        solutions that prioritize deterministic logic and long-term integrity.
+                        I design systems that don't just work: they survive. From mission-critical cloud architecture to high-performance security auditing, I engineer solutions that prioritize deterministic logic and long-term integrity.
                     </motion.p>
 
                     <motion.div

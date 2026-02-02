@@ -19,7 +19,7 @@ const GitHubStats: React.FC = () => (
                 className="glass-card p-4 flex items-center justify-center overflow-hidden"
             >
                 <img
-                    src="https://github-readme-stats.vercel.app/api?username=kisalnelaka&show_icons=true&theme=tokyonight&hide_border=true&bg_color=0D0D0D00"
+                    src="https://github-readme-stats.vercel.app/api?username=kisalnelaka&show_icons=true&theme=dark&hide_border=true"
                     alt="GitHub Stats"
                     className="w-full h-auto"
                 />
@@ -31,7 +31,7 @@ const GitHubStats: React.FC = () => (
                 className="glass-card p-4 flex items-center justify-center overflow-hidden"
             >
                 <img
-                    src="https://github-readme-stats.vercel.app/api/top-langs/?username=kisalnelaka&layout=compact&theme=tokyonight&hide_border=true&bg_color=0D0D0D00"
+                    src="https://github-readme-stats.vercel.app/api/top-langs/?username=kisalnelaka&layout=compact&theme=dark&hide_border=true"
                     alt="Top Languages"
                     className="w-full h-auto"
                 />
@@ -47,9 +47,7 @@ const Footer: React.FC = () => (
                 <div className="col-span-1 lg:col-span-2">
                     <h2 className="text-2xl font-bold mb-6 italic">KISAL <span className="text-gradient">NELAKA</span></h2>
                     <p className="text-text-muted font-light max-w-sm leading-relaxed text-justify">
-                        I design and deploy systems that stay online when everything else fails.
-                        My work is defined by deterministic logic and a refusal to accept "good enough"
-                        infrastructure: specializing in mission-critical architecture and security.
+                        I design and deploy systems that stay online when everything else fails. My work is defined by deterministic logic and a refusal to accept "good enough" infrastructure: specializing in mission-critical architecture and security.
                     </p>
                 </div>
                 <div>

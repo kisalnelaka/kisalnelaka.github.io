@@ -28,14 +28,10 @@ const About: React.FC = () => {
                     <h2 className="text-4xl md:text-5xl font-bold mb-10 italic tracking-tighter">engineering <span className="text-gradient">philosophy</span> & core expertise</h2>
                     <div className="space-y-6 text-text-dim text-lg md:text-xl leading-relaxed font-light text-justify">
                         <p>
-                            I build systems that stay online when everything else fails. My work is defined by
-                            deterministic logic and a refusal to accept "good enough" infrastructure. I don't
-                            just write code: I engineer environments where failure isn't an option.
+                            I build systems that stay online when everything else fails. My work is defined by deterministic logic and a refusal to accept "good enough" infrastructure. I don't just write code: I engineer environments where failure isn't an option.
                         </p>
                         <p>
-                            With a deep foundation in <span className="text-white font-medium">Cybersecurity & Digital Forensics</span>,
-                            I treat security as the primary architectural constraint. Every bit is engineered
-                            with integrity, performance, and long-term maintainability as the baseline.
+                            With a deep foundation in <span className="text-white font-medium">Cybersecurity & Digital Forensics</span>, I treat security as the primary architectural constraint. Every bit is engineered with integrity, performance, and long-term maintainability as the baseline.
                         </p>
                     </div>
 
