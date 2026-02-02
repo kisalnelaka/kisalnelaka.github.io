@@ -37,6 +37,3 @@ coverage/
 
 # Agent rules and configs
 .agent/
-
-# Vibe Archive (Uncomment if you want to keep them local only)
-# vibe_archive/
