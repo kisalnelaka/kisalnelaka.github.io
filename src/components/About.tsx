@@ -58,11 +58,11 @@ const About: React.FC = () => {
 
                     <div className="mt-12 flex gap-8">
                         <div className="border-4 border-white p-4 bg-accent shadow-[4px_4px_0px_#FFF]">
-                            <h4 className="text-4xl font-black text-brutal-black mb-1">4+</h4>
+                            <h4 className="text-4xl font-black text-brutal-black mb-1">8+</h4>
                             <p className="text-brutal-black text-xs font-bold uppercase tracking-[0.2em]">Years Experience</p>
                         </div>
                         <div className="border-4 border-white p-4 bg-primary text-brutal-black shadow-[4px_4px_0px_#FFF]">
-                            <h4 className="text-4xl font-black mb-1">20+</h4>
+                            <h4 className="text-4xl font-black mb-1">35+</h4>
                             <p className="text-brutal-black text-xs font-bold uppercase tracking-[0.2em]">Deployments</p>
                         </div>
                     </div>
@@ -77,9 +77,9 @@ const About: React.FC = () => {
                     <div className="inline-block bg-primary text-brutal-black font-black px-4 py-2 mb-8 uppercase border-4 border-white shadow-[4px_4px_0px_#FFFFFF]">
                         [ SYS.INIT : User Profile ]
                     </div>
-                    <p ref={pRef} className="text-lg md:text-2xl font-mono text-white mb-8 leading-relaxed max-w-3xl">
+                    <p ref={pRef} className="text-base md:text-lg font-mono text-white mb-10 leading-relaxed text-justify">
                         {typedText}
-                        <span className={`${isTyping ? 'bg-primary' : 'bg-transparent animate-pulse'} inline-block w-4 h-6 ml-1 align-middle`}></span>
+                        <span className={`${isTyping ? 'bg-primary' : 'bg-transparent animate-pulse'} inline-block w-3 h-5 ml-1 align-middle`}></span>
                     </p>
 
                     <h3 className="text-3xl font-black mb-10 flex items-center gap-4 uppercase text-white">

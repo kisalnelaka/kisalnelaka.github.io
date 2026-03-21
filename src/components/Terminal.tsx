@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Terminal as TerminalIcon, X } from 'lucide-react';
+import MatrixBackground from './MatrixBackground';
 
 const Terminal: React.FC = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -11,8 +12,20 @@ const Terminal: React.FC = () => {
         }
     ]);
     const [input, setInput] = useState('');
+    const [cwd, setCwd] = useState('~');
+    const [showMatrix, setShowMatrix] = useState(false);
+    const [ipData, setIpData] = useState<string | null>(null);
+
     const inputRef = useRef<HTMLInputElement>(null);
     const bottomRef = useRef<HTMLDivElement>(null);
+
+    // Fetch IP once for ipconfig command
+    useEffect(() => {
+        fetch('https://ipapi.co/json/')
+            .then(res => res.json())
+            .then(data => setIpData(`${data.ip} (${data.city}, ${data.country_code})`))
+            .catch(() => setIpData('UNKNOWN_PROXY'));
+    }, []);
 
     useEffect(() => {
         if (isOpen && inputRef.current) {
@@ -52,40 +65,82 @@ const Terminal: React.FC = () => {
         e.preventDefault();
         if (!input.trim()) return;
 
-        const cmd = input.trim().toLowerCase();
+        const cmdLine = input.trim();
+        const args = cmdLine.split(' ').filter(Boolean);
+        const cmd = args[0].toLowerCase();
         let res: string | React.ReactNode = '';
 
         switch (cmd) {
             case 'help':
-                res = 'Available commands: whoami, clear, sudo rm -rf /, resume, contact, ls, matrix';
+                res = 'Commands: whoami, clear, sudo, resume, contact, ls, cd, cat, ipconfig, matrix';
                 break;
             case 'whoami':
                 res = 'Kisal Nelaka. Full-Stack Architect & Security Engineer.';
                 break;
+            case 'ipconfig':
+                res = `[ NETWORK INTERFACE ]\nIP Address: ${ipData || 'Fetching...'}\nSubnet Mask: 255.255.255.0\nGateway: 192.168.1.1`;
+                break;
             case 'ls':
-                res = (
-                    <div className="grid grid-cols-2 gap-x-4 gap-y-1 text-primary">
-                        <span>drwxr-xr-x</span> <span>tenancy_os</span>
-                        <span>drwxr-xr-x</span> <span>intraflow</span>
-                        <span>drwxr-xr-x</span> <span>neo_protocol</span>
-                        <span>-rw-r--r--</span> <span>readme.md</span>
-                        <span>-rwxr-xr-x</span> <span>sys_boot.sh</span>
-                    </div>
-                );
+                if (cwd === '~') {
+                    res = (
+                        <div className="grid grid-cols-2 gap-x-4 gap-y-1 text-primary">
+                            <span className="text-[#00F0FF]">drwxr-xr-x projects</span>
+                            <span className="text-[#00F0FF]">drwxr-xr-x documents</span>
+                            <span>-rw-r--r-- system.log</span>
+                            <span>-rwxr-xr-x sys_boot.sh</span>
+                        </div>
+                    );
+                } else if (cwd === '~/projects') {
+                    res = (
+                        <div className="flex flex-col gap-1 text-primary">
+                            <span>-rw-r--r-- tenancy_os.md</span>
+                            <span>-rw-r--r-- intraflow.md</span>
+                            <span>-rw-r--r-- neo_protocol.md</span>
+                        </div>
+                    );
+                } else {
+                    res = '';
+                }
+                break;
+            case 'cd':
+                const target = args[1];
+                if (!target || target === '~') {
+                    setCwd('~');
+                } else if (target === 'projects' && cwd === '~') {
+                    setCwd('~/projects');
+                } else if (target === 'documents' && cwd === '~') {
+                    setCwd('~/documents');
+                } else if (target === '..') {
+                    setCwd('~');
+                } else {
+                    res = `cd: no such file or directory: ${target}`;
+                }
+                break;
+            case 'cat':
+                const file = args[1];
+                if (!file) res = 'cat: missing filename';
+                else if (file === 'tenancy_os.md' && cwd === '~/projects') {
+                    res = 'TenancyOS: A deterministic enterprise MSP platform built to handle multitenancy at scale.';
+                } else if (file === 'system.log' && cwd === '~') {
+                    res = '[WARN] Unauthorized access attempt detected from current IP.';
+                } else {
+                    res = `cat: ${file}: No such file or directory`;
+                }
                 break;
             case 'clear':
                 setHistory([]);
                 setInput('');
                 return;
-            case 'sudo rm -rf /':
+            case 'sudo':
                 res = <span className="text-[#FF3366] font-black animate-pulse">FATAL ERROR: ROOT PRIVILEGES DENIED. INCIDENT LOGGED.</span>;
                 break;
             case 'matrix':
-                res = 'Matrix protocol exists globally. Use the hardware toggle [Terminal Icon] in the top right UI.';
+                setShowMatrix(true);
+                res = 'Matrix protocol injected. OVERLAY ACTIVE. Press [Ctrl+C] to terminate.';
                 break;
             case 'resume':
                 res = (
-                    <a href="https://knockknockneo.cloud/stuff/Kisal%20Nelaka%20-%20Resume.pdf" target="_blank" rel="noreferrer" className="text-primary hover:underline">
+                    <a href="https://knockknockneo.cloud/stuff/Kisal%20Nelaka%20-%20Resume.pdf" target="_blank" rel="noreferrer" className="text-[#00F0FF] hover:underline hover:text-white">
                         Downloading resume.pdf...
                     </a>
                 );
@@ -97,8 +152,22 @@ const Terminal: React.FC = () => {
                 res = `Command not found: ${cmd}`;
         }
 
-        setHistory([...history, { command: input, response: res }]);
+        setHistory([...history, { command: cmdLine, response: res }]);
         setInput('');
+    };
+
+    const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+        playTypingSound();
+        if (e.key === 'c' && e.ctrlKey) {
+            e.preventDefault();
+            if (showMatrix) {
+                setShowMatrix(false);
+                setHistory(prev => [...prev, { command: '^C', response: 'Matrix overlay terminated.' }]);
+            } else {
+                setHistory(prev => [...prev, { command: '^C', response: '' }]);
+            }
+            setInput('');
+        }
     };
 
     return (
@@ -132,10 +201,10 @@ const Terminal: React.FC = () => {
                             {history.map((h, i) => (
                                 <div key={i}>
                                     <div className="flex items-center gap-2">
-                                        <span className="text-secondary">guest@kisal:~$</span>
+                                        <span className="text-secondary">guest@kisal:{cwd}$</span>
                                         <span>{h.command}</span>
                                     </div>
-                                    <div className="text-gray-300 mt-1">{h.response}</div>
+                                    <div className="text-gray-300 mt-1 whitespace-pre-wrap font-mono">{h.response}</div>
                                 </div>
                             ))}
                             <div ref={bottomRef} />
@@ -143,12 +212,12 @@ const Terminal: React.FC = () => {
 
                         {/* Input */}
                         <form onSubmit={handleCommand} className="p-4 border-t-2 border-primary/30 flex items-center gap-2">
-                            <span className="text-secondary">guest@kisal:~$</span>
+                            <span className="text-secondary">guest@kisal:{cwd}$</span>
                             <input
                                 ref={inputRef}
                                 type="text"
                                 value={input}
-                                onKeyDown={playTypingSound}
+                                onKeyDown={handleKeyDown}
                                 onChange={(e) => setInput(e.target.value)}
                                 className="flex-1 bg-transparent outline-none text-primary placeholder-primary/30"
                                 placeholder="..."
@@ -158,6 +227,13 @@ const Terminal: React.FC = () => {
                     </motion.div>
                 )}
             </AnimatePresence>
+
+            {/* Matrix Fullscreen Overlay Triggered by Terminal */}
+            {showMatrix && (
+                <div className="fixed inset-0 z-[99999] pointer-events-none">
+                    <MatrixBackground />
+                </div>
+            )}
         </>
     );
 };

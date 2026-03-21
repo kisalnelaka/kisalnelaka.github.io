@@ -8,10 +8,10 @@ import CustomCursor from './components/CustomCursor';
 import Marquee from './components/Marquee';
 import Terminal from './components/Terminal';
 import BootSequence from './components/BootSequence';
-import MatrixBackground from './components/MatrixBackground';
+import HtopMonitor from './components/HtopMonitor';
 import DecryptText from './components/DecryptText';
 import RadarCursor from './components/RadarCursor';
-import { GraduationCap, Mail, Phone, MapPin, Code2, TerminalSquare } from 'lucide-react';
+import { GraduationCap, Mail, Phone, MapPin, Code2 } from 'lucide-react';
 
 
 
@@ -100,7 +100,6 @@ const Portfolio: React.FC = () => {
 
     const [isRawMode, setIsRawMode] = useState(false);
     const [showBoot, setShowBoot] = useState(true);
-    const [showMatrix, setShowMatrix] = useState(false);
     const [godMode, setGodMode] = useState(false);
 
     useEffect(() => {
@@ -143,7 +142,7 @@ const Portfolio: React.FC = () => {
             <motion.div 
                 initial={{ opacity: 0, scaleY: 0.01 }}
                 animate={{ opacity: 1, scaleY: 1 }}
-                transition={{ duration: 0.25, ease: "anticipate" }}
+                transition={{ duration: 1.2, ease: "easeInOut" }}
                 className="min-h-screen bg-brutal-black text-green-500 font-mono p-8 text-sm"
             >
                 <button 
@@ -173,8 +172,8 @@ const Portfolio: React.FC = () => {
                             "linkedin": "https://linkedin.com/in/kisalnelaka"
                         },
                         "metrics": {
-                            "years_experience": 4,
-                            "total_deployments": 20,
+                            "years_experience": 8,
+                            "total_deployments": 35,
                             "architecture_patterns": "Deterministic"
                         },
                         "core_skills": {
@@ -229,27 +228,18 @@ const Portfolio: React.FC = () => {
             
             <CustomCursor />
             <RadarCursor />
-            {showMatrix && <MatrixBackground />}
+            <HtopMonitor />
             <Marquee />
             <Terminal />
             
             {/* Raw Mode Toggle */}
-            <div className="fixed top-20 right-6 z-50 flex flex-col gap-4">
-                <button
-                    onClick={() => setIsRawMode(true)}
-                    className="bg-brutal-black text-white p-2 border-2 border-white hover:bg-white hover:text-black transition-colors tooltip tooltip-left font-mono text-xs uppercase"
-                    data-tip="Toggle Raw Mode"
-                >
-                    <Code2 size={20} />
-                </button>
-                <button
-                    onClick={() => setShowMatrix(!showMatrix)}
-                    className={`p-2 border-2 transition-colors tooltip tooltip-left font-mono text-xs uppercase ${showMatrix ? 'bg-primary text-white border-brutal-black hover:bg-white hover:text-primary hover:border-primary' : 'bg-brutal-black text-white border-white hover:bg-secondary hover:text-black'}`}
-                    data-tip="Toggle Matrix Overlay"
-                >
-                    <TerminalSquare size={20} />
-                </button>
-            </div>
+            <button
+                onClick={() => setIsRawMode(true)}
+                className="fixed top-20 right-6 z-50 bg-brutal-black text-white p-2 border-2 border-white hover:bg-white hover:text-black transition-colors tooltip tooltip-left font-mono text-xs uppercase"
+                data-tip="Toggle Raw Mode"
+            >
+                <Code2 size={20} />
+            </button>
 
             <motion.div
                 className="fixed top-0 left-0 right-0 h-2 bg-primary z-[100] origin-left"
