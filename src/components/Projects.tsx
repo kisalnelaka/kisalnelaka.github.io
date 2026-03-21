@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { ExternalLink, Github, ArrowRight } from 'lucide-react';
+import { ExternalLink, ArrowRight } from 'lucide-react';
 
 const projects = [
     {
@@ -16,13 +16,6 @@ const projects = [
         description: 'A multi-tenant SaaS ecosystem architected for telecom MSPs. I engineered complex inventory synchronization and automated billing workflows with a focus on high availability and data integrity.',
         link: 'https://github.com/kisalnelaka/intraflow',
         image: '/intraflow.png',
-    },
-    {
-        title: 'ASAN (Adaptive Symmetry-Aware Network)',
-        category: 'AI • Deep Learning • Python',
-        description: 'A deep learning framework for molecular property prediction. I implemented custom symmetry-aware neural layers to achieve high-precision chemical modeling and state-of-the-art accuracy.',
-        link: 'https://github.com/kisalnelaka/asan',
-        image: 'https://images.unsplash.com/photo-1614935151651-0bea6508db6b?auto=format&fit=crop&w=1200&q=80',
     },
     {
         title: 'SocialRabbit Bunny',
@@ -114,12 +107,9 @@ const Projects: React.FC = () => {
                             </p>
 
                             <div className="flex gap-4 mt-auto">
-                                <a href={project.link} target="_blank" rel="noopener noreferrer" className="p-4 bg-brutal-black text-white border-4 border-brutal-black flex items-center justify-center hover:bg-primary transition-all shadow-[4px_4px_0px_#FF3366] active:translate-y-1 active:translate-x-1 active:shadow-none">
-                                    <Github size={24} />
-                                </a>
-                                <a href={project.link} target="_blank" rel="noopener noreferrer" className="flex-1 p-4 bg-white text-brutal-black font-black border-4 border-brutal-black flex items-center justify-center gap-3 hover:bg-accent transition-all uppercase shadow-[4px_4px_0px_#FF3366] active:translate-y-1 active:translate-x-1 active:shadow-none">
-                                    SOURCE CODE <ExternalLink size={20} />
-                                </a>
+                                <a href={project.link} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 bg-brutal-black text-white hover:bg-primary hover:text-black hover:border-brutal-black border-2 border-transparent px-4 py-2 font-bold uppercase transition-colors text-sm w-fit mt-4">
+                                <ExternalLink size={16} /> {project.link.includes('tenancyos') ? 'Visit Site' : project.link.includes('github') ? 'Source Code' : 'Visit Site'}
+                            </a>
                             </div>
                         </div>
                     </motion.div>

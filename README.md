@@ -10,10 +10,12 @@ A brutally engineered, highly optimized, and aesthetically distinct personal por
 ![Brutalist UI Full View](https://raw.githubusercontent.com/kisalnelaka/kisalnelaka.github.io/main/screenshot.png) <!-- Note: Add a screenshot of the new UI later -->
 
 ## CORE TECHNICAL FEATURES
-- **Terminal CLI Interface**: Integrated `sys.term` environment allowing direct user-to-system text queries (`whoami`, `contact`, `resume`).
-- **Draggable Dialog Architecture**: Interactive "Windows 95" style draggable project and experience logs utilizing `framer-motion` for physics-based constraint manipulation.
-- **Raw Mode Transmission**: A system-level toggle that overrides the GUI to present pure architectural wireframes and monospace data blocks.
-- **Determined Brutalist Aesthetics**: Zero rounded corners, zero soft gradients. 100% monolithic text, absolute black (`#050505`), stark white, and high-visibility neon accents.
+- **Terminal CLI Interface**: Integrated `sys.term` environment allowing direct user-to-system text queries (`whoami`, `contact`, `resume`), featuring a fully mocked filesystem (`cd`, `ls`, `cat`) and local IP sniffing capability.
+- **God-Mode Terminal Override**: The secret Konami-code (`↑ ↑ ↓ ↓ ← → ← → B A`) protocol unlocks a specialized `SYS.ROOT` superuser environment featuring classified operational history.
+- **Self-Destruct Sequence**: A catastrophic CSS and DOM event that flashes an alarm siren and fully deletes the portfolio interface from memory upon user initiation. 
+- **Safe Mode Protocol**: A globally injected React Context allowing a zero-effect CSS reset and disabling of intense physics simulations for standard browsers.
+- **Cyberpunk Metrics Engine**: A live geometric Radar element locks onto cursors, viewport-based text decryption algorithms scramble text dynamically, and a dedicated network HUD constantly pings external telemetry.
+- **Determined Brutalist Aesthetics**: Zero rounded corners, zero soft gradients. 100% monolithic text, absolute black (`#050505`), stark white, and high-visibility cyan and crimson accents.
 
 ---
 

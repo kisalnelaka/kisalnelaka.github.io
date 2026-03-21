@@ -38,13 +38,13 @@ const About: React.FC = () => {
 
     return (
         <section id="about" className="section-padding bg-brutal-black text-white relative border-b-8 border-brutal-black">
-            <div className="flex flex-col lg:flex-row gap-16 lg:gap-24 items-start">
+            <div className="max-w-6xl mx-auto flex flex-col lg:flex-row gap-12 lg:gap-16 items-start">
                 <motion.div
                     initial={{ opacity: 0, x: -50 }}
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.2 }}
-                    className="lg:w-1/2"
+                    className="flex-1"
                 >
                     <h2 className="text-4xl md:text-6xl font-black mb-10 tracking-tighter uppercase text-white">engineering <br/><span className="bg-primary text-brutal-black px-2">philosophy</span><br/> & core expertise</h2>
                     <div className="space-y-6 text-white text-lg md:text-xl font-mono text-justify border-l-8 border-white pl-6">
@@ -72,7 +72,7 @@ const About: React.FC = () => {
                     initial={{ opacity: 0, x: -30 }}
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
-                    className="lg:w-1/2 w-full brutal-card-light p-10 md:p-14 bg-brutal-black border-4 border-white"
+                    className="flex-1 brutal-card-light p-8 md:p-12 bg-brutal-black border-4 border-white w-full lg:w-auto"
                 >
                     <div className="inline-block bg-primary text-brutal-black font-black px-4 py-2 mb-8 uppercase border-4 border-white shadow-[4px_4px_0px_#FFFFFF]">
                         [ SYS.INIT : User Profile ]

@@ -11,13 +11,13 @@ import BootSequence from './components/BootSequence';
 import HtopMonitor from './components/HtopMonitor';
 import DecryptText from './components/DecryptText';
 import RadarCursor from './components/RadarCursor';
+import GodModeConsole from './components/GodModeConsole';
+import { useAppConfig } from './components/AppConfigContext';
 import { GraduationCap, Mail, Phone, MapPin, Code2 } from 'lucide-react';
 
 
-
-
-const Footer: React.FC = () => (
-    <footer className="py-20 border-t-8 border-brutal-black bg-brutal-black text-white">
+const Footer: React.FC<{ onPurge?: () => void }> = ({ onPurge }) => (
+    <footer className="py-20 border-t-8 border-brutal-black bg-brutal-black text-white relative z-10">
         <div className="container">
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
                 <div className="col-span-1 lg:col-span-2">
@@ -48,6 +48,12 @@ const Footer: React.FC = () => (
             <div className="flex flex-col md:flex-row justify-between items-center gap-6 pt-12 border-t-4 border-white font-black text-sm uppercase tracking-widest">
                 <p>&copy; {new Date().getFullYear()} KISAL NELAKA • ALL RIGHTS RESERVED</p>
                 <p className="bg-white text-brutal-black px-2 py-1">ENGINEERED FOR SCALE</p>
+            </div>
+            
+            <div className="mt-20 border-t-8 border-red-600 pt-8 text-center bg-black p-8 flex justify-center">
+                <button onClick={onPurge} className="text-red-600 text-3xl md:text-5xl font-black animate-pulse hover:text-white transition-colors uppercase tracking-widest border-4 border-red-600 hover:bg-red-600 p-4">
+                    [ INITIATE SECURE PURGE ]
+                </button>
             </div>
         </div>
     </footer>
@@ -98,9 +104,40 @@ const Portfolio: React.FC = () => {
         restDelta: 0.001
     });
 
+    const { vanillaMode, setVanillaMode } = useAppConfig();
     const [isRawMode, setIsRawMode] = useState(false);
     const [showBoot, setShowBoot] = useState(true);
     const [godMode, setGodMode] = useState(false);
+    
+    const [purging, setPurging] = useState(false);
+    const [countdown, setCountdown] = useState<number | null>(null);
+
+    const initiatePurge = () => {
+        if (purging) return;
+        setPurging(true);
+        let left = 10;
+        setCountdown(left);
+
+        try {
+            const AudioContext = window.AudioContext || (window as any).webkitAudioContext;
+            const audioCtx = new AudioContext();
+            const osc = audioCtx.createOscillator();
+            osc.type = 'sawtooth';
+            osc.frequency.setValueCurveAtTime([400, 800, 400, 800, 400, 800, 400, 800, 400, 800, 400], audioCtx.currentTime, 10);
+            osc.connect(audioCtx.destination);
+            osc.start();
+            osc.stop(audioCtx.currentTime + 10);
+        } catch (err) {}
+
+        const interval = setInterval(() => {
+            left--;
+            setCountdown(left);
+            if (left <= 0) {
+                clearInterval(interval);
+                setCountdown(0);
+            }
+        }, 1000);
+    };
 
     useEffect(() => {
         const konami = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
@@ -133,7 +170,19 @@ const Portfolio: React.FC = () => {
         return () => window.removeEventListener('keydown', handleKey);
     }, []);
 
-    if (showBoot) {
+    if (countdown === 0) {
+        return (
+            <div className="fixed inset-0 bg-black text-red-600 flex items-center justify-center font-mono font-black z-[999999]">
+                <p className="animate-pulse text-xl md:text-3xl">&gt; CONNECTION TERMINATED. DATA PURGED.</p>
+            </div>
+        );
+    }
+
+    if (godMode && !vanillaMode) {
+        return <GodModeConsole onExit={() => setGodMode(false)} />;
+    }
+
+    if (showBoot && !vanillaMode) {
         return <BootSequence onComplete={() => setShowBoot(false)} />;
     }
 
@@ -222,15 +271,27 @@ const Portfolio: React.FC = () => {
     }
 
     return (
-        <div className={`min-h-screen text-text-main selection:bg-accent selection:text-black relative ${godMode ? 'bg-[#FF0000]' : 'bg-bg-dark'}`}>
-            {godMode && <div className="fixed inset-0 bg-red-900/50 z-[9990] pointer-events-none mix-blend-multiply animate-pulse"></div>}
-            {godMode && <div className="fixed top-4 left-1/2 -translate-x-1/2 bg-black text-[#00F0FF] font-black font-mono px-8 py-4 z-[9999] border-4 border-[#00F0FF] shadow-[8px_8px_0px_#FF3366] text-2xl uppercase glitch-text" data-text="ROOT ACCESS GRANTED">ROOT ACCESS GRANTED</div>}
+        <div className={`min-h-screen text-text-main selection:bg-accent selection:text-black relative ${godMode ? 'bg-[#FF0000]' : 'bg-bg-dark'} ${purging ? 'animate-pulse invert grayscale contrast-200' : ''}`}>
             
-            <CustomCursor />
-            <RadarCursor />
-            <HtopMonitor />
+            {/* Safe Mode Toggle */}
+            <button
+                onClick={() => setVanillaMode(!vanillaMode)}
+                className="fixed top-6 right-6 lg:right-40 z-[9999] bg-white text-black font-black uppercase tracking-widest px-4 py-2 border-4 border-brutal-black hover:bg-brutal-black hover:text-white transition-colors"
+            >
+                {vanillaMode ? '[ ENGAGE EFFECTS ]' : '[ SAFE MODE ]'}
+            </button>
+
+            {countdown !== null && countdown > 0 && (
+                <div className="fixed inset-0 z-[999998] pointer-events-none flex items-center justify-center mix-blend-difference">
+                    <h1 className="text-[20rem] font-black text-white opacity-50">{countdown}</h1>
+                </div>
+            )}
+
+            {!vanillaMode && <CustomCursor />}
+            {!vanillaMode && <RadarCursor />}
+            {!vanillaMode && <HtopMonitor />}
             <Marquee />
-            <Terminal />
+            {!vanillaMode && <Terminal />}
             
             {/* Raw Mode Toggle */}
             <button
@@ -251,7 +312,7 @@ const Portfolio: React.FC = () => {
                 <Experience />
                 <Projects />
                 <Education />
-                <Footer />
+                <Footer onPurge={initiatePurge} />
             </main>
         </div>
     );
