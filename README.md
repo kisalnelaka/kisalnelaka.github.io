@@ -10,12 +10,27 @@ A brutally engineered, highly optimized, and aesthetically distinct personal por
 ![Brutalist UI Full View](https://raw.githubusercontent.com/kisalnelaka/kisalnelaka.github.io/main/screenshot.png) <!-- Note: Add a screenshot of the new UI later -->
 
 ## CORE TECHNICAL FEATURES
-- **Terminal CLI Interface**: Integrated `sys.term` environment allowing direct user-to-system text queries (`whoami`, `contact`, `resume`), featuring a fully mocked filesystem (`cd`, `ls`, `cat`) and local IP sniffing capability.
-- **God-Mode Terminal Override**: The secret Konami-code (`↑ ↑ ↓ ↓ ← → ← → B A`) protocol unlocks a specialized `SYS.ROOT` superuser environment featuring classified operational history.
-- **Self-Destruct Sequence**: A catastrophic CSS and DOM event that flashes an alarm siren and fully deletes the portfolio interface from memory upon user initiation. 
-- **Safe Mode Protocol**: A globally injected React Context allowing a zero-effect CSS reset and disabling of intense physics simulations for standard browsers.
-- **Cyberpunk Metrics Engine**: A live geometric Radar element locks onto cursors, viewport-based text decryption algorithms scramble text dynamically, and a dedicated network HUD constantly pings external telemetry.
-- **Determined Brutalist Aesthetics**: Zero rounded corners, zero soft gradients. 100% monolithic text, absolute black (`#050505`), stark white, and high-visibility cyan and crimson accents.
+- **Central Control Node HUD**: A real-time system controller allowing users to manually toggle safe modes, audio FX, P2P protocols, and CRT aesthetics.
+- **CRT Monitor Simulation**: High-fidelity fisheye lens warp, RGB scanline arrays, and vignette flickering subroutines that wrap the terminal and raw data views.
+- **Physics Engine Meltdown**: Powered by `matter-js`, triggers a gravitational collapse of the viewport, calculating rigid body momentum for every functional DOM node. 
+- **WebGL Intercept Routing (TraceRoute)**: `react-globe.gl` and `Three.js` integration drawing actual coordinate arcs from the local client IP (via stable `GeoJS` intercept) straight to Doha HQ.
+- **WebRTC P2P Dark Terminal**: A fully functional peer-to-peer data stream. `PeerJS` overrides the CLI environment, enabling an encrypted anonymous chatroom between terminal instances.
+- **Audio-Reactive Subroutines**: Hooks the `AudioContext` mic feed into the core CSS engine, physically distorting geometry and hue filters based on ambient room decibels.
+- **Self-Destruct Sequence**: A catastrophic DOM event that flashes an alarm siren and deletes the portfolio from memory. Features an emergency `[ ABORT PURGE ]` rescue vector.
+- **Window Exploit Payload**: Overrides the primary layout grid by rendering 15 draggable, fake kernel panic popups overlapping the active UI stream.
+- **God-Mode Terminal Override**: The secret Konami-code protocol unlocks a specialized `SYS.ROOT` superuser environment with classified logs.
+- **Determined Brutalist Aesthetics**: Zero rounded corners, zero soft gradients. 100% monolithic text, absolute black (`#050505`), and high-visibility neon accents.
+
+---
+
+## 🛠️ COMPLETE TECHNOLOGY STACK
+- `React 18` + `Vite` (Core Build Engine)
+- `Tailwind CSS` (Monolithic Cyberpunk Typography)
+- `Framer Motion` (Kinetic Typography & Drag Vectors)
+- `Matter.js` (DOM Rigid Body Mechanics)
+- `Three.js` & `react-globe.gl` (WebGL Geospatial Engine)
+- `PeerJS` & `WebRTC` (Serverless Networking Channels)
+- `Lucide-React` (Vector Iconography)
 
 ---
 

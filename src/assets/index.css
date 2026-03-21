@@ -154,3 +154,47 @@
   text-shadow: -2px 0 #00F0FF;
   animation: textGlitch 2s infinite linear alternate-reverse;
 }
+
+/* --- CRT MONITOR EFFECTS --- */
+.crt-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 999997;
+  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+  background-size: 100% 4px, 6px 100%;
+  animation: crtFlicker 0.15s infinite;
+  opacity: 0.6;
+}
+
+.crt-overlay::after {
+  content: " ";
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: radial-gradient(circle, rgba(0,0,0,0) 50%, rgba(0,0,0,0.8) 120%);
+  pointer-events: none;
+}
+
+@keyframes crtFlicker {
+  0% { opacity: 0.6; }
+  50% { opacity: 0.55; }
+  100% { opacity: 0.6; }
+}
+
+.crt-warp {
+  animation: warpScreen 10s infinite alternate;
+  transform-origin: center;
+}
+
+@keyframes warpScreen {
+  0% { transform: scale(1) perspective(2000px) rotateX(0deg) rotateY(0deg); }
+  50% { transform: scale(0.99) perspective(2000px) rotateX(0.5deg) rotateY(-0.5deg); }
+  100% { transform: scale(1.01) perspective(2000px) rotateX(-0.5deg) rotateY(0.5deg); }
+}

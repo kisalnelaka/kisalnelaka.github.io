@@ -1,7 +1,9 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Terminal as TerminalIcon, X } from 'lucide-react';
+import { Terminal as TerminalIcon, X } from 'lucide-react'; // Keep TerminalIcon, X
+import Peer, { DataConnection } from 'peerjs'; // Add Peer and DataConnection
 import MatrixBackground from './MatrixBackground';
+import { useAppConfig } from './AppConfigContext'; // Add useAppConfig
 
 const Terminal: React.FC = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -18,13 +20,53 @@ const Terminal: React.FC = () => {
 
     const inputRef = useRef<HTMLInputElement>(null);
     const bottomRef = useRef<HTMLDivElement>(null);
+    const audioCtxRef = useRef<AudioContext | null>(null);
+    const { p2pEnabled, soundEnabled } = useAppConfig();
 
-    // Fetch IP once for ipconfig command
+    const [connectedPeer, setConnectedPeer] = useState<DataConnection | null>(null);
+    const peerInstance = useRef<Peer | null>(null);
+
+    // P2P Initialization and Connection Handling
     useEffect(() => {
-        fetch('https://ipapi.co/json/')
+        if (p2pEnabled && !peerInstance.current) {
+            const peer = new Peer();
+            peer.on('open', (id) => {
+                setHistory(prev => [...prev, { command: '', response: `[SYS.P2P] Protocol initialized. Your Node ID: ${id}` }]);
+            });
+            peer.on('connection', (conn) => {
+                setConnectedPeer(conn);
+                setHistory(prev => [...prev, { command: '', response: `[SYS.P2P] Incoming connection established from node.` }]);
+                conn.on('data', (data) => {
+                    setHistory(prev => [...prev, { command: '', response: `[INCOMING] > ${data}` }]);
+                });
+                conn.on('close', () => {
+                    setConnectedPeer(null);
+                    setHistory(prev => [...prev, { command: '', response: `[SYS.P2P] Connection closed.` }]);
+                });
+                conn.on('error', (err) => {
+                    setHistory(prev => [...prev, { command: '', response: `[SYS.P2P] Connection error: ${err.message}` }]);
+                });
+            });
+            peer.on('error', (err) => {
+                setHistory(prev => [...prev, { command: '', response: `[SYS.P2P] Peer error: ${err.message}` }]);
+            });
+            peerInstance.current = peer;
+        } else if (!p2pEnabled && peerInstance.current) {
+            peerInstance.current.destroy();
+            peerInstance.current = null;
+            setConnectedPeer(null);
+            setHistory(prev => [...prev, { command: '', response: `[SYS.P2P] Protocol terminated.` }]);
+        }
+    }, [p2pEnabled]);
+
+    useEffect(() => {
+        fetch('https://get.geojs.io/v1/ip/geo.json')
             .then(res => res.json())
-            .then(data => setIpData(`${data.ip} (${data.city}, ${data.country_code})`))
-            .catch(() => setIpData('UNKNOWN_PROXY'));
+            .then(data => {
+                if (!data.ip) throw new Error();
+                setIpData(`${data.ip} (${data.city}, ${data.country})`);
+            })
+            .catch(() => setIpData('127.0.0.1 (LOCALHOST_OVERRIDE)'));
     }, []);
 
     useEffect(() => {
@@ -40,9 +82,13 @@ const Terminal: React.FC = () => {
     }, [history, isOpen]);
 
     const playTypingSound = () => {
+        if (!soundEnabled) return;
         try {
-            const AudioContext = window.AudioContext || (window as any).webkitAudioContext;
-            const audioCtx = new AudioContext();
+            if (!audioCtxRef.current) {
+                const AudioContext = window.AudioContext || (window as any).webkitAudioContext;
+                audioCtxRef.current = new AudioContext();
+            }
+            const audioCtx = audioCtxRef.current;
             const oscillator = audioCtx.createOscillator();
             const gainNode = audioCtx.createGain();
             
@@ -56,7 +102,7 @@ const Terminal: React.FC = () => {
             
             oscillator.start();
             oscillator.stop(audioCtx.currentTime + 0.05);
-        } catch (e) {
+        } catch {
             // Ignore if audio context fails
         }
     };
@@ -72,7 +118,13 @@ const Terminal: React.FC = () => {
 
         switch (cmd) {
             case 'help':
-                res = 'Commands: whoami, clear, sudo, resume, contact, ls, cd, cat, ipconfig, matrix';
+                res = (
+                    <>
+                        Commands: whoami, clear, sudo, resume, contact, ls, cd, cat, ipconfig, matrix
+                        <br />
+                        P2P Commands: connect, msg
+                    </>
+                );
                 break;
             case 'whoami':
                 res = 'Kisal Nelaka. Full-Stack Architect & Security Engineer.';
@@ -148,11 +200,57 @@ const Terminal: React.FC = () => {
             case 'contact':
                 res = 'Email: kisalnelaka6@gmail.com | Phone: +974 7753 3967';
                 break;
+            case 'connect':
+                if (!p2pEnabled) {
+                    res = 'ERROR: P2P protocol offline. Enable WebRTC in SYS.CTRL_PANEL.';
+                } else if (args.length < 2) {
+                    res = 'Usage: connect <NODE_ID>';
+                } else {
+                    const targetNodeId = args[1];
+                    if (peerInstance.current && targetNodeId) {
+                        const conn = peerInstance.current.connect(targetNodeId);
+                        if (conn) {
+                            conn.on('open', () => {
+                                setConnectedPeer(conn);
+                                setHistory(prev => [...prev, { command: '', response: `[SYS.P2P] Secure channel established with node.` }]);
+                            });
+                            conn.on('data', (data) => {
+                                setHistory(prev => [...prev, { command: '', response: `[INCOMING] > ${data}` }]);
+                            });
+                            conn.on('close', () => {
+                                setConnectedPeer(null);
+                                setHistory(prev => [...prev, { command: '', response: `[SYS.P2P] Connection closed.` }]);
+                            });
+                            conn.on('error', (err) => {
+                                setHistory(prev => [...prev, { command: '', response: `[SYS.P2P] Connection failed or rejected: ${err.message}` }]);
+                            });
+                            res = `[SYS.P2P] Negotiating handshake with ${targetNodeId}...`;
+                        } else {
+                            res = `[SYS.P2P] Failed to initiate connection to ${targetNodeId}.`;
+                        }
+                    } else {
+                        res = `[SYS.P2P] Peer instance not ready or invalid Node ID.`;
+                    }
+                }
+                break;
+            case 'msg':
+                if (!connectedPeer) {
+                    res = 'ERROR: No active connection. Use "connect <NODE_ID>".';
+                } else {
+                    const message = args.slice(1).join(' ');
+                    if (message) {
+                        connectedPeer.send(message);
+                        res = `[OUTGOING] > ${message}`;
+                    } else {
+                        res = 'Usage: msg <message>';
+                    }
+                }
+                break;
             default:
                 res = `Command not found: ${cmd}`;
         }
 
-        setHistory([...history, { command: cmdLine, response: res }]);
+        setHistory(prev => [...prev, { command: cmdLine, response: res }]);
         setInput('');
     };
 
@@ -230,8 +328,9 @@ const Terminal: React.FC = () => {
 
             {/* Matrix Fullscreen Overlay Triggered by Terminal */}
             {showMatrix && (
-                <div className="fixed inset-0 z-[99999] pointer-events-none">
+                <div className="fixed inset-0 z-[99999] pointer-events-none crt-warp flex">
                     <MatrixBackground />
+                    <div className="crt-overlay mix-blend-multiply"></div>
                 </div>
             )}
         </>
