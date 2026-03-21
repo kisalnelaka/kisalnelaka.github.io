@@ -6,17 +6,20 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary: "#6366F1",
-        secondary: "#06B6D4",
-        "bg-dark": "#0D0D0D",
-        "bg-card": "rgba(255, 255, 255, 0.03)",
+        primary: "#FF3366",      // Harsh Neon Pink/Red
+        secondary: "#00F0FF",    // Cyan
+        accent: "#FBED04",       // Bright Yellow
+        "bg-dark": "#050505",    // Near absolute black
+        "bg-card": "#FFFFFF",    // Stark white for brutal cards
         "text-main": "#FFFFFF",
-        "text-dim": "#A1A1AA",
-        "text-muted": "#71717A",
+        "text-dim": "#D4D4D4",
+        "text-muted": "#9CA3AF",
+        "brutal-black": "#000000",
       },
       fontFamily: {
         sans: ['Inter', 'sans-serif'],
-        outfit: ['Outfit', 'sans-serif'],
+        mono: ['Space Mono', 'Courier New', 'monospace'],
+        display: ['Inter', 'sans-serif'],
       },
       container: {
         center: true,

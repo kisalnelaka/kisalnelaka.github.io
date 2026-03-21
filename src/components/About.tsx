@@ -16,33 +16,33 @@ const skills = [
 
 const About: React.FC = () => {
     return (
-        <section id="about" className="section-padding container">
-            <div className="flex flex-col lg:flex-row gap-16 lg:gap-24 items-center">
+        <section id="about" className="section-padding container border-b-8 border-brutal-black bg-white">
+            <div className="flex flex-col lg:flex-row gap-16 lg:gap-24 items-start">
                 <motion.div
                     initial={{ opacity: 0, x: -50 }}
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
-                    transition={{ duration: 0.8 }}
+                    transition={{ duration: 0.2 }}
                     className="lg:w-1/2"
                 >
-                    <h2 className="text-4xl md:text-5xl font-bold mb-10 italic tracking-tighter">engineering <span className="text-gradient">philosophy</span> & core expertise</h2>
-                    <div className="space-y-6 text-text-dim text-lg md:text-xl leading-relaxed font-light text-justify">
-                        <p>
+                    <h2 className="text-4xl md:text-6xl font-black mb-10 tracking-tighter uppercase text-brutal-black">engineering <br/><span className="bg-primary text-white px-2">philosophy</span><br/> & core expertise</h2>
+                    <div className="space-y-6 text-brutal-black text-lg md:text-xl font-mono text-justify border-l-8 border-brutal-black pl-6">
+                        <p className="font-bold">
                             I build systems that stay online when everything else fails. My work is defined by deterministic logic and a refusal to accept "good enough" infrastructure. I don't just write code: I engineer environments where failure isn't an option.
                         </p>
-                        <p>
-                            With a deep foundation in <span className="text-white font-medium">Cybersecurity & Digital Forensics</span>, I treat security as the primary architectural constraint. Every bit is engineered with integrity, performance, and long-term maintainability as the baseline.
+                        <p className="font-bold">
+                            With a deep foundation in <span className="bg-accent px-1">Cybersecurity & Digital Forensics</span>, I treat security as the primary architectural constraint. Every bit is engineered with integrity, performance, and long-term maintainability as the baseline.
                         </p>
                     </div>
 
-                    <div className="mt-12 flex gap-12">
-                        <div>
-                            <h4 className="text-3xl font-bold text-white mb-1 tracking-tighter italic">10+</h4>
-                            <p className="text-text-muted text-xs uppercase tracking-[0.2em]">Years Experience</p>
+                    <div className="mt-12 flex gap-8">
+                        <div className="border-4 border-brutal-black p-4 bg-accent shadow-[4px_4px_0px_#000]">
+                            <h4 className="text-4xl font-black text-brutal-black mb-1">10+</h4>
+                            <p className="text-brutal-black text-xs font-bold uppercase tracking-[0.2em]">Years Experience</p>
                         </div>
-                        <div>
-                            <h4 className="text-3xl font-bold text-white mb-1 tracking-tighter italic">50+</h4>
-                            <p className="text-text-muted text-xs uppercase tracking-[0.2em]">Production Deployments</p>
+                        <div className="border-4 border-brutal-black p-4 bg-primary text-white shadow-[4px_4px_0px_#000]">
+                            <h4 className="text-4xl font-black mb-1">50+</h4>
+                            <p className="text-white text-xs font-bold uppercase tracking-[0.2em]">Deployments</p>
                         </div>
                     </div>
                 </motion.div>
@@ -51,27 +51,27 @@ const About: React.FC = () => {
                     initial={{ opacity: 0, x: 50 }}
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
-                    transition={{ duration: 0.8 }}
-                    className="lg:w-1/2 w-full glass-card p-10 md:p-14"
+                    transition={{ duration: 0.2 }}
+                    className="lg:w-1/2 w-full brutal-card-light p-10 md:p-14 bg-white"
                 >
-                    <h3 className="text-2xl font-bold mb-10 flex items-center gap-4 italic">
-                        <span className="w-8 h-[1px] bg-primary"></span>
-                        Core Expertise
+                    <h3 className="text-3xl font-black mb-10 flex items-center gap-4 uppercase text-brutal-black">
+                        <span className="w-8 h-2 bg-brutal-black"></span>
+                        Capability Matrix
                     </h3>
                     <div className="space-y-6">
                         {skills.map((skill, index) => (
                             <div key={index} className="group">
-                                <div className="flex justify-between items-center mb-2">
-                                    <span className="text-sm font-medium text-white group-hover:text-primary transition-colors">{skill.name}</span>
-                                    <span className="text-xs text-text-muted">{skill.level}</span>
+                                <div className="flex justify-between items-center mb-1">
+                                    <span className="text-sm font-black text-brutal-black uppercase tracking-wider">{skill.name}</span>
+                                    <span className="text-xs font-mono font-bold text-primary">{skill.level}</span>
                                 </div>
-                                <div className="h-1.5 w-full bg-white/5 rounded-full overflow-hidden">
+                                <div className="h-4 w-full border-2 border-brutal-black bg-gray-200 overflow-hidden">
                                     <motion.div
                                         initial={{ width: 0 }}
                                         whileInView={{ width: skill.level }}
                                         viewport={{ once: true }}
-                                        transition={{ duration: 1.5, ease: "easeOut", delay: index * 0.1 }}
-                                        className="h-full bg-gradient-to-r from-primary to-secondary"
+                                        transition={{ duration: 0.5, ease: "linear", delay: index * 0.05 }}
+                                        className="h-full bg-primary border-r-2 border-brutal-black"
                                     />
                                 </div>
                             </div>

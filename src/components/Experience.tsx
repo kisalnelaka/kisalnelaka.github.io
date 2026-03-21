@@ -31,49 +31,47 @@ const experiences = [
 
 const Experience: React.FC = () => {
     return (
-        <section id="experience" className="section-padding bg-bg-secondary/20">
-            <div className="container">
-                <div className="flex flex-col items-center mb-24 text-center">
-                    <h2 className="text-5xl font-bold mb-6 italic tracking-tighter uppercase leading-none">PROFESSIONAL <span className="text-gradient">TRAJECTORY</span></h2>
-                    <p className="text-text-dim max-w-lg font-light text-lg">A chronicle of professional evolution, technical leadership, and system excellence.</p>
-                </div>
+        <section id="experience" className="section-padding container border-b-8 border-brutal-black cursor-crosshair">
+            <div className="flex flex-col items-center mb-16 text-center bg-brutal-black p-8 text-white border-4 border-brutal-black shadow-[8px_8px_0px_#FF3366]">
+                <h2 className="text-5xl font-black mb-6 tracking-tighter uppercase leading-none text-white">PROFESSIONAL <span className="bg-primary px-2 text-brutal-black">TRAJECTORY</span></h2>
+                <p className="text-white font-mono text-lg bg-brutal-black p-2 inline-block border-2 border-primary uppercase">A chronicle of professional evolution, technical leadership, and system excellence.</p>
+            </div>
 
-                <div className="relative max-w-5xl mx-auto">
-                    {/* Vertical Line */}
-                    <div className="absolute left-0 md:left-1/2 top-0 bottom-0 w-[1px] bg-gradient-to-b from-transparent via-white/10 to-transparent -translate-x-1/2 hidden md:block" />
-
-                    {experiences.map((exp, index) => (
-                        <motion.div
-                            key={index}
-                            initial={{ opacity: 0, y: 30 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.8, delay: index * 0.1 }}
-                            className={`relative flex flex-col md:flex-row gap-12 mb-32 last:mb-0 ${index % 2 === 0 ? 'md:flex-row-reverse' : ''}`}
-                        >
-                            {/* Dot */}
-                            <div className="absolute left-[-5px] md:left-1/2 top-8 w-4 h-4 rounded-full bg-primary border-[3px] border-bg-dark -translate-x-1/2 z-10 hidden md:block shadow-[0_0_15px_rgba(99,102,241,0.6)]" />
-
-                            <div className="md:w-1/2">
-                                <motion.div
-                                    whileHover={{ y: -5 }}
-                                    className={`glass-card p-10 md:p-12 border-white/5 hover:border-primary/40 ${index % 2 === 0 ? 'md:mr-10' : 'md:ml-10'}`}
-                                >
-                                    <div className="flex items-center gap-3 mb-6">
-                                        <Calendar size={16} className="text-primary" />
-                                        <span className="text-xs font-bold text-primary uppercase tracking-[0.2em]">{exp.period}</span>
-                                    </div>
-                                    <h3 className="text-3xl font-bold mb-2 text-white italic tracking-tight">{exp.company}</h3>
-                                    <p className="text-primary/80 font-medium mb-8 text-sm uppercase tracking-widest">{exp.role}</p>
-                                    <p className="text-text-dim leading-relaxed font-light text-justify text-lg">{exp.description}</p>
-                                </motion.div>
+            <div className="grid md:grid-cols-2 gap-8 relative max-w-5xl mx-auto z-10">
+                {experiences.map((exp, index) => (
+                    <motion.div
+                        key={index}
+                        drag
+                        dragConstraints={{ left: 0, right: 0, top: 0, bottom: 0 }}
+                        dragElastic={0.4}
+                        whileDrag={{ scale: 1.05, zIndex: 50 }}
+                        initial={{ opacity: 0, y: 30 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.1, delay: index * 0.1 }}
+                        className="flex flex-col brutal-card-light cursor-grab active:cursor-grabbing bg-white relative hover:z-20"
+                    >
+                        {/* Title Bar */}
+                        <div className="bg-accent text-black font-mono font-bold text-xs p-2 border-b-4 border-brutal-black flex justify-between items-center select-none shadow-[0px_4px_0px_#000]">
+                            <span>SystemLog.txt - {exp.period}</span>
+                            <div className="flex gap-2">
+                                <span className="bg-white border-2 border-brutal-black w-4 h-4 inline-block hover:bg-gray-200"></span>
+                                <span className="bg-white border-2 border-brutal-black w-4 h-4 inline-flex items-center justify-center text-brutal-black font-black hover:bg-red-500 hover:text-white">x</span>
                             </div>
-                            <div className="md:w-1/2 flex items-center justify-center opacity-5 grayscale hover:grayscale-0 transition-all duration-700 hover:opacity-20 pointer-events-none">
-                                <Briefcase size={160} strokeWidth={0.5} />
+                        </div>
+
+                        {/* Content */}
+                        <div className="p-8 md:p-12 select-none flex-1 flex flex-col justify-between">
+                            <div>
+                                <h3 className="text-4xl font-black mb-2 text-brutal-black uppercase tracking-tight bg-primary text-white inline-block px-4 py-2 shadow-[4px_4px_0px_#000] border-4 border-brutal-black">{exp.company}</h3>
+                                <p className="text-brutal-black font-bold mb-8 text-sm uppercase tracking-widest mt-4 opacity-80 flex items-center gap-2">
+                                    <Briefcase size={16} /> {exp.role}
+                                </p>
+                                <p className="text-brutal-black leading-relaxed font-mono text-justify border-l-4 border-accent pl-4 font-bold text-base bg-gray-100 p-4 border-y-4 border-r-4">{exp.description}</p>
                             </div>
-                        </motion.div>
-                    ))}
-                </div>
+                        </div>
+                    </motion.div>
+                ))}
             </div>
         </section>
     );

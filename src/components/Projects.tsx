@@ -49,55 +49,69 @@ const projects = [
 
 const Projects: React.FC = () => {
     return (
-        <section id="projects" className="section-padding container">
-            <div className="flex flex-col md:flex-row md:items-end justify-between mb-20 gap-8">
+        <section id="projects" className="section-padding container border-b-8 border-brutal-black">
+            <div className="flex flex-col md:flex-row md:items-end justify-between mb-20 gap-8 bg-accent p-8 border-4 border-brutal-black shadow-[8px_8px_0px_#000]">
                 <div>
-                    <h2 className="text-5xl font-bold mb-4 italic tracking-tighter uppercase leading-none">SELECTED <span className="text-gradient">ENGINEERING</span> WORKS</h2>
-                    <p className="text-text-dim text-lg font-light">A technical summary of systems design and development.</p>
+                    <h2 className="text-5xl font-black mb-4 uppercase tracking-tighter text-brutal-black">SELECTED <span className="text-white bg-brutal-black px-2 py-1">ENGINEERING</span> WORKS</h2>
+                    <p className="text-brutal-black text-lg font-bold font-mono uppercase bg-white px-2 py-1 inline-block border-2 border-brutal-black">A technical summary of systems design and development.</p>
                 </div>
                 <a
                     href="https://github.com/kisalnelaka"
                     target="_blank"
-                    className="group flex items-center gap-3 text-sm font-bold uppercase tracking-[0.2em] text-primary hover:text-white transition-colors"
+                    className="btn-brutal"
                 >
-                    View Full Archive <ArrowRight size={16} className="group-hover:translate-x-2 transition-transform" />
+                    View Full Archive <ArrowRight size={24} />
                 </a>
             </div>
 
-            <div className="grid md:grid-cols-1 gap-12">
+            <div className="grid md:grid-cols-2 lg:grid-cols-2 gap-12 auto-rows-max relative">
                 {projects.map((project, index) => (
                     <motion.div
                         key={index}
+                        drag
+                        dragConstraints={{ left: 0, right: 0, top: 0, bottom: 0 }}
+                        dragElastic={0.4}
+                        whileDrag={{ scale: 1.05, zIndex: 50 }}
                         initial={{ opacity: 0, y: 50 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
-                        transition={{ duration: 0.8 }}
-                        className="group grid lg:grid-cols-5 gap-0 rounded-[2.5rem] overflow-hidden border border-white/5 hover:border-white/20 transition-all duration-500 hover:shadow-[0_40px_100px_-20px_rgba(0,0,0,0.8)]"
+                        transition={{ duration: 0.1, delay: index * 0.1 }}
+                        className="group flex flex-col overflow-hidden brutal-card-light cursor-grab active:cursor-grabbing bg-white relative z-10"
                     >
-                        <div className="lg:col-span-3 aspect-video lg:aspect-auto overflow-hidden relative">
+                        {/* Windows 95 Title Bar */}
+                        <div className="bg-primary text-white font-mono font-bold text-xs p-2 border-b-4 border-brutal-black flex justify-between items-center select-none">
+                            <span>ProjectViewer.exe - {project.title}</span>
+                            <div className="flex gap-2">
+                                <span className="bg-white border-2 border-brutal-black w-4 h-4 inline-block hover:bg-gray-200"></span>
+                                <span className="bg-white border-2 border-brutal-black w-4 h-4 inline-flex items-center justify-center text-brutal-black font-black hover:bg-red-500 hover:text-white">x</span>
+                            </div>
+                        </div>
+
+                        {/* Image */}
+                        <div className="aspect-video w-full overflow-hidden border-b-4 border-brutal-black relative pointer-events-none">
                             <img
                                 src={project.image}
                                 alt={project.title}
-                                className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
+                                className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-300"
                             />
-                            <div className="absolute inset-0 bg-gradient-to-r from-bg-dark/80 via-transparent to-transparent hidden lg:block" />
                         </div>
 
-                        <div className="lg:col-span-2 p-10 md:p-14 bg-[#111] flex flex-col justify-center">
-                            <span className="text-xs font-bold text-primary uppercase tracking-[0.3em] mb-6 block">
+                        {/* Content */}
+                        <div className="p-8 flex flex-col flex-1 select-none">
+                            <span className="text-xs font-black text-white bg-brutal-black px-2 py-1 uppercase tracking-[0.3em] mb-4 inline-block self-start">
                                 {project.category}
                             </span>
-                            <h3 className="text-4xl font-bold mb-6 group-hover:text-primary transition-colors italic leading-tight tracking-tighter">{project.title}</h3>
-                            <p className="text-text-dim text-lg mb-10 font-light leading-relaxed text-justify">
+                            <h3 className="text-3xl font-black mb-4 text-brutal-black uppercase tracking-tighter leading-tight bg-accent border-2 border-brutal-black inline-block p-2 shadow-[4px_4px_0px_#000]">{project.title}</h3>
+                            <p className="text-brutal-black text-lg mb-8 font-mono leading-relaxed text-justify border-l-4 border-primary pl-4">
                                 {project.description}
                             </p>
 
-                            <div className="flex gap-4">
-                                <a href={project.link} target="_blank" rel="noopener noreferrer" className="w-14 h-14 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center hover:bg-white hover:text-black transition-all">
+                            <div className="flex gap-4 mt-auto">
+                                <a href={project.link} target="_blank" rel="noopener noreferrer" className="p-4 bg-brutal-black text-white border-4 border-brutal-black flex items-center justify-center hover:bg-primary transition-all shadow-[4px_4px_0px_#FF3366] active:translate-y-1 active:translate-x-1 active:shadow-none">
                                     <Github size={24} />
                                 </a>
-                                <a href={project.link} target="_blank" rel="noopener noreferrer" className="flex-1 h-14 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center gap-3 hover:bg-white hover:text-black transition-all font-bold">
-                                    View Repository <ExternalLink size={20} />
+                                <a href={project.link} target="_blank" rel="noopener noreferrer" className="flex-1 p-4 bg-white text-brutal-black font-black border-4 border-brutal-black flex items-center justify-center gap-3 hover:bg-accent transition-all uppercase shadow-[4px_4px_0px_#FF3366] active:translate-y-1 active:translate-x-1 active:shadow-none">
+                                    SOURCE CODE <ExternalLink size={20} />
                                 </a>
                             </div>
                         </div>
