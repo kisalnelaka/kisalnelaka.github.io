@@ -4,6 +4,13 @@ import { ExternalLink, Github, ArrowRight } from 'lucide-react';
 
 const projects = [
     {
+        title: 'TenancyOS',
+        category: 'Enterprise SaaS • Next.js • Tailwind',
+        description: 'A comprehensive, modern ecosystem for property management and real estate operations. Engineered to act as a robust customer magnet and core property management engine, bridging the gap between landlords and tenants.',
+        link: 'https://tenancyos.com',
+        image: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1200&q=80',
+    },
+    {
         title: 'IntraFlow',
         category: 'Enterprise • Laravel • Filament',
         description: 'A multi-tenant SaaS ecosystem architected for telecom MSPs. I engineered complex inventory synchronization and automated billing workflows with a focus on high availability and data integrity.',

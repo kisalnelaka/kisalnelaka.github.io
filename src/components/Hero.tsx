@@ -49,7 +49,7 @@ const Hero: React.FC = () => {
                                 {titles[index].split(' ').map((word, i) => (
                                     <React.Fragment key={i}>
                                         {i > 0 && <br />}
-                                        <span>{word}</span>
+                                        <span className="glitch-text inline-block" data-text={word}>{word}</span>
                                     </React.Fragment>
                                 ))}
                             </motion.h1>
@@ -63,18 +63,18 @@ const Hero: React.FC = () => {
                         <span className="animate-pulse opacity-50 block mt-4">_EOF</span>
                     </p>
 
-                    <div className="flex flex-wrap items-center justify-center gap-6 mb-16">
-                        <a href="mailto:kisalnelaka6@gmail.com" className="btn-brutal group">
+                    <div className="flex flex-wrap items-center justify-center gap-6 mb-12">
+                        <a href="mailto:kisalnelaka6@gmail.com" className="btn-brutal glitch-hover group">
                             <Mail size={24} />
                             Direct Interface
                         </a>
-                        <a href="https://knockknockneo.cloud/stuff/Kisal%20Nelaka%20-%20Resume.pdf" target="_blank" className="btn-brutal-alt group" rel="noreferrer">
+                        <a href="https://drive.google.com/uc?export=download&id=1qw_p6Vso48Ulxn0Y9jLyq5qHOL4PhYDA" target="_blank" className="btn-brutal-alt glitch-hover group" rel="noreferrer">
                             <Download size={24} />
                             Extract Data (.PDF)
                         </a>
                     </div>
 
-                    <div className="flex items-center justify-center gap-8 text-brutal-black">
+                    <div className="flex items-center justify-center gap-6 text-brutal-black pb-24">
                         <a href="https://github.com/kisalnelaka" target="_blank" rel="noreferrer" className="p-4 border-4 border-brutal-black bg-white hover:bg-accent hover:-translate-y-2 hover:shadow-[6px_6px_0px_#000] transition-all">
                             <Github size={32} />
                         </a>
@@ -88,7 +88,7 @@ const Hero: React.FC = () => {
             <motion.div
                 animate={{ y: [0, 15, 0] }}
                 transition={{ repeat: Infinity, duration: 1.5 }}
-                className="absolute bottom-6 left-1/2 -translate-x-1/2 bg-white border-4 border-brutal-black p-2 cursor-pointer hover:bg-primary hover:text-white transition-colors"
+                className="absolute bottom-10 left-1/2 -translate-x-1/2 bg-white border-4 border-brutal-black p-2 cursor-pointer hover:bg-primary hover:text-white transition-colors"
                 onClick={() => document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' })}
             >
                 <ChevronDown size={32} />

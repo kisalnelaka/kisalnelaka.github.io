@@ -26,6 +26,28 @@ const Terminal: React.FC = () => {
         }
     }, [history, isOpen]);
 
+    const playTypingSound = () => {
+        try {
+            const AudioContext = window.AudioContext || (window as any).webkitAudioContext;
+            const audioCtx = new AudioContext();
+            const oscillator = audioCtx.createOscillator();
+            const gainNode = audioCtx.createGain();
+            
+            oscillator.type = 'square';
+            oscillator.frequency.setValueAtTime(100 + Math.random() * 50, audioCtx.currentTime);
+            gainNode.gain.setValueAtTime(0.02, audioCtx.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.05);
+            
+            oscillator.connect(gainNode);
+            gainNode.connect(audioCtx.destination);
+            
+            oscillator.start();
+            oscillator.stop(audioCtx.currentTime + 0.05);
+        } catch (e) {
+            // Ignore if audio context fails
+        }
+    };
+
     const handleCommand = (e: React.FormEvent) => {
         e.preventDefault();
         if (!input.trim()) return;
@@ -35,17 +57,31 @@ const Terminal: React.FC = () => {
 
         switch (cmd) {
             case 'help':
-                res = 'Available commands: whoami, clear, sudo rm -rf /, resume, contact';
+                res = 'Available commands: whoami, clear, sudo rm -rf /, resume, contact, ls, matrix';
                 break;
             case 'whoami':
                 res = 'Kisal Nelaka. Full-Stack Architect & Security Engineer.';
+                break;
+            case 'ls':
+                res = (
+                    <div className="grid grid-cols-2 gap-x-4 gap-y-1 text-primary">
+                        <span>drwxr-xr-x</span> <span>tenancy_os</span>
+                        <span>drwxr-xr-x</span> <span>intraflow</span>
+                        <span>drwxr-xr-x</span> <span>neo_protocol</span>
+                        <span>-rw-r--r--</span> <span>readme.md</span>
+                        <span>-rwxr-xr-x</span> <span>sys_boot.sh</span>
+                    </div>
+                );
                 break;
             case 'clear':
                 setHistory([]);
                 setInput('');
                 return;
             case 'sudo rm -rf /':
-                res = 'Nice try. Access Denied.';
+                res = <span className="text-[#FF3366] font-black animate-pulse">FATAL ERROR: ROOT PRIVILEGES DENIED. INCIDENT LOGGED.</span>;
+                break;
+            case 'matrix':
+                res = 'Matrix protocol exists globally. Use the hardware toggle [Terminal Icon] in the top right UI.';
                 break;
             case 'resume':
                 res = (
@@ -112,6 +148,7 @@ const Terminal: React.FC = () => {
                                 ref={inputRef}
                                 type="text"
                                 value={input}
+                                onKeyDown={playTypingSound}
                                 onChange={(e) => setInput(e.target.value)}
                                 className="flex-1 bg-transparent outline-none text-primary placeholder-primary/30"
                                 placeholder="..."
