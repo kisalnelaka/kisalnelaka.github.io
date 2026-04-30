@@ -1,62 +1,52 @@
 import React from 'react';
-import { Mail, Github, Linkedin, BookOpen, MonitorPlay, Shield, Database, LayoutTemplate } from 'lucide-react';
+import { Mail, Github, Linkedin, ExternalLink, Shield, Server, Code2, Layers, Cpu, Activity } from 'lucide-react';
 
 const projects = [
     {
-        title: 'TheNet',
-        category: 'Decentralized Mesh Architecture',
-        description: 'A high-performance, decentralized mesh network dashboard. Engineered for premium local Wi-Fi file management, media streaming, and cross-platform synchronization. A flawless, invisible web of connectivity operating in perfect silence.',
-        icon: <MonitorPlay className="text-secondary" size={24} />
-    },
-    {
-        title: 'Imladris',
-        category: 'Spatial Mind Palace & Neural Graph',
-        description: 'An ethereal, offline-first Android sanctuary for knowledge. Designed with a neural knowledge graph and glassmorphic gateways. Because one’s intellect should be curated with the utmost architectural rigor.',
-        icon: <Database className="text-secondary" size={24} />
-    },
-    {
         title: 'TenancyOS',
-        category: 'Enterprise Property Management SaaS',
-        description: 'A production-ready, multi-tenant monolith built with Laravel 11 and React. Features automated organization scoping, strict RBAC, and absolute audit logging. It governs properties seamlessly, so one does not have to endure the tedium of manual oversight.',
-        icon: <LayoutTemplate className="text-secondary" size={24} />
+        category: 'Enterprise SaaS • Next.js • Tailwind',
+        description: 'A comprehensive, modern ecosystem for property management and real estate operations. Engineered to act as a robust customer magnet and core property management engine, bridging the gap between landlords and tenants.',
+        icon: <Layers className="text-secondary" size={24} />
     },
     {
-        title: 'NOOR Elite',
-        category: 'AI Concierge Architecture',
-        description: 'An elite, cross-platform AI concierge system forged in Dart and backed by a robust architecture. Designed to anticipate, calculate, and execute without hesitation.',
-        icon: <MonitorPlay className="text-secondary" size={24} />
+        title: 'IntraFlow',
+        category: 'Enterprise • Laravel • Filament',
+        description: 'A multi-tenant SaaS ecosystem architected for telecom MSPs. I engineered complex inventory synchronization and automated billing workflows with a focus on high availability and absolute data integrity.',
+        icon: <Server className="text-secondary" size={24} />
     },
     {
-        title: 'Vendetta 84',
-        category: 'Commercial-Grade Noir Interactive Experience',
-        description: 'A Unity architecture blending FPS/TPS mechanics with a meticulously crafted VHS noir aesthetic. The environment is perfectly scripted, the AI ruthlessly deterministic. A flawless simulation of consequence.',
-        icon: <MonitorPlay className="text-secondary" size={24} />
+        title: 'SocialRabbit Bunny',
+        category: 'Framework Architecture • PHP',
+        description: 'A high-performance boilerplate engine designed for rapid deployment of secure Laravel backends. It enforces strict architectural patterns and security standards out of the box, eliminating the margin for human error.',
+        icon: <Code2 className="text-secondary" size={24} />
     },
     {
-        title: 'Agentic Architect (Claude Code)',
-        category: 'Autonomous Terminal Intelligence',
-        description: 'An agentic tool that lives within the terminal to execute routine tasks autonomously. After all, why should I sully my hands with mundane tasks when I can engineer an entity to serve me?',
-        icon: <Database className="text-secondary" size={24} />
+        title: 'BatSignal',
+        category: 'Systems • C++ • DBus',
+        description: 'A native Linux system integration utilizing DBus to monitor Bluetooth device metrics in real-time. Engineered for low-overhead performance and seamless integration with modern desktop environments.',
+        icon: <Cpu className="text-secondary" size={24} />
     },
     {
-        title: 'Audio Acquisition Engine',
-        category: 'Bulk Downloader',
-        description: 'A JavaScript-based bulk downloader and sorting engine for the YouTube audio library. Precision automation for digital asset acquisition.',
-        icon: <MonitorPlay className="text-secondary" size={24} />
+        title: 'PhishCatcher',
+        category: 'Security • ML • JavaScript',
+        description: 'An advanced phishing detection system utilizing machine learning to analyze URL patterns. It leverages defensive programming patterns to identify and mitigate digital threats before they manifest.',
+        icon: <Shield className="text-secondary" size={24} />
+    },
+    {
+        title: 'Oha Asa Daily',
+        category: 'Mobile • Flutter • Dart',
+        description: 'A cross-platform mobile application featuring high-performance data scraping and real-time state synchronization. Built to deliver a seamless, uninterrupted user experience across iOS and Android.',
+        icon: <Activity className="text-secondary" size={24} />
     }
 ];
 
 const publications = [
-    "Building InfraFlow: A Production-Grade Multi-Tenant MSP Platform with Laravel 11 and Filament v3",
-    "Bunny: Revolutionizing Web Development with Laravel",
-    "Bunny: The Laravel Scaffolding Package That Makes Web Development a Hop",
-    "JavaScript for Clueless Newbies:Part 1 — Variables, Data Types, & Operators",
-    "Part 3: Lure Creation — The Art of Deception in Phishing Attacks",
-    "Part 2: The Reconnaissance Phase — Uncovering the Secrets of Phishing Preparation",
+    "Building InfraFlow: A Production-Grade Multi-Tenant MSP Platform with Laravel 11",
+    "Bunny: Revolutionizing Web Development with Laravel Architecture",
+    "PhishCatcher: Real-Time Phishing Detection with Machine Learning",
     "The Lifecycle of a Phishing Attack: How Cybercriminals Bait, Hook, and Exploit",
-    "PhishCatcher: Real-Time Phishing Detection with Chrome Extensions and Machine Learning",
-    "Building a Blockchain-Powered, Encrypted Chat Application with Python",
-    "Demystifying Shellcode Generation: A Guide for Beginners"
+    "Demystifying Shellcode Generation: A Guide for Systems Engineers",
+    "Building a Blockchain-Powered, Encrypted Chat Application with Python"
 ];
 
 const Portfolio: React.FC = () => {
@@ -67,7 +57,7 @@ const Portfolio: React.FC = () => {
             <header className="container mx-auto px-6 py-12 flex justify-between items-center border-b border-accent/50">
                 <div className="flex flex-col">
                     <span className="text-xl font-medium tracking-tight text-primary">Kisal Nelaka</span>
-                    <span className="text-sm text-textMuted mt-1">Doha, Qatar</span>
+                    <span className="text-sm text-textMuted mt-1">Software Architect & Security Engineer</span>
                 </div>
                 <nav className="flex items-center gap-6 text-sm text-secondary">
                     <a href="https://github.com/kisalnelaka" target="_blank" rel="noreferrer" className="hover:text-primary transition-colors flex items-center gap-2">
@@ -90,63 +80,62 @@ const Portfolio: React.FC = () => {
                 {/* Hero Section */}
                 <section className="py-24 md:py-32 max-w-4xl">
                     <h1 className="text-4xl md:text-5xl font-medium text-primary mb-6 leading-tight">
-                        Architect of Digital Entropy <br />
-                        <span className="text-secondary">Engineer of the Inevitable</span>
+                        Engineering systems that <br />
+                        <span className="text-secondary">refuse to fail.</span>
                     </h1>
-                    <div className="text-lg md:text-xl text-textMain space-y-6 max-w-3xl leading-relaxed">
+                    <div className="text-lg text-textMain space-y-6 max-w-3xl leading-relaxed">
                         <p>
-                            Allow me to be perfectly candid. The architecture of modern software is tragically flawed, riddled with inefficiencies, security gaps, and profound human error. I find such chaos... distasteful. I do not merely write code; I engineer systems that are precise, calculated, and absolute.
+                            I build enterprise software with a focus on absolute stability, security, and deterministic logic. While the industry frequently settles for "good enough," I engineer mission-critical infrastructure designed to operate flawlessly under pressure.
                         </p>
                         <p>
-                            For over eight years, I have orchestrated enterprise infrastructure, neural knowledge graphs, and decentralized networks. I hold a degree in Cybersecurity, affording me a rather intimate understanding of exactly how systems shatter—and how to forge them so they do not. The design must be immaculate. The execution, flawless.
+                            With over eight years of experience spanning cloud architecture, multi-tenant SaaS, and systems security, my approach is highly calculated: eliminate inefficiencies, secure the attack surface, and deliver robust software that scales. My background in Cybersecurity dictates that security isn't an afterthought—it is the foundational constraint.
                         </p>
                         <p>
-                            I occasionally observe the frantic struggles of developers wrestling with poorly optimized codebases. It is genuinely fascinating how the industry accepts such mediocrity. Humans are so interesting in their willingness to settle. But when the stakes are absolute, I am the one called upon to impose order. The work requires a certain intellectual endurance—a quiet room, a steady supply of perfectly brewed Earl Grey, and perhaps an apple.
+                            I specialize in stepping into complex, high-stakes environments and imposing order. It requires a rigorous standard of excellence—one I naturally hold myself to.
                         </p>
                         <p className="pt-4 text-primary font-medium">
-                            I am building the architecture of a new world. Care to see what I've written?
+                            If you need infrastructure that performs reliably without the need for constant oversight, you're in the right place.
                         </p>
                     </div>
                 </section>
 
-                {/* The Arsenal of Absolute Control */}
+                {/* Core Competencies */}
                 <section className="py-20 border-t border-accent/50 max-w-5xl">
-                    <h2 className="text-2xl font-medium text-primary mb-12 flex items-center gap-4">
+                    <h2 className="text-xl font-medium text-primary mb-12 flex items-center gap-4">
                         <span className="w-8 h-px bg-accent"></span>
-                        The Arsenal of Absolute Control
+                        Core Competencies
                     </h2>
                     
                     <div className="grid md:grid-cols-3 gap-8">
                         <div className="minimal-card p-8">
-                            <MonitorPlay className="text-secondary mb-6" size={28} />
-                            <h3 className="text-lg font-medium text-primary mb-4">Instruments of Logic</h3>
+                            <Server className="text-secondary mb-6" size={28} />
+                            <h3 className="text-lg font-medium text-primary mb-4">Cloud & Architecture</h3>
                             <p className="text-sm text-textMuted leading-relaxed">
-                                TypeScript, Kotlin, Dart, C#, Python, C++, PHP.
+                                Expertise in AWS, Docker, and multi-tenant SaaS environments. I design scalable monoliths and microservices using Next.js, Node.js, and Laravel.
                             </p>
                         </div>
                         <div className="minimal-card p-8">
-                            <LayoutTemplate className="text-secondary mb-6" size={28} />
-                            <h3 className="text-lg font-medium text-primary mb-4">Architectural Foundations</h3>
+                            <Code2 className="text-secondary mb-6" size={28} />
+                            <h3 className="text-lg font-medium text-primary mb-4">Systems Engineering</h3>
                             <p className="text-sm text-textMuted leading-relaxed">
-                                Laravel 11, Unity, Node.js, Multi-Tenant System Design. <br/><br/>
-                                The Aesthetic Facade: React, Vue.js, Glassmorphic UI, Spatial Interface Design.
+                                Writing highly optimized, low-overhead code across the stack. Proficient in TypeScript, C++, Python, PHP, and Dart.
                             </p>
                         </div>
                         <div className="minimal-card p-8 border-t-4 border-t-secondary/20">
                             <Shield className="text-secondary mb-6" size={28} />
-                            <h3 className="text-lg font-medium text-primary mb-4">The Dark Arts</h3>
+                            <h3 className="text-lg font-medium text-primary mb-4">Security & Forensics</h3>
                             <p className="text-sm text-textMuted leading-relaxed">
-                                Security & Operations: Docker, Linux, Penetration Testing. I secure networks merely because vulnerabilities offend my sensibilities.
+                                Identifying vulnerabilities before they are exploited. Experienced in penetration testing, threat mitigation, and secure architecture auditing.
                             </p>
                         </div>
                     </div>
                 </section>
 
-                {/* Masterpieces of Engineering */}
+                {/* Engineering Portfolio */}
                 <section className="py-20 border-t border-accent/50">
-                    <h2 className="text-2xl font-medium text-primary mb-12 flex items-center gap-4">
+                    <h2 className="text-xl font-medium text-primary mb-12 flex items-center gap-4">
                         <span className="w-8 h-px bg-accent"></span>
-                        Masterpieces of Engineering
+                        Selected Engineering Works
                     </h2>
                     
                     <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -163,17 +152,17 @@ const Portfolio: React.FC = () => {
                     </div>
                 </section>
 
-                {/* Meticulous Observations (Publications) */}
+                {/* Technical Publications */}
                 <section className="py-20 border-t border-accent/50 max-w-4xl">
-                    <h2 className="text-2xl font-medium text-primary mb-12 flex items-center gap-4">
+                    <h2 className="text-xl font-medium text-primary mb-12 flex items-center gap-4">
                         <span className="w-8 h-px bg-accent"></span>
-                        Meticulous Observations
+                        Technical Publications
                     </h2>
                     
                     <div className="space-y-4">
                         {publications.map((pub, idx) => (
                             <div key={idx} className="group flex items-start gap-4 p-4 rounded-md hover:bg-surface border border-transparent hover:border-accent transition-colors">
-                                <BookOpen className="text-secondary mt-1 flex-shrink-0" size={18} />
+                                <ExternalLink className="text-secondary mt-1 flex-shrink-0" size={16} />
                                 <span className="text-textMain text-sm leading-relaxed group-hover:text-primary transition-colors">
                                     {pub}
                                 </span>
@@ -188,8 +177,7 @@ const Portfolio: React.FC = () => {
             <footer className="bg-surface border-t border-accent mt-20 py-16">
                 <div className="container mx-auto px-6 max-w-4xl text-center">
                     <p className="text-lg font-medium text-primary mb-8">
-                        If you are going to contact me, make it worth my time.<br/>
-                        <span className="text-secondary">I have a new world to architect.</span>
+                        Looking for engineering leadership that delivers uncompromising results?
                     </p>
                     <a href="mailto:kisalnelaka6@gmail.com" className="btn-primary">
                         Initiate Contact
@@ -200,8 +188,6 @@ const Portfolio: React.FC = () => {
                         <a href="https://linkedin.com/in/kisalnelaka" className="hover:text-primary transition-colors">LinkedIn</a>
                         <span className="w-1 h-1 rounded-full bg-accent"></span>
                         <a href="https://github.com/kisalnelaka" className="hover:text-primary transition-colors">GitHub</a>
-                        <span className="w-1 h-1 rounded-full bg-accent"></span>
-                        <a href="https://medium.com" className="hover:text-primary transition-colors">Medium</a>
                     </div>
                 </div>
             </footer>
