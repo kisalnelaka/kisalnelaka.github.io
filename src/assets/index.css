@@ -1,200 +1,63 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300..900;1,300..900&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --color-primary: 255, 51, 102; /* #FF3366 */
-  --color-secondary: 0, 240, 255; /* #00F0FF */
-  --bg-main: #050505;
-}
-
 @layer base {
   body {
-    @apply bg-bg-dark text-text-main font-sans antialiased overflow-x-hidden selection:bg-accent selection:text-black;
-    /* Removed gradients for a solid, brutalist background */
-    background-color: theme('colors.bg-dark');
-    cursor: crosshair;
+    @apply bg-background text-textMain font-sans antialiased overflow-x-hidden;
+    background-color: theme('colors.background');
   }
 
-  a, button, [role="button"], input, .cursor-pointer {
-    cursor: alias !important;
-  }
-
-  h1,
-  h2,
-  h3,
-  h4 {
-    @apply font-display font-black tracking-tighter uppercase;
+  h1, h2, h3, h4 {
+    @apply font-sans font-medium tracking-tight text-primary;
   }
 
   .section-padding {
-    @apply py-24 md:py-32;
+    @apply py-20 md:py-32;
   }
 }
 
 @layer components {
-  /* Replace glass-card with brutal-card */
-  .brutal-card {
-    @apply bg-brutal-black text-white border-4 border-white rounded-none transition-all duration-75;
-    box-shadow: 8px 8px 0px rgba(255, 255, 255, 1);
+  .minimal-card {
+    @apply bg-surface border border-accent rounded-md transition-all duration-300 shadow-soft;
   }
 
-  .brutal-card:hover {
-    @apply -translate-x-1 -translate-y-1;
-    box-shadow: 12px 12px 0px rgba(255, 255, 255, 1);
+  .minimal-card:hover {
+    @apply shadow-soft-hover -translate-y-1 border-gray-200;
+  }
+
+  .btn-minimal {
+    @apply px-6 py-3 bg-surface text-primary border border-accent rounded-md transition-all duration-300 inline-flex items-center gap-2 font-medium text-sm;
+  }
+
+  .btn-minimal:hover {
+    @apply bg-gray-50 border-gray-300;
   }
   
-  .brutal-card-light {
-    @apply bg-white text-black border-4 border-brutal-black rounded-none transition-all duration-75;
-    box-shadow: 8px 8px 0px rgba(255, 51, 102, 1);
+  .btn-primary {
+    @apply px-6 py-3 bg-primary text-white border border-transparent rounded-md transition-all duration-300 inline-flex items-center gap-2 font-medium text-sm;
   }
 
-  .brutal-card-light:hover {
-    @apply -translate-x-1 -translate-y-1;
-    box-shadow: 12px 12px 0px rgba(255, 51, 102, 1);
-  }
-
-  .text-highlight {
-    @apply bg-accent text-black px-2 py-1 inline-block font-black;
-  }
-
-  .btn-brutal {
-    @apply px-8 py-4 bg-primary text-white font-black uppercase tracking-widest border-4 border-brutal-black rounded-none transition-all duration-75 inline-flex items-center gap-2;
-    box-shadow: 6px 6px 0px rgba(0, 0, 0, 1);
-  }
-
-  .btn-brutal:hover {
-    @apply -translate-x-1 -translate-y-1;
-    box-shadow: 10px 10px 0px rgba(0, 0, 0, 1);
-  }
-  
-  .btn-brutal:active {
-    @apply translate-x-1 translate-y-1;
-    box-shadow: 2px 2px 0px rgba(0, 0, 0, 1);
-  }
-
-  .btn-brutal-alt {
-    @apply px-8 py-4 bg-white text-black font-black uppercase tracking-widest border-4 border-brutal-black rounded-none transition-all duration-75 inline-flex items-center gap-2;
-    box-shadow: 6px 6px 0px rgba(255, 51, 102, 1);
-  }
-
-  .btn-brutal-alt:hover {
-    @apply bg-black text-white;
-  }
-  
-  .btn-brutal-alt:active {
-    @apply translate-x-1 translate-y-1;
-    box-shadow: 2px 2px 0px rgba(255, 51, 102, 1);
+  .btn-primary:hover {
+    @apply bg-textMain;
   }
 }
 
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
-  width: 14px;
+  width: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  @apply bg-bg-dark border-l border-white/20;
+  background: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
-  @apply bg-white border-2 border-bg-dark rounded-none;
+  @apply bg-gray-300 rounded-full;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  @apply bg-primary;
-}
-
-/* --- BRUTALIST GLITCH & DISTORTIONS --- */
-@keyframes glitch {
-  0% { transform: translate(0) }
-  20% { transform: translate(-2px, 2px) }
-  40% { transform: translate(-2px, -2px) }
-  60% { transform: translate(2px, 2px) }
-  80% { transform: translate(2px, -2px) }
-  100% { transform: translate(0) }
-}
-
-.glitch-hover:hover {
-  animation: glitch 0.2s cubic-bezier(.25, .46, .45, .94) both infinite;
-}
-
-@keyframes textGlitch {
-  0% { clip-path: inset(80% 0 0 0); transform: translate(-2px, 1px); }
-  20% { clip-path: inset(10% 0 60% 0); transform: translate(2px, -1px); }
-  40% { clip-path: inset(40% 0 20% 0); transform: translate(-2px, 2px); }
-  60% { clip-path: inset(80% 0 5% 0); transform: translate(2px, -2px); }
-  80% { clip-path: inset(15% 0 70% 0); transform: translate(-2px, 1px); }
-  100% { clip-path: inset(0 0 0 0); transform: translate(0); }
-}
-
-.glitch-text {
-  position: relative;
-}
-.glitch-text::before,
-.glitch-text::after {
-  content: attr(data-text);
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  opacity: 0.8;
-  pointer-events: none;
-}
-.glitch-text::before {
-  left: 3px;
-  text-shadow: -2px 0 #FF3366;
-  animation: textGlitch 3s infinite linear alternate-reverse;
-}
-.glitch-text::after {
-  left: -3px;
-  text-shadow: -2px 0 #00F0FF;
-  animation: textGlitch 2s infinite linear alternate-reverse;
-}
-
-/* --- CRT MONITOR EFFECTS --- */
-.crt-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  pointer-events: none;
-  z-index: 999997;
-  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
-  background-size: 100% 4px, 6px 100%;
-  animation: crtFlicker 0.15s infinite;
-  opacity: 0.6;
-}
-
-.crt-overlay::after {
-  content: " ";
-  display: block;
-  position: absolute;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  background: radial-gradient(circle, rgba(0,0,0,0) 50%, rgba(0,0,0,0.8) 120%);
-  pointer-events: none;
-}
-
-@keyframes crtFlicker {
-  0% { opacity: 0.6; }
-  50% { opacity: 0.55; }
-  100% { opacity: 0.6; }
-}
-
-.crt-warp {
-  animation: warpScreen 10s infinite alternate;
-  transform-origin: center;
-}
-
-@keyframes warpScreen {
-  0% { transform: scale(1) perspective(2000px) rotateX(0deg) rotateY(0deg); }
-  50% { transform: scale(0.99) perspective(2000px) rotateX(0.5deg) rotateY(-0.5deg); }
-  100% { transform: scale(1.01) perspective(2000px) rotateX(-0.5deg) rotateY(0.5deg); }
+  @apply bg-gray-400;
 }

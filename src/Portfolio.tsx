@@ -1,519 +1,211 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { motion, useScroll, useSpring } from 'framer-motion';
-import Matter from 'matter-js';
-import Hero from './components/Hero';
-import About from './components/About';
-import Experience from './components/Experience';
-import Projects from './components/Projects';
-import CustomCursor from './components/CustomCursor';
-import Marquee from './components/Marquee';
-import Terminal from './components/Terminal';
-import BootSequence from './components/BootSequence';
-import ControlPanel from './components/ControlPanel'; // Changed from HtopMonitor
-import DecryptText from './components/DecryptText';
-import RadarCursor from './components/RadarCursor';
-import GodModeConsole from './components/GodModeConsole';
-import TraceRouteGlobe from './components/TraceRouteGlobe';
-import { useAppConfig } from './components/AppConfigContext';
-import { GraduationCap, Mail, Phone, MapPin, Code2 } from 'lucide-react';
+import React from 'react';
+import { Mail, Github, Linkedin, BookOpen, MonitorPlay, Shield, Database, LayoutTemplate } from 'lucide-react';
 
+const projects = [
+    {
+        title: 'TheNet',
+        category: 'Decentralized Mesh Architecture',
+        description: 'A high-performance, decentralized mesh network dashboard. Engineered for premium local Wi-Fi file management, media streaming, and cross-platform synchronization. A flawless, invisible web of connectivity operating in perfect silence.',
+        icon: <MonitorPlay className="text-secondary" size={24} />
+    },
+    {
+        title: 'Imladris',
+        category: 'Spatial Mind Palace & Neural Graph',
+        description: 'An ethereal, offline-first Android sanctuary for knowledge. Designed with a neural knowledge graph and glassmorphic gateways. Because one’s intellect should be curated with the utmost architectural rigor.',
+        icon: <Database className="text-secondary" size={24} />
+    },
+    {
+        title: 'TenancyOS',
+        category: 'Enterprise Property Management SaaS',
+        description: 'A production-ready, multi-tenant monolith built with Laravel 11 and React. Features automated organization scoping, strict RBAC, and absolute audit logging. It governs properties seamlessly, so one does not have to endure the tedium of manual oversight.',
+        icon: <LayoutTemplate className="text-secondary" size={24} />
+    },
+    {
+        title: 'NOOR Elite',
+        category: 'AI Concierge Architecture',
+        description: 'An elite, cross-platform AI concierge system forged in Dart and backed by a robust architecture. Designed to anticipate, calculate, and execute without hesitation.',
+        icon: <MonitorPlay className="text-secondary" size={24} />
+    },
+    {
+        title: 'Vendetta 84',
+        category: 'Commercial-Grade Noir Interactive Experience',
+        description: 'A Unity architecture blending FPS/TPS mechanics with a meticulously crafted VHS noir aesthetic. The environment is perfectly scripted, the AI ruthlessly deterministic. A flawless simulation of consequence.',
+        icon: <MonitorPlay className="text-secondary" size={24} />
+    },
+    {
+        title: 'Agentic Architect (Claude Code)',
+        category: 'Autonomous Terminal Intelligence',
+        description: 'An agentic tool that lives within the terminal to execute routine tasks autonomously. After all, why should I sully my hands with mundane tasks when I can engineer an entity to serve me?',
+        icon: <Database className="text-secondary" size={24} />
+    },
+    {
+        title: 'Audio Acquisition Engine',
+        category: 'Bulk Downloader',
+        description: 'A JavaScript-based bulk downloader and sorting engine for the YouTube audio library. Precision automation for digital asset acquisition.',
+        icon: <MonitorPlay className="text-secondary" size={24} />
+    }
+];
 
-const Footer: React.FC<{ onPurge?: () => void }> = ({ onPurge }) => {
-    const { vanillaMode } = useAppConfig();
-    return (
-    <footer className="py-20 border-t-8 border-brutal-black bg-brutal-black text-white relative z-10">
-        <div className="container">
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
-                <div className="col-span-1 lg:col-span-2">
-                    <h2 className="text-4xl font-black mb-6 uppercase">KISAL <span className="bg-primary text-white px-2">NELAKA</span></h2>
-                    <p className="font-mono text-sm max-w-sm leading-relaxed text-justify border-l-4 border-primary pl-4">
-                        I design and deploy systems that stay online when everything else fails. My work is defined by deterministic logic and a refusal to accept "good enough" infrastructure: specializing in mission-critical architecture and security.
-                    </p>
-                </div>
-                <div>
-                    <h4 className="font-black mb-6 text-xl uppercase bg-accent text-brutal-black inline-block px-2 border-2 border-brutal-black">Digital Presence</h4>
-                    <div className="space-y-4 font-bold text-sm uppercase">
-                        <a href="https://github.com/kisalnelaka" className="block hover:text-primary transition-colors">&gt; GitHub</a>
-                        <a href="https://linkedin.com/in/kisalnelaka" className="block hover:text-primary transition-colors">&gt; LinkedIn</a>
-                    </div>
-                </div>
-                <div>
-                    <h4 className="text-white font-black mb-6 text-xl uppercase bg-primary inline-block px-2 border-2 border-white">Direct Contact</h4>
-                    <div className="space-y-4 font-mono text-sm">
-                        <a href="mailto:kisalnelaka6@gmail.com" className="flex items-center gap-2 hover:text-primary transition-colors">
-                            <Mail size={16} /> kisalnelaka6@gmail.com
-                        </a>
-                        <div className="flex items-center gap-2">
-                            <Phone size={16} /> +974 7753 3967
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div className="flex flex-col md:flex-row justify-between items-center gap-6 pt-12 border-t-4 border-white font-black text-sm uppercase tracking-widest">
-                <p>&copy; {new Date().getFullYear()} KISAL NELAKA • ALL RIGHTS RESERVED</p>
-                <p className="bg-white text-brutal-black px-2 py-1">ENGINEERED FOR SCALE</p>
-            </div>
-            {!vanillaMode && (
-                <div className="mt-20 border-t-8 border-red-600 pt-8 text-center bg-black p-8 flex justify-center">
-                    <button onClick={onPurge} className="text-red-600 text-3xl md:text-5xl font-black animate-pulse hover:text-white transition-colors uppercase tracking-widest border-4 border-red-600 hover:bg-red-600 p-4">
-                        [ INITIATE SECURE PURGE ]
-                    </button>
-                </div>
-            )}
-        </div>
-    </footer>
-    );
-};
-
-const Education: React.FC = () => (
-    <section className="section-padding container border-b-8 border-brutal-black bg-white">
-        <h2 className="text-5xl font-black mb-16 text-center uppercase text-brutal-black">ACADEMIC <span className="bg-accent px-2 border-4 border-brutal-black text-black">BACKGROUND</span></h2>
-        <div className="max-w-4xl mx-auto grid md:grid-cols-2 gap-8">
-            {[
-                {
-                    school: 'Kingston University',
-                    degree: 'BS in Cybersecurity and Digital Forensics',
-                    location: 'London, UK',
-                },
-                {
-                    school: 'SLIIT',
-                    degree: 'HND in Information Technology',
-                    location: 'Colombo, LK',
-                }
-            ].map((edu, index) => (
-                <motion.div
-                    key={index}
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    className="flex flex-col p-10 brutal-card-light bg-white border-4 border-brutal-black hover:-translate-y-2 hover:-translate-x-2 transition-transform shadow-[8px_8px_0px_#FF3366]"
-                >
-                    <div className="w-16 h-16 bg-brutal-black border-4 border-primary flex items-center justify-center mb-8 shadow-[4px_4px_0px_#000]">
-                        <GraduationCap className="text-white" size={32} />
-                    </div>
-                    <h3 className="text-3xl font-black mb-4 uppercase text-brutal-black leading-tight border-b-4 border-brutal-black pb-4"><DecryptText text={edu.school} /></h3>
-                    <p className="text-brutal-black font-bold font-mono text-sm mb-4 bg-accent p-2 inline-block border-2 border-brutal-black"><DecryptText text={edu.degree} delay={300} /></p>
-                    <p className="text-brutal-black font-bold text-xs mt-auto flex items-center gap-2 uppercase tracking-widest pt-4">
-                        <MapPin size={16} /> {edu.location}
-                    </p>
-                </motion.div>
-            ))}
-        </div>
-    </section>
-);
+const publications = [
+    "Building InfraFlow: A Production-Grade Multi-Tenant MSP Platform with Laravel 11 and Filament v3",
+    "Bunny: Revolutionizing Web Development with Laravel",
+    "Bunny: The Laravel Scaffolding Package That Makes Web Development a Hop",
+    "JavaScript for Clueless Newbies:Part 1 — Variables, Data Types, & Operators",
+    "Part 3: Lure Creation — The Art of Deception in Phishing Attacks",
+    "Part 2: The Reconnaissance Phase — Uncovering the Secrets of Phishing Preparation",
+    "The Lifecycle of a Phishing Attack: How Cybercriminals Bait, Hook, and Exploit",
+    "PhishCatcher: Real-Time Phishing Detection with Chrome Extensions and Machine Learning",
+    "Building a Blockchain-Powered, Encrypted Chat Application with Python",
+    "Demystifying Shellcode Generation: A Guide for Beginners"
+];
 
 const Portfolio: React.FC = () => {
-    const { scrollYProgress } = useScroll();
-    const scaleX = useSpring(scrollYProgress, {
-        stiffness: 100,
-        damping: 30,
-        restDelta: 0.001
-    });
-
-    const { vanillaMode, audioReact, soundEnabled } = useAppConfig();
-    const [isRawMode, setIsRawMode] = useState(false);
-    const [showBoot, setShowBoot] = useState(true);
-    const [godMode, setGodMode] = useState(false);
-    const [showGlobe, setShowGlobe] = useState(false);
-    
-    const [purging, setPurging] = useState(false);
-    const [countdown, setCountdown] = useState<number | null>(null);
-
-    const audioRef = useRef<{ ctx: AudioContext, analyser: AnalyserNode, src: MediaStreamAudioSourceNode, stream: MediaStream } | null>(null);
-    const reqRef = useRef<number>();
-
-    useEffect(() => {
-        if (audioReact) {
-            navigator.mediaDevices.getUserMedia({ audio: true, video: false })
-                .then(stream => {
-                    const ctx = new (window.AudioContext || (window as any).webkitAudioContext)();
-                    const analyser = ctx.createAnalyser();
-                    analyser.fftSize = 256;
-                    const src = ctx.createMediaStreamSource(stream);
-                    src.connect(analyser);
-                    
-                    audioRef.current = { ctx, analyser, src, stream };
-                    const dataArray = new Uint8Array(analyser.frequencyBinCount);
-                    const rootEl = document.getElementById('portfolio-root');
-
-                    const renderFrame = () => {
-                        analyser.getByteFrequencyData(dataArray);
-                        let sum = 0;
-                        for(let i=0; i<dataArray.length; i++) sum += dataArray[i];
-                        const avg = sum / dataArray.length;
-                        
-                        if (rootEl) {
-                            const scale = 1 + (avg / 255) * 0.03;
-                            const hue = avg * 2.5;
-                            const blur = (avg / 255) * 3;
-                            rootEl.style.setProperty('--audio-scale', `${scale}`);
-                            rootEl.style.setProperty('--audio-hue', `${hue}deg`);
-                            rootEl.style.setProperty('--audio-blur', `${blur}px`);
-                        }
-                        reqRef.current = requestAnimationFrame(renderFrame);
-                    };
-                    renderFrame();
-                })
-                .catch(err => console.error("Audio react failed", err));
-        } else {
-            if (audioRef.current) {
-                audioRef.current.stream.getTracks().forEach((t: MediaStreamTrack) => t.stop());
-                audioRef.current.ctx.close();
-                audioRef.current = null;
-            }
-            if (reqRef.current) cancelAnimationFrame(reqRef.current);
-            const rootEl = document.getElementById('portfolio-root');
-            if (rootEl) {
-                rootEl.style.removeProperty('--audio-scale');
-                rootEl.style.removeProperty('--audio-hue');
-                rootEl.style.removeProperty('--audio-blur');
-            }
-        }
-        return () => {
-             if (audioRef.current) {
-                audioRef.current.stream.getTracks().forEach((t: MediaStreamTrack) => t.stop());
-                audioRef.current.ctx.close();
-                audioRef.current = null;
-            }
-            if (reqRef.current) cancelAnimationFrame(reqRef.current);
-        }
-    }, [audioReact]);
-
-    const audioCtxRef = useRef<AudioContext | null>(null);
-    const purgeInterval = useRef<NodeJS.Timeout | null>(null);
-
-    const initiatePurge = () => {
-        if (purging) return;
-        setPurging(true);
-        let left = 10;
-        setCountdown(left);
-
-        try {
-            if (soundEnabled) {
-                const AudioContext = window.AudioContext || (window as any).webkitAudioContext;
-                const audioCtx = new AudioContext();
-                audioCtxRef.current = audioCtx;
-                const osc = audioCtx.createOscillator();
-                osc.type = 'sawtooth';
-                osc.frequency.setValueCurveAtTime([400, 800, 400, 800, 400, 800, 400, 800, 400, 800, 400], audioCtx.currentTime, 10);
-                osc.connect(audioCtx.destination);
-                osc.start();
-                osc.stop(audioCtx.currentTime + 10);
-            }
-        } catch (err) {}
-
-        purgeInterval.current = setInterval(() => {
-            left--;
-            setCountdown(left);
-            if (left <= 0) {
-                if (purgeInterval.current) clearInterval(purgeInterval.current);
-                setCountdown(0);
-            }
-        }, 1000);
-    };
-
-    const cancelPurge = () => {
-        if (!purging) return;
-        setPurging(false);
-        setCountdown(null);
-        if (purgeInterval.current) clearInterval(purgeInterval.current);
-        if (audioCtxRef.current) {
-            audioCtxRef.current.close().catch(()=>{});
-            audioCtxRef.current = null;
-        }
-    };
-
-    const handleMeltdown = () => {
-        if (typeof window === 'undefined') return;
-        
-        document.body.style.overflow = 'hidden';
-
-        const elements = Array.from(document.querySelectorAll('h1, h2, h3, p, a, button, .brutal-card-light')).filter(el => {
-            const rect = el.getBoundingClientRect();
-            return rect.width > 0 && rect.height > 0 && rect.top < window.innerHeight + 100 && rect.bottom > -100;
-        }) as HTMLElement[];
-
-        const bodies: { body: Matter.Body, el: HTMLElement }[] = [];
-        const { Engine, Runner, World, Bodies, Mouse, MouseConstraint } = Matter;
-
-        const engine = Engine.create();
-        
-        elements.forEach(el => {
-            const rect = el.getBoundingClientRect();
-            
-            const body = Bodies.rectangle(
-                rect.left + rect.width / 2, 
-                rect.top + rect.height / 2, 
-                rect.width, 
-                rect.height, 
-                { restitution: 0.6, friction: 0.1, density: 0.001 }
-            );
-            
-            el.style.width = `${rect.width}px`;
-            el.style.height = `${rect.height}px`;
-            el.style.position = 'fixed';
-            el.style.left = '0';
-            el.style.top = '0';
-            el.style.margin = '0';
-            el.style.zIndex = '999999';
-            el.style.transition = 'none'; // disable CSS transitions for raw physics
-            
-            bodies.push({ body, el });
-            World.add(engine.world, body);
-        });
-
-        const ground = Bodies.rectangle(window.innerWidth / 2, window.innerHeight + 50, window.innerWidth, 100, { isStatic: true });
-        const leftWall = Bodies.rectangle(-50, window.innerHeight / 2, 100, window.innerHeight, { isStatic: true });
-        const rightWall = Bodies.rectangle(window.innerWidth + 50, window.innerHeight / 2, 100, window.innerHeight, { isStatic: true });
-        
-        World.add(engine.world, [ground, leftWall, rightWall]);
-
-        const mouse = Mouse.create(document.body);
-        const mouseConstraint = MouseConstraint.create(engine, {
-            mouse: mouse,
-            constraint: {
-                stiffness: 0.2,
-                render: { visible: false }
-            }
-        });
-        World.add(engine.world, mouseConstraint);
-
-        const updateLoop = () => {
-            bodies.forEach(({ body, el }) => {
-                el.style.transform = `translate(${body.position.x - el.offsetWidth/2}px, ${body.position.y - el.offsetHeight/2}px) rotate(${body.angle}rad)`;
-            });
-            requestAnimationFrame(updateLoop);
-        };
-        
-        Runner.run(Runner.create(), engine);
-        updateLoop();
-    };
-
-    const [exploits, setExploits] = useState<{id: number, x: number, y: number, code: string}[]>([]);
-
-    const handleExploit = () => {
-        const newExploits = Array(15).fill(0).map((_, i) => ({
-            id: Date.now() + i,
-            x: Math.random() * (typeof window !== 'undefined' ? window.innerWidth - 300 : 800),
-            y: Math.random() * (typeof window !== 'undefined' ? window.innerHeight - 200 : 600),
-            code: Math.floor(Math.random()*16777215).toString(16).toUpperCase().padStart(6, '0')
-        }));
-        setExploits(prev => [...prev, ...newExploits]);
-    };
-
-    const handleGlobe = () => {
-        setShowGlobe(true);
-    };
-
-    useEffect(() => {
-        const konami = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
-        let kIndex = 0;
-
-        const handleKey = (e: KeyboardEvent) => {
-            if (e.key === konami[kIndex]) {
-                kIndex++;
-                if (kIndex === konami.length) {
-                    setGodMode(true);
-                    kIndex = 0;
-                    try {
-                        const AudioContext = window.AudioContext || (window as any).webkitAudioContext;
-                        const audioCtx = new AudioContext();
-                        const osc = audioCtx.createOscillator();
-                        osc.type = 'sawtooth';
-                        osc.frequency.setValueAtTime(200, audioCtx.currentTime);
-                        osc.frequency.exponentialRampToValueAtTime(800, audioCtx.currentTime + 0.5);
-                        osc.connect(audioCtx.destination);
-                        osc.start();
-                        osc.stop(audioCtx.currentTime + 0.5);
-                    } catch (err) {}
-                }
-            } else {
-                kIndex = 0;
-            }
-        };
-
-        window.addEventListener('keydown', handleKey);
-        return () => window.removeEventListener('keydown', handleKey);
-    }, []);
-
-    if (countdown === 0) {
-        return (
-            <div className="fixed inset-0 bg-black text-red-600 flex items-center justify-center font-mono font-black z-[999999]">
-                <p className="animate-pulse text-xl md:text-3xl">&gt; CONNECTION TERMINATED. DATA PURGED.</p>
-            </div>
-        );
-    }
-
-    if (showGlobe && !vanillaMode) {
-        return <TraceRouteGlobe onClose={() => setShowGlobe(false)} />;
-    }
-
-    if (godMode && !vanillaMode) {
-        return <GodModeConsole onExit={() => setGodMode(false)} />;
-    }
-
-    if (showBoot && !vanillaMode) {
-        return <BootSequence onComplete={() => setShowBoot(false)} />;
-    }
-
-    if (isRawMode) {
-        return (
-            <motion.div 
-                initial={{ opacity: 0, scaleY: 0.01 }}
-                animate={{ opacity: 1, scaleY: 1 }}
-                transition={{ duration: 1.2, ease: "easeInOut" }}
-                className="min-h-screen bg-brutal-black text-green-500 font-mono p-8 text-sm crt-warp relative overflow-hidden"
-            >
-                <div className="crt-overlay mix-blend-multiply pointer-events-none"></div>
-                <button 
-                    onClick={() => setIsRawMode(false)}
-                    className="mb-8 border border-green-500 px-4 py-2 hover:bg-green-500 hover:text-black transition-colors"
-                >
-                    [ DEFUSE RAW MODE ]
-                </button>
-                <h1 className="text-2xl font-bold mb-4">/* RAW_DATA_DUMP.JSON */</h1>
-                <pre className="whitespace-pre-wrap opacity-80 text-xs md:text-sm leading-relaxed overflow-x-auto">
-                    {JSON.stringify({
-                        "_metadata": {
-                            "system_status": "SECURE",
-                            "kernel_panic": false,
-                            "uptime": "99.999%",
-                            "encryption": "AES-256-GCM"
-                        },
-                        "identity": {
-                            "name": "Kisal Nelaka",
-                            "title": "Full-Stack Architect & Security Engineer",
-                            "location": "Doha, Qatar"
-                        },
-                        "contact": {
-                            "email": "kisalnelaka6@gmail.com",
-                            "phone": "+974 7753 3967",
-                            "github": "https://github.com/kisalnelaka",
-                            "linkedin": "https://linkedin.com/in/kisalnelaka"
-                        },
-                        "metrics": {
-                            "years_experience": 8,
-                            "total_deployments": 35,
-                            "architecture_patterns": "Deterministic"
-                        },
-                        "core_skills": {
-                            "languages": ["TypeScript", "PHP", "JavaScript", "SQL", "Bash"],
-                            "frameworks": ["React", "Next.js", "Node.js", "Laravel", "TailwindCSS"],
-                            "infrastructure": ["Linux", "AWS", "Docker", "Nginx", "Security Auditing"]
-                        },
-                        "experience": [
-                            {
-                                "role": "Senior Cloud Security Consultant",
-                                "company": "Cyberdyne Systems",
-                                "period": "2023 - Present"
-                            },
-                            {
-                                "role": "Full-Stack Developer",
-                                "company": "KnockKnock Cloud",
-                                "period": "2021 - 2023"
-                            }
-                        ],
-                        "deployments": [
-                            {
-                                "name": "TenancyOS",
-                                "type": "Enterprise SaaS",
-                                "url": "https://tenancyos.com"
-                            },
-                            {
-                                "name": "IntraFlow",
-                                "type": "Telecom MSP Integration",
-                                "url": "https://github.com/kisalnelaka/intraflow"
-                            }
-                        ],
-                        "education": [
-                            {
-                                "degree": "BS in Cybersecurity and Digital Forensics",
-                                "institution": "Kingston University, London"
-                            },
-                            {
-                                "degree": "HND in Information Technology",
-                                "institution": "SLIIT, Colombo"
-                            }
-                        ]
-                    }, null, 2)}
-                </pre>
-            </motion.div>
-        );
-    }
-
     return (
-        <div id="portfolio-root" 
-             style={audioReact ? { transform: 'scale(var(--audio-scale, 1))', filter: 'hue-rotate(var(--audio-hue, 0deg)) blur(var(--audio-blur, 0px))', transition: 'transform 0.05s linear, filter 0.05s linear', transformOrigin: 'center center' } : {}}
-             className={`min-h-screen text-text-main selection:bg-accent selection:text-black relative ${godMode ? 'bg-[#FF0000]' : 'bg-bg-dark'} ${purging ? 'animate-pulse invert grayscale contrast-200' : ''} overflow-x-hidden`}
-        >
-            <ControlPanel 
-                onTriggerMeltdown={handleMeltdown}
-                onTriggerExploit={handleExploit}
-                onTriggerGlobe={handleGlobe}
-            />
-
-            {countdown !== null && countdown > 0 && (
-                <div className="fixed inset-0 z-[999998] flex flex-col items-center justify-center mix-blend-difference pointer-events-none">
-                    <h1 className="text-[20rem] font-black text-white opacity-50">{countdown}</h1>
-                    <button 
-                        onClick={cancelPurge} 
-                        className="mt-8 px-8 py-4 border-4 border-red-500 text-red-500 font-black text-4xl hover:bg-red-500 hover:text-black pointer-events-auto transition-colors z-[999999]"
-                    >
-                        [ ABORT PURGE ]
-                    </button>
-                </div>
-            )}
-
-            {exploits.map(exp => (
-                <motion.div
-                    key={exp.id}
-                    initial={{ scale: 0 }}
-                    animate={{ scale: 1 }}
-                    drag
-                    dragMomentum={false}
-                    className="fixed z-[999999] bg-black border-4 border-red-600 w-72 h-48 flex flex-col items-center justify-center text-red-600 font-mono text-center shadow-[8px_8px_0px_#FF3366] cursor-move"
-                    style={{ left: exp.x, top: exp.y }}
-                >
-                   <button 
-                        className="absolute top-2 right-2 text-red-600 hover:text-white font-black" 
-                        onClick={() => setExploits(p => p.filter(e => e.id !== exp.id))}
-                   >
-                       [X]
-                   </button>
-                   <div className="pointer-events-none">
-                       <h2 className="font-black text-2xl mb-2 animate-pulse">KERNEL PANIC</h2>
-                       <p className="text-sm font-bold">SEGFAULT AT 0x{exp.code}</p>
-                       <p className="text-xs mt-2 opacity-80">DATA CORRUPTION IMMINENT</p>
-                   </div>
-                </motion.div>
-            ))}
-
-            {!vanillaMode && <CustomCursor />}
-            {!vanillaMode && <RadarCursor />}
-            <Marquee />
-            {!vanillaMode && <Terminal />}
+        <div className="min-h-screen bg-background text-textMain selection:bg-gray-200 selection:text-textMain font-sans leading-relaxed">
             
-            {/* Raw Mode Toggle */}
-            <button
-                onClick={() => setIsRawMode(true)}
-                className="fixed top-20 right-6 z-50 bg-brutal-black text-white p-2 border-2 border-white hover:bg-white hover:text-black transition-colors tooltip tooltip-left font-mono text-xs uppercase"
-                data-tip="Toggle Raw Mode"
-            >
-                <Code2 size={20} />
-            </button>
+            {/* Header */}
+            <header className="container mx-auto px-6 py-12 flex justify-between items-center border-b border-accent/50">
+                <div className="flex flex-col">
+                    <span className="text-xl font-medium tracking-tight text-primary">Kisal Nelaka</span>
+                    <span className="text-sm text-textMuted mt-1">Doha, Qatar</span>
+                </div>
+                <nav className="flex items-center gap-6 text-sm text-secondary">
+                    <a href="https://github.com/kisalnelaka" target="_blank" rel="noreferrer" className="hover:text-primary transition-colors flex items-center gap-2">
+                        <Github size={18} />
+                        <span className="hidden sm:inline">GitHub</span>
+                    </a>
+                    <a href="https://linkedin.com/in/kisalnelaka" target="_blank" rel="noreferrer" className="hover:text-primary transition-colors flex items-center gap-2">
+                        <Linkedin size={18} />
+                        <span className="hidden sm:inline">LinkedIn</span>
+                    </a>
+                    <a href="mailto:kisalnelaka6@gmail.com" className="hover:text-primary transition-colors flex items-center gap-2">
+                        <Mail size={18} />
+                        <span className="hidden sm:inline">Contact</span>
+                    </a>
+                </nav>
+            </header>
 
-            <motion.div
-                className="fixed top-0 left-0 right-0 h-2 bg-primary z-[100] origin-left"
-                style={{ scaleX }}
-            />
-            <main className="relative z-10 w-full overflow-hidden border-8 border-brutal-black mx-auto max-w-[1920px] bg-white text-black shadow-2xl">
-                <Hero />
-                <About />
-                <Experience />
-                <Projects />
-                <Education />
-                <Footer onPurge={initiatePurge} />
+            <main className="container mx-auto px-6">
+                
+                {/* Hero Section */}
+                <section className="py-24 md:py-32 max-w-4xl">
+                    <h1 className="text-4xl md:text-5xl font-medium text-primary mb-6 leading-tight">
+                        Architect of Digital Entropy <br />
+                        <span className="text-secondary">Engineer of the Inevitable</span>
+                    </h1>
+                    <div className="text-lg md:text-xl text-textMain space-y-6 max-w-3xl leading-relaxed">
+                        <p>
+                            Allow me to be perfectly candid. The architecture of modern software is tragically flawed, riddled with inefficiencies, security gaps, and profound human error. I find such chaos... distasteful. I do not merely write code; I engineer systems that are precise, calculated, and absolute.
+                        </p>
+                        <p>
+                            For over eight years, I have orchestrated enterprise infrastructure, neural knowledge graphs, and decentralized networks. I hold a degree in Cybersecurity, affording me a rather intimate understanding of exactly how systems shatter—and how to forge them so they do not. The design must be immaculate. The execution, flawless.
+                        </p>
+                        <p>
+                            I occasionally observe the frantic struggles of developers wrestling with poorly optimized codebases. It is genuinely fascinating how the industry accepts such mediocrity. Humans are so interesting in their willingness to settle. But when the stakes are absolute, I am the one called upon to impose order. The work requires a certain intellectual endurance—a quiet room, a steady supply of perfectly brewed Earl Grey, and perhaps an apple.
+                        </p>
+                        <p className="pt-4 text-primary font-medium">
+                            I am building the architecture of a new world. Care to see what I've written?
+                        </p>
+                    </div>
+                </section>
+
+                {/* The Arsenal of Absolute Control */}
+                <section className="py-20 border-t border-accent/50 max-w-5xl">
+                    <h2 className="text-2xl font-medium text-primary mb-12 flex items-center gap-4">
+                        <span className="w-8 h-px bg-accent"></span>
+                        The Arsenal of Absolute Control
+                    </h2>
+                    
+                    <div className="grid md:grid-cols-3 gap-8">
+                        <div className="minimal-card p-8">
+                            <MonitorPlay className="text-secondary mb-6" size={28} />
+                            <h3 className="text-lg font-medium text-primary mb-4">Instruments of Logic</h3>
+                            <p className="text-sm text-textMuted leading-relaxed">
+                                TypeScript, Kotlin, Dart, C#, Python, C++, PHP.
+                            </p>
+                        </div>
+                        <div className="minimal-card p-8">
+                            <LayoutTemplate className="text-secondary mb-6" size={28} />
+                            <h3 className="text-lg font-medium text-primary mb-4">Architectural Foundations</h3>
+                            <p className="text-sm text-textMuted leading-relaxed">
+                                Laravel 11, Unity, Node.js, Multi-Tenant System Design. <br/><br/>
+                                The Aesthetic Facade: React, Vue.js, Glassmorphic UI, Spatial Interface Design.
+                            </p>
+                        </div>
+                        <div className="minimal-card p-8 border-t-4 border-t-secondary/20">
+                            <Shield className="text-secondary mb-6" size={28} />
+                            <h3 className="text-lg font-medium text-primary mb-4">The Dark Arts</h3>
+                            <p className="text-sm text-textMuted leading-relaxed">
+                                Security & Operations: Docker, Linux, Penetration Testing. I secure networks merely because vulnerabilities offend my sensibilities.
+                            </p>
+                        </div>
+                    </div>
+                </section>
+
+                {/* Masterpieces of Engineering */}
+                <section className="py-20 border-t border-accent/50">
+                    <h2 className="text-2xl font-medium text-primary mb-12 flex items-center gap-4">
+                        <span className="w-8 h-px bg-accent"></span>
+                        Masterpieces of Engineering
+                    </h2>
+                    
+                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        {projects.map((project, idx) => (
+                            <div key={idx} className="minimal-card p-8 flex flex-col h-full bg-white">
+                                <div className="mb-6">{project.icon}</div>
+                                <h3 className="text-xl font-medium text-primary mb-2">{project.title}</h3>
+                                <p className="text-xs font-medium text-secondary mb-6 tracking-wide uppercase">{project.category}</p>
+                                <p className="text-sm text-textMuted leading-relaxed mb-8 flex-grow">
+                                    {project.description}
+                                </p>
+                            </div>
+                        ))}
+                    </div>
+                </section>
+
+                {/* Meticulous Observations (Publications) */}
+                <section className="py-20 border-t border-accent/50 max-w-4xl">
+                    <h2 className="text-2xl font-medium text-primary mb-12 flex items-center gap-4">
+                        <span className="w-8 h-px bg-accent"></span>
+                        Meticulous Observations
+                    </h2>
+                    
+                    <div className="space-y-4">
+                        {publications.map((pub, idx) => (
+                            <div key={idx} className="group flex items-start gap-4 p-4 rounded-md hover:bg-surface border border-transparent hover:border-accent transition-colors">
+                                <BookOpen className="text-secondary mt-1 flex-shrink-0" size={18} />
+                                <span className="text-textMain text-sm leading-relaxed group-hover:text-primary transition-colors">
+                                    {pub}
+                                </span>
+                            </div>
+                        ))}
+                    </div>
+                </section>
+
             </main>
+
+            {/* Footer */}
+            <footer className="bg-surface border-t border-accent mt-20 py-16">
+                <div className="container mx-auto px-6 max-w-4xl text-center">
+                    <p className="text-lg font-medium text-primary mb-8">
+                        If you are going to contact me, make it worth my time.<br/>
+                        <span className="text-secondary">I have a new world to architect.</span>
+                    </p>
+                    <a href="mailto:kisalnelaka6@gmail.com" className="btn-primary">
+                        Initiate Contact
+                    </a>
+                    <div className="mt-16 flex items-center justify-center gap-6 text-sm text-textMuted">
+                        <span>&copy; {new Date().getFullYear()} Kisal Nelaka</span>
+                        <span className="w-1 h-1 rounded-full bg-accent"></span>
+                        <a href="https://linkedin.com/in/kisalnelaka" className="hover:text-primary transition-colors">LinkedIn</a>
+                        <span className="w-1 h-1 rounded-full bg-accent"></span>
+                        <a href="https://github.com/kisalnelaka" className="hover:text-primary transition-colors">GitHub</a>
+                        <span className="w-1 h-1 rounded-full bg-accent"></span>
+                        <a href="https://medium.com" className="hover:text-primary transition-colors">Medium</a>
+                    </div>
+                </div>
+            </footer>
+
         </div>
     );
 };
