@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -6,42 +6,44 @@
 
 @layer base {
   body {
-    @apply bg-background text-textMain font-sans antialiased overflow-x-hidden;
-    background-color: theme('colors.background');
+    @apply bg-background text-primary font-sans antialiased overflow-x-hidden;
   }
 
-  h1, h2, h3, h4 {
-    @apply font-sans font-medium tracking-tight text-primary;
+  html {
+    scroll-behavior: smooth;
+  }
+
+  ::selection {
+    @apply bg-accent text-white;
   }
 
   .section-padding {
-    @apply py-20 md:py-32;
+    @apply py-24 md:py-32;
   }
 }
 
 @layer components {
-  .minimal-card {
-    @apply bg-surface border border-accent rounded-md transition-all duration-300 shadow-soft;
+  .glass-card {
+    @apply bg-surface backdrop-blur-glass border border-borderLine rounded-2xl shadow-glass transition-all duration-300 relative overflow-hidden;
   }
 
-  .minimal-card:hover {
-    @apply shadow-soft-hover -translate-y-1 border-gray-200;
-  }
-
-  .btn-minimal {
-    @apply px-6 py-3 bg-surface text-primary border border-accent rounded-md transition-all duration-300 inline-flex items-center gap-2 font-medium text-sm;
-  }
-
-  .btn-minimal:hover {
-    @apply bg-gray-50 border-gray-300;
+  .glass-card:hover {
+    @apply bg-surfaceHover shadow-glass-hover -translate-y-1 border-accent/30;
   }
   
-  .btn-primary {
-    @apply px-6 py-3 bg-primary text-white border border-transparent rounded-md transition-all duration-300 inline-flex items-center gap-2 font-medium text-sm;
+  .glass-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
   }
 
-  .btn-primary:hover {
-    @apply bg-textMain;
+  .btn-primary {
+    @apply px-6 py-3 bg-accent text-white rounded-xl font-medium transition-all duration-300 shadow-[0_0_15px_rgba(59,130,246,0.4)] hover:shadow-[0_0_25px_rgba(59,130,246,0.6)] hover:-translate-y-0.5 active:translate-y-0 active:shadow-none inline-flex items-center gap-2;
+  }
+
+  .btn-secondary {
+    @apply px-6 py-3 bg-surface border border-borderLine text-primary rounded-xl font-medium transition-all duration-300 hover:bg-surfaceHover hover:border-accent/50 inline-flex items-center gap-2;
   }
 }
 
@@ -51,13 +53,13 @@
 }
 
 ::-webkit-scrollbar-track {
-  background: transparent;
+  @apply bg-background;
 }
 
 ::-webkit-scrollbar-thumb {
-  @apply bg-gray-300 rounded-full;
+  @apply bg-surfaceHover rounded-full border border-borderLine;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  @apply bg-gray-400;
+  @apply bg-secondary;
 }
