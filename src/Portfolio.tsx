@@ -111,7 +111,7 @@ const Portfolio: React.FC = () => {
         <div className="min-h-screen bg-background text-primary selection:bg-black selection:text-white font-sans leading-relaxed relative overflow-hidden">
             
             {/* Header */}
-            <header className="container mx-auto px-6 py-8 flex justify-between items-center relative z-10 animate-fade-in">
+            <header className="container mx-auto px-6 py-4 flex justify-between items-center relative z-10 animate-fade-in">
                 <div className="flex flex-col">
                     <span className="text-2xl font-bold tracking-tight text-primary">Kisal Nelaka</span>
                     <span className="text-sm text-secondary mt-1 font-medium tracking-wide">Full-Stack Software Engineer & Systems Architect</span>
@@ -141,7 +141,7 @@ const Portfolio: React.FC = () => {
             <main className="container mx-auto px-6 relative z-10">
                 
                 {/* Hero Section */}
-                <section className="pt-0 pb-24 md:pt-0 md:pb-48 max-w-5xl animate-slide-up">
+                <section className="pt-0 pb-12 md:pt-0 md:pb-16 max-w-5xl animate-slide-up">
                     <div className="mb-12 flex items-center gap-3">
                         <span className="w-2 h-2 bg-success rounded-full animate-pulse"></span>
                         <span className="text-[10px] font-mono tracking-widest text-secondary uppercase">Node: Active / Security: Verified</span>
@@ -184,7 +184,7 @@ const Portfolio: React.FC = () => {
                 </section>
 
                 {/* Technical Capabilities */}
-                <section className="py-32 max-w-6xl animate-slide-up" style={{ animationDelay: '0.2s' }}>
+                <section className="py-12 max-w-6xl animate-slide-up" style={{ animationDelay: '0.2s' }}>
                     <h2 className="text-2xl font-bold text-primary mb-12 flex items-center gap-4">
                         Technical Capabilities & Stack
                         <div className="h-px bg-borderLine flex-grow ml-4"></div>
@@ -206,7 +206,7 @@ const Portfolio: React.FC = () => {
                 </section>
 
                 {/* Capability Matrix (Skill Bars) */}
-                <section className="py-20 max-w-4xl animate-slide-up" style={{ animationDelay: '0.25s' }}>
+                <section className="py-12 max-w-4xl animate-slide-up" style={{ animationDelay: '0.25s' }}>
                     <h2 className="text-xs font-mono tracking-widest text-secondary uppercase mb-12 flex items-center gap-4">
                         Capability Matrix
                         <div className="h-px bg-borderLine flex-grow"></div>
@@ -233,7 +233,7 @@ const Portfolio: React.FC = () => {
                 </section>
 
                 {/* Engineering Showcase */}
-                <section className="py-32 animate-slide-up" style={{ animationDelay: '0.3s' }}>
+                <section className="py-12 animate-slide-up" style={{ animationDelay: '0.3s' }}>
                     <h2 className="text-2xl font-bold text-primary mb-12 flex items-center gap-4">
                         Engineering Showcase
                         <div className="h-px bg-borderLine flex-grow ml-4"></div>
@@ -277,7 +277,7 @@ const Portfolio: React.FC = () => {
                 </section>
 
                 {/* Technical Writing & Publications */}
-                <section className="py-32 max-w-5xl animate-slide-up" style={{ animationDelay: '0.4s' }}>
+                <section className="py-12 max-w-5xl animate-slide-up" style={{ animationDelay: '0.4s' }}>
                     <h2 className="text-2xl font-bold text-primary mb-12 flex items-center gap-4">
                         Technical Writing & Publications
                         <div className="h-px bg-borderLine flex-grow ml-4"></div>
@@ -299,7 +299,7 @@ const Portfolio: React.FC = () => {
             </main>
 
             {/* Footer */}
-            <footer className="relative z-10 border-t border-borderLine mt-10 py-16 bg-surface">
+            <footer className="relative z-10 border-t border-borderLine mt-10 py-8 bg-surface">
                 <div className="container mx-auto px-6 max-w-4xl text-center">
                     <p className="text-xl font-bold text-primary mb-8">
                         I am always open to discussing complex technical challenges or new engineering roles. Let's connect.
