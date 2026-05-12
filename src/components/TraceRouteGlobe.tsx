@@ -46,41 +46,41 @@ const TraceRouteGlobe: React.FC<{onClose: () => void}> = ({ onClose }) => {
             initial={{ opacity: 0 }} 
             animate={{ opacity: 1 }} 
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[999999] bg-[#0A0000] flex flex-col items-center justify-center font-mono text-xs"
+            className="fixed inset-0 z-[999999] bg-background flex flex-col items-center justify-center font-mono text-xs"
         >
             <button 
                 onClick={onClose} 
-                className="absolute top-6 right-6 text-white border-2 border-[#FF3366] px-4 py-2 hover:bg-[#FF3366] hover:text-black transition-colors font-bold z-10 shadow-[4px_4px_0px_#FF3366] active:translate-x-1 active:translate-y-1 active:shadow-none"
+                className="absolute top-6 right-6 text-primary border border-borderLine px-4 py-2 hover:bg-primary hover:text-surface transition-all font-bold z-10"
             >
-                [ ABORT TRACEROUTE ]
+                [ TERMINATE_TRACE ]
             </button>
-            <div className="absolute top-10 left-10 text-[#00F0FF] z-10 space-y-2 pointer-events-none border-l-4 border-[#FF3366] pl-4">
-                <h2 className="text-2xl font-black mb-4 uppercase text-white">Global Node Mapping</h2>
-                <p className="animate-pulse">&gt; Establishing secure channel...</p>
-                <div className="flex gap-8 opacity-80 mt-6 bg-black/50 p-4 border border-[#00F0FF]/30">
+            <div className="absolute top-10 left-10 text-primary z-10 space-y-2 pointer-events-none border-l-2 border-primary pl-4">
+                <h2 className="text-xl font-bold mb-4 uppercase">Global Node Mapping</h2>
+                <p className="animate-pulse text-secondary">&gt; Establishing secure channel...</p>
+                <div className="flex gap-8 opacity-80 mt-6 bg-surface p-4 border border-borderLine shadow-minimal">
                     <div>
-                        <p className="text-[#FF3366] mb-1 font-bold">ORIGIN:</p>
-                        <p className="font-bold text-white uppercase">{userLoc.city}</p>
+                        <p className="text-secondary mb-1 text-[10px]">ORIGIN:</p>
+                        <p className="font-bold uppercase">{userLoc.city}</p>
                     </div>
                     <div>
-                        <p className="text-[#00F0FF] mb-1 font-bold">TARGET:</p>
-                        <p className="font-bold text-white uppercase">{targetLoc.city}</p>
+                        <p className="text-secondary mb-1 text-[10px]">TARGET:</p>
+                        <p className="font-bold uppercase">{targetLoc.city}</p>
                     </div>
                 </div>
             </div>
-            <div className="w-full h-full cursor-move opacity-90">
+            <div className="w-full h-full cursor-move opacity-40 grayscale">
                 <Globe
                     ref={globeRef}
                     globeImageUrl="//unpkg.com/three-globe/example/img/earth-dark.jpg"
-                    atmosphereColor="#00F0FF"
-                    atmosphereAltitude={0.2}
+                    atmosphereColor="#000000"
+                    atmosphereAltitude={0.1}
                     arcsData={arcsData}
-                    arcColor="color"
+                    arcColor={() => '#18181B'}
                     arcDashLength={0.4}
                     arcDashGap={0.2}
                     arcDashAnimateTime={2500}
                     arcsTransitionDuration={1000}
-                    arcStroke={1.5}
+                    arcStroke={1}
                     backgroundColor="rgba(0,0,0,0)"
                 />
             </div>

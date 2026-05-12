@@ -2,6 +2,9 @@ import React, { useMemo } from 'react';
 import { Mail, Github, Linkedin, ExternalLink, Code2, Server, Shield, Terminal as TerminalIcon, LayoutTemplate, Database, Star, GitFork, BookOpen, Clock } from 'lucide-react';
 import { useGitHubData } from './hooks/useGitHubData';
 import Terminal from './components/Terminal';
+import DecryptText from './components/DecryptText';
+import TraceRouteGlobe from './components/TraceRouteGlobe';
+import { AnimatePresence, motion } from 'framer-motion';
 
 
 const publications = [
@@ -19,8 +22,33 @@ const publications = [
 
 const Portfolio: React.FC = () => {
     const { user, repos, loading } = useGitHubData('kisalnelaka');
+    const [showGlobe, setShowGlobe] = React.useState(false);
+    const [titleIndex, setTitleIndex] = React.useState(0);
+    const titles = ["Architecting resilient systems.", "Full-Stack Software Engineer.", "Systems Architect & Developer.", "Cybersecurity & Engineering."];
 
-    const recentRepos = repos.slice(0, 6); // Get top 6 repos
+    React.useEffect(() => {
+        const timer = setInterval(() => setTitleIndex(prev => (prev + 1) % titles.length), 3000);
+        return () => clearInterval(timer);
+    }, []);
+
+    const recentRepos = repos
+        .filter(repo => !['kisalnelaka', 'kisalnelaka.github.io'].includes(repo.name))
+        .slice(0, 6); // Get top 6 repos
+
+    const skillMatrix = useMemo(() => {
+        if (!repos.length) return [];
+        const langCounts: Record<string, number> = {};
+        repos.forEach(repo => {
+            if (repo.language) langCounts[repo.language] = (langCounts[repo.language] || 0) + 1;
+        });
+        return Object.entries(langCounts)
+            .sort((a, b) => b[1] - a[1])
+            .slice(0, 8)
+            .map(([name, count]) => ({
+                name,
+                level: Math.min(60 + (count * 10), 98) + '%'
+            }));
+    }, [repos]);
 
     const dynamicCapabilities = useMemo(() => {
         if (!repos.length) return [];
@@ -102,16 +130,38 @@ const Portfolio: React.FC = () => {
                         <Mail size={20} />
                         <span className="hidden sm:inline">Contact</span>
                     </a>
+                    <button 
+                        onClick={() => setShowGlobe(true)}
+                        className="text-xs border border-borderLine px-3 py-1.5 rounded hover:bg-primary hover:text-surface transition-all font-mono"
+                    >
+                        TRACE_CONN
+                    </button>
                 </nav>
             </header>
 
             <main className="container mx-auto px-6 relative z-10">
                 
                 {/* Hero Section */}
-                <section className="py-24 md:py-36 max-w-4xl animate-slide-up">
-                    <h1 className="text-4xl md:text-6xl font-bold text-primary mb-8 leading-tight tracking-tight">
-                        Architecting resilient, <br />
-                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent to-indigo-400">high-performance systems.</span>
+                <section className="py-24 md:py-48 max-w-5xl animate-slide-up">
+                    <div className="mb-12 flex items-center gap-3">
+                        <span className="w-2 h-2 bg-success rounded-full animate-pulse"></span>
+                        <span className="text-[10px] font-mono tracking-widest text-secondary uppercase">Node: Active / Security: Verified</span>
+                    </div>
+                    <h1 className="text-6xl md:text-9xl font-bold text-primary mb-12 leading-[0.9] tracking-tighter h-[1.8em] md:h-[1.8em]">
+                        <AnimatePresence mode="wait">
+                            <motion.div
+                                key={titleIndex}
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                exit={{ opacity: 0, y: -20 }}
+                                transition={{ duration: 0.5, ease: "circOut" }}
+                            >
+                                <DecryptText text={titles[titleIndex].split(' ')[0]} /> <br />
+                                <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent to-secondary opacity-90">
+                                    <DecryptText text={titles[titleIndex].split(' ').slice(1).join(' ')} delay={400} />
+                                </span>
+                            </motion.div>
+                        </AnimatePresence>
                     </h1>
                     <div className="text-lg md:text-xl text-secondary space-y-6 max-w-3xl leading-relaxed">
                         <p className="text-primary font-medium">
@@ -149,6 +199,33 @@ const Portfolio: React.FC = () => {
                                 <p className="text-sm text-secondary leading-relaxed">
                                     {cap.description}
                                 </p>
+                            </div>
+                        ))}
+                    </div>
+                </section>
+
+                {/* Capability Matrix (Skill Bars) */}
+                <section className="py-20 max-w-4xl animate-slide-up" style={{ animationDelay: '0.25s' }}>
+                    <h2 className="text-xs font-mono tracking-widest text-secondary uppercase mb-12 flex items-center gap-4">
+                        Capability Matrix
+                        <div className="h-px bg-borderLine flex-grow"></div>
+                    </h2>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-8">
+                        {skillMatrix.map((skill, idx) => (
+                            <div key={idx} className="group">
+                                <div className="flex justify-between items-center mb-2">
+                                    <span className="text-xs font-bold uppercase tracking-wider">{skill.name}</span>
+                                    <span className="text-[10px] font-mono text-secondary">{skill.level}</span>
+                                </div>
+                                <div className="h-1 w-full bg-borderLine overflow-hidden rounded-full">
+                                    <motion.div
+                                        initial={{ width: 0 }}
+                                        whileInView={{ width: skill.level }}
+                                        viewport={{ once: true }}
+                                        transition={{ duration: 1, ease: "circOut", delay: idx * 0.1 }}
+                                        className="h-full bg-primary"
+                                    />
+                                </div>
                             </div>
                         ))}
                     </div>
@@ -256,6 +333,10 @@ const Portfolio: React.FC = () => {
             </footer>
 
             <Terminal />
+
+            <AnimatePresence>
+                {showGlobe && <TraceRouteGlobe onClose={() => setShowGlobe(false)} />}
+            </AnimatePresence>
         </div>
     );
 };
