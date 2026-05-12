@@ -4,26 +4,23 @@ export default {
   theme: {
     extend: {
       colors: {
-        background: "#0a0f18", // Deep spatial dark background
-        surface: "rgba(255, 255, 255, 0.03)",
-        surfaceHover: "rgba(255, 255, 255, 0.08)",
-        primary: "#e2e8f0", // Very light gray text
-        secondary: "#94a3b8", // Muted slate text
-        accent: "#3b82f6", // Vibrant blue accent
-        accentGlow: "rgba(59, 130, 246, 0.5)",
+        background: "#FAFAFA", // Clean off-white
+        surface: "#FFFFFF", // Pure white
+        surfaceHover: "#F4F4F5", // Very light gray for hover
+        primary: "#18181B", // Near black text
+        secondary: "#52525B", // Medium gray text
+        accent: "#000000", // Stark black accent
+        accentGlow: "rgba(0, 0, 0, 0.1)",
         success: "#10b981", 
-        borderLine: "rgba(255, 255, 255, 0.1)",
+        borderLine: "#E4E4E7", // Light gray border
       },
       fontFamily: {
         sans: ['Inter', 'system-ui', 'sans-serif'],
+        mono: ['JetBrains Mono', 'Menlo', 'monospace'],
       },
       boxShadow: {
-        'glass': '0 8px 32px 0 rgba(0, 0, 0, 0.3)',
-        'glass-hover': '0 8px 32px 0 rgba(59, 130, 246, 0.2)',
-        'glow': '0 0 20px rgba(59, 130, 246, 0.5)',
-      },
-      backdropBlur: {
-        'glass': '12px',
+        'minimal': '0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03)',
+        'minimal-hover': '0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.025)',
       },
       animation: {
         'blob': 'blob 10s infinite alternate',

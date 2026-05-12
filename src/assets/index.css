@@ -23,33 +23,26 @@
 }
 
 @layer components {
-  .glass-card {
-    @apply bg-surface backdrop-blur-glass border border-borderLine rounded-2xl shadow-glass transition-all duration-300 relative overflow-hidden;
+  .minimal-card {
+    @apply bg-surface border border-borderLine rounded shadow-minimal transition-all duration-200 relative overflow-hidden;
   }
 
-  .glass-card:hover {
-    @apply bg-surfaceHover shadow-glass-hover -translate-y-1 border-accent/30;
-  }
-  
-  .glass-card::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0; height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  .minimal-card:hover {
+    @apply shadow-minimal-hover -translate-y-0.5 border-primary/20;
   }
 
   .btn-primary {
-    @apply px-6 py-3 bg-accent text-white rounded-xl font-medium transition-all duration-300 shadow-[0_0_15px_rgba(59,130,246,0.4)] hover:shadow-[0_0_25px_rgba(59,130,246,0.6)] hover:-translate-y-0.5 active:translate-y-0 active:shadow-none inline-flex items-center gap-2;
+    @apply px-6 py-3 bg-primary text-surface rounded font-medium transition-all duration-200 hover:bg-black hover:-translate-y-0.5 active:translate-y-0 inline-flex items-center gap-2;
   }
 
   .btn-secondary {
-    @apply px-6 py-3 bg-surface border border-borderLine text-primary rounded-xl font-medium transition-all duration-300 hover:bg-surfaceHover hover:border-accent/50 inline-flex items-center gap-2;
+    @apply px-6 py-3 bg-surface border border-borderLine text-primary rounded font-medium transition-all duration-200 hover:bg-surfaceHover hover:border-primary/20 inline-flex items-center gap-2;
   }
 }
 
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 6px;
 }
 
 ::-webkit-scrollbar-track {
@@ -57,7 +50,7 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  @apply bg-surfaceHover rounded-full border border-borderLine;
+  @apply bg-borderLine rounded-full;
 }
 
 ::-webkit-scrollbar-thumb:hover {

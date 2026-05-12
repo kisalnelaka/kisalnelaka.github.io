@@ -272,7 +272,7 @@ const Terminal: React.FC = () => {
         <>
             <button
                 onClick={() => setIsOpen(true)}
-                className="fixed bottom-6 right-6 z-50 bg-brutal-black text-primary p-4 border-4 border-primary rounded-none shadow-[4px_4px_0px_#FF3366] hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[8px_8px_0px_#FF3366] transition-all"
+                className="fixed bottom-6 right-6 z-50 bg-primary text-surface p-4 rounded-full shadow-minimal hover:-translate-y-0.5 hover:shadow-minimal-hover transition-all"
             >
                 <TerminalIcon size={24} />
             </button>
@@ -284,12 +284,12 @@ const Terminal: React.FC = () => {
                         animate={{ opacity: 1, scale: 1, y: 0 }}
                         exit={{ opacity: 0, scale: 0.95, y: 20 }}
                         transition={{ duration: 0.15 }}
-                        className="fixed bottom-24 right-6 w-80 md:w-96 min-h-[400px] max-h-[600px] bg-brutal-black border-4 border-primary shadow-[8px_8px_0px_#FF3366] z-50 flex flex-col font-mono text-sm overflow-hidden"
+                        className="fixed bottom-24 right-6 w-80 md:w-96 min-h-[400px] max-h-[600px] bg-surface border border-borderLine rounded shadow-minimal-hover z-50 flex flex-col font-mono text-sm overflow-hidden"
                     >
                         {/* Header */}
-                        <div className="bg-primary text-black px-4 py-2 flex justify-between items-center border-b-4 border-black font-black uppercase">
-                            <span>System Terminal</span>
-                            <button onClick={() => setIsOpen(false)} className="hover:text-white transition-colors">
+                        <div className="bg-background text-primary px-4 py-2 flex justify-between items-center border-b border-borderLine text-xs text-secondary tracking-wider">
+                            <span>TERMINAL</span>
+                            <button onClick={() => setIsOpen(false)} className="hover:text-primary transition-colors">
                                 <X size={20} />
                             </button>
                         </div>
@@ -299,25 +299,25 @@ const Terminal: React.FC = () => {
                             {history.map((h, i) => (
                                 <div key={i}>
                                     <div className="flex items-center gap-2">
-                                        <span className="text-secondary">guest@kisal:{cwd}$</span>
-                                        <span>{h.command}</span>
+                                        <span className="text-secondary">visitor@kisal:{cwd}$</span>
+                                        <span className="text-primary">{h.command}</span>
                                     </div>
-                                    <div className="text-gray-300 mt-1 whitespace-pre-wrap font-mono">{h.response}</div>
+                                    <div className="text-secondary mt-1 whitespace-pre-wrap font-mono">{h.response}</div>
                                 </div>
                             ))}
                             <div ref={bottomRef} />
                         </div>
 
                         {/* Input */}
-                        <form onSubmit={handleCommand} className="p-4 border-t-2 border-primary/30 flex items-center gap-2">
-                            <span className="text-secondary">guest@kisal:{cwd}$</span>
+                        <form onSubmit={handleCommand} className="p-4 border-t border-borderLine flex items-center gap-2">
+                            <span className="text-secondary">visitor@kisal:{cwd}$</span>
                             <input
                                 ref={inputRef}
                                 type="text"
                                 value={input}
                                 onKeyDown={handleKeyDown}
                                 onChange={(e) => setInput(e.target.value)}
-                                className="flex-1 bg-transparent outline-none text-primary placeholder-primary/30"
+                                className="flex-1 bg-transparent outline-none text-primary placeholder-secondary/50"
                                 placeholder="..."
                                 autoFocus
                             />
