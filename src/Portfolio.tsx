@@ -1,8 +1,7 @@
 import React, { useMemo } from 'react';
-import { Mail, Github, Linkedin, ExternalLink, Code2, Server, Shield, Terminal as TerminalIcon, LayoutTemplate, Database, Star, GitFork, BookOpen, Clock } from 'lucide-react';
+import { Mail, Github, Linkedin, ExternalLink, Code2, Server, Shield, Terminal as TerminalIcon, Database } from 'lucide-react';
 import { useGitHubData } from './hooks/useGitHubData';
 import Terminal from './components/Terminal';
-import DecryptText from './components/DecryptText';
 import TraceRouteGlobe from './components/TraceRouteGlobe';
 import { AnimatePresence, motion } from 'framer-motion';
 
@@ -142,24 +141,26 @@ const Portfolio: React.FC = () => {
             <main className="container mx-auto px-6 relative z-10">
                 
                 {/* Hero Section */}
-                <section className="py-24 md:py-48 max-w-5xl animate-slide-up">
+                <section className="pt-0 pb-24 md:pt-0 md:pb-48 max-w-5xl animate-slide-up">
                     <div className="mb-12 flex items-center gap-3">
                         <span className="w-2 h-2 bg-success rounded-full animate-pulse"></span>
                         <span className="text-[10px] font-mono tracking-widest text-secondary uppercase">Node: Active / Security: Verified</span>
                     </div>
-                    <h1 className="text-6xl md:text-9xl font-bold text-primary mb-12 leading-[0.9] tracking-tighter h-[1.8em] md:h-[1.8em]">
+                    <h1 className="text-5xl md:text-8xl font-bold text-primary mb-8 leading-[1.1] tracking-tighter">
                         <AnimatePresence mode="wait">
                             <motion.div
                                 key={titleIndex}
-                                initial={{ opacity: 0, y: 20 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                exit={{ opacity: 0, y: -20 }}
-                                transition={{ duration: 0.5, ease: "circOut" }}
+                                initial={{ opacity: 0, x: -10 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                exit={{ opacity: 0, x: 10 }}
+                                transition={{ duration: 0.4, ease: "easeInOut" }}
                             >
-                                <DecryptText text={titles[titleIndex].split(' ')[0]} /> <br />
-                                <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent to-secondary opacity-90">
-                                    <DecryptText text={titles[titleIndex].split(' ').slice(1).join(' ')} delay={400} />
-                                </span>
+                                {titles[titleIndex].split('.').map((part, i) => (
+                                    <span key={i} className={i === 1 ? "text-secondary opacity-60" : ""}>
+                                        {part}{i === 0 && titles[titleIndex].includes('.') ? '.' : ''}
+                                        {i === 0 && <br />}
+                                    </span>
+                                ))}
                             </motion.div>
                         </AnimatePresence>
                     </h1>
@@ -183,20 +184,20 @@ const Portfolio: React.FC = () => {
                 </section>
 
                 {/* Technical Capabilities */}
-                <section className="py-20 max-w-6xl animate-slide-up" style={{ animationDelay: '0.2s' }}>
+                <section className="py-32 max-w-6xl animate-slide-up" style={{ animationDelay: '0.2s' }}>
                     <h2 className="text-2xl font-bold text-primary mb-12 flex items-center gap-4">
                         Technical Capabilities & Stack
                         <div className="h-px bg-borderLine flex-grow ml-4"></div>
                     </h2>
                     
-                    <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
                         {dynamicCapabilities.map((cap, idx) => (
-                            <div key={idx} className="minimal-card p-8 group">
-                                <div className="transform group-hover:scale-110 transition-transform duration-300">
+                            <div key={idx} className="border border-borderLine p-8 hover:border-primary/30 transition-all duration-300">
+                                <div className="mb-4">
                                     {cap.icon}
                                 </div>
-                                <h3 className="text-lg font-bold text-primary mb-3">{cap.title}</h3>
-                                <p className="text-sm text-secondary leading-relaxed">
+                                <h3 className="text-sm font-bold text-primary mb-2 uppercase tracking-widest">{cap.title}</h3>
+                                <p className="text-xs text-secondary leading-relaxed font-medium">
                                     {cap.description}
                                 </p>
                             </div>
@@ -232,77 +233,64 @@ const Portfolio: React.FC = () => {
                 </section>
 
                 {/* Engineering Showcase */}
-                <section className="py-20 animate-slide-up" style={{ animationDelay: '0.3s' }}>
+                <section className="py-32 animate-slide-up" style={{ animationDelay: '0.3s' }}>
                     <h2 className="text-2xl font-bold text-primary mb-12 flex items-center gap-4">
                         Engineering Showcase
                         <div className="h-px bg-borderLine flex-grow ml-4"></div>
                     </h2>
                     
-                    <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-8">
+                    <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-6">
                         {recentRepos.map((repo) => (
-                            <a href={repo.html_url} target="_blank" rel="noreferrer" key={repo.id} className="minimal-card p-8 flex flex-col h-full group hover:border-accent transition-colors block">
+                            <a href={repo.html_url} target="_blank" rel="noreferrer" key={repo.id} className="border border-borderLine p-8 flex flex-col h-full hover:border-primary transition-all duration-300 group">
                                 <div className="mb-6 flex justify-between items-start">
-                                    <div className="flex items-center gap-4">
-                                        <div className="p-3 bg-surfaceHover rounded-xl group-hover:bg-accent/20 transition-colors">
-                                            <BookOpen className="text-accent" size={28} />
-                                        </div>
-                                        <div>
-                                            <h3 className="text-xl font-bold text-primary">{repo.name}</h3>
-                                            {repo.language && (
-                                                <p className="text-xs font-semibold text-accent uppercase tracking-wider mt-1">{repo.language}</p>
-                                            )}
-                                        </div>
+                                    <div>
+                                        <h3 className="text-lg font-bold text-primary group-hover:underline decoration-1 underline-offset-4">{repo.name}</h3>
+                                        {repo.language && (
+                                            <p className="text-[10px] font-mono text-secondary uppercase tracking-widest mt-1">{repo.language}</p>
+                                        )}
                                     </div>
-                                    <ExternalLink className="text-secondary group-hover:text-primary transition-colors" size={20} />
+                                    <ExternalLink className="text-secondary opacity-0 group-hover:opacity-100 transition-opacity" size={16} />
                                 </div>
                                 
-                                <div className="space-y-4 flex-grow text-sm">
-                                    <p className="text-secondary leading-relaxed">
-                                        {repo.description || "No description provided."}
-                                    </p>
-                                    
-                                    {repo.topics && repo.topics.length > 0 && (
-                                        <div className="flex flex-wrap gap-2 mt-4">
-                                            {repo.topics.slice(0, 3).map(topic => (
-                                                <span key={topic} className="text-xs text-secondary/80 bg-background/50 px-2 py-1 rounded">#{topic}</span>
-                                            ))}
-                                        </div>
-                                    )}
-                                </div>
+                                <p className="text-xs text-secondary leading-relaxed mb-6 flex-grow">
+                                    {repo.description || "Experimental technical project."}
+                                </p>
                                 
-                                <div className="mt-8 pt-6 border-t border-borderLine flex justify-between items-center text-secondary text-xs">
-                                    <div className="flex gap-4">
-                                        <span className="flex items-center gap-1"><Star size={14} /> {repo.stargazers_count}</span>
-                                        <span className="flex items-center gap-1"><GitFork size={14} /> {repo.forks_count}</span>
-                                    </div>
-                                    <span className="flex items-center gap-1"><Clock size={14} /> {new Date(repo.updated_at).toLocaleDateString()}</span>
-                                </div>
-                                {repo.homepage && (
-                                    <div className="mt-4">
-                                        <a href={repo.homepage} target="_blank" rel="noreferrer" className="text-xs text-accent hover:underline flex items-center gap-1">
-                                            <LayoutTemplate size={14} /> View Deployment
-                                        </a>
+                                {repo.topics && repo.topics.length > 0 && (
+                                    <div className="flex flex-wrap gap-2">
+                                        {repo.topics.slice(0, 3).map(topic => (
+                                            <span key={topic} className="text-[9px] font-mono text-secondary/60">#{topic}</span>
+                                        ))}
                                     </div>
                                 )}
+                                
+                                <div className="mt-8 pt-4 border-t border-borderLine/50 flex justify-between items-center text-secondary text-[10px] font-mono">
+                                    <div className="flex gap-4">
+                                        <span className="flex items-center gap-1">STAR_{repo.stargazers_count}</span>
+                                        <span className="flex items-center gap-1">FORK_{repo.forks_count}</span>
+                                    </div>
+                                    <span>UPDATED_{new Date(repo.updated_at).toLocaleDateString().split('/').join('.')}</span>
+                                </div>
                             </a>
                         ))}
                     </div>
                 </section>
 
                 {/* Technical Writing & Publications */}
-                <section className="py-20 max-w-5xl animate-slide-up" style={{ animationDelay: '0.4s' }}>
+                <section className="py-32 max-w-5xl animate-slide-up" style={{ animationDelay: '0.4s' }}>
                     <h2 className="text-2xl font-bold text-primary mb-12 flex items-center gap-4">
                         Technical Writing & Publications
                         <div className="h-px bg-borderLine flex-grow ml-4"></div>
                     </h2>
                     
-                    <div className="grid md:grid-cols-2 gap-4">
+                    <div className="grid md:grid-cols-2 gap-px bg-borderLine border border-borderLine">
                         {publications.map((pub, idx) => (
-                            <a href="#" key={idx} className="minimal-card p-5 flex items-start gap-4 hover:border-accent/50 group">
-                                <ExternalLink className="text-accent/50 mt-0.5 flex-shrink-0 group-hover:text-accent transition-colors" size={18} />
-                                <span className="text-secondary text-sm leading-relaxed group-hover:text-primary transition-colors">
+                            <a href="#" key={idx} className="bg-background p-6 flex items-start gap-4 hover:bg-surface transition-colors group">
+                                <span className="text-[10px] font-mono text-secondary mt-1">0{idx + 1}</span>
+                                <span className="text-secondary text-xs leading-relaxed group-hover:text-primary transition-colors flex-grow">
                                     {pub}
                                 </span>
+                                <ExternalLink className="text-secondary opacity-0 group-hover:opacity-100 transition-opacity" size={14} />
                             </a>
                         ))}
                     </div>
