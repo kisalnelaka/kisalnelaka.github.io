@@ -145,6 +145,8 @@ const Terminal: React.FC = () => {
                 } else if (cwd === '~/projects') {
                     res = (
                         <div className="flex flex-col gap-1 text-primary">
+                            <span>-rw-r--r-- aether.md</span>
+                            <span>-rw-r--r-- resu_me.md</span>
                             <span>-rw-r--r-- tenancy_os.md</span>
                             <span>-rw-r--r-- intraflow.md</span>
                             <span>-rw-r--r-- neo_protocol.md</span>
@@ -173,6 +175,10 @@ const Terminal: React.FC = () => {
                 if (!file) res = 'cat: missing filename';
                 else if (file === 'tenancy_os.md' && cwd === '~/projects') {
                     res = 'TenancyOS: A deterministic enterprise MSP platform built to handle multitenancy at scale.';
+                } else if (file === 'aether.md' && cwd === '~/projects') {
+                    res = 'AETHER: A production-ready, high-performance web framework featuring a minimalist, persistent-memory architecture.';
+                } else if (file === 'resu_me.md' && cwd === '~/projects') {
+                    res = 'Resu_me: The Invisible Resume Editor. A minimalist, AI-powered tool for ATS-optimized resume generation.';
                 } else if (file === 'system.log' && cwd === '~') {
                     res = '[WARN] Unauthorized access attempt detected from current IP.';
                 } else {

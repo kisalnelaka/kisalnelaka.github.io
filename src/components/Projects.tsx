@@ -122,7 +122,7 @@ const Projects: React.FC = () => {
 
                             <div className="flex gap-4 mt-auto">
                                 <a href={project.link} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 bg-brutal-black text-white hover:bg-primary hover:text-black hover:border-brutal-black border-2 border-transparent px-4 py-2 font-bold uppercase transition-colors text-sm w-fit mt-4">
-                                <ExternalLink size={16} /> {project.link.includes('tenancyos') ? 'Visit Site' : project.link.includes('github') ? 'Source Code' : 'Visit Site'}
+                                <ExternalLink size={16} /> {project.link.includes('github.io') ? 'Visit Demo' : project.link.includes('github.com') ? 'Source Code' : 'Visit Site'}
                             </a>
                             </div>
                         </div>
