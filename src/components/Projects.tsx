@@ -4,13 +4,6 @@ import { ExternalLink, ArrowRight } from 'lucide-react';
 
 const projects = [
     {
-        title: 'AETHER',
-        category: 'Framework • Architecture • Performance',
-        description: 'A production-ready, high-performance web framework featuring a minimalist, persistent-memory architecture. Engineered for AOT-compiled efficiency and real-time performance telemetry.',
-        link: 'https://kisalnelaka.github.io/aether',
-        image: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1200&q=80',
-    },
-    {
         title: 'Resu_me',
         category: 'Tool • AI • Document Generation',
         description: 'The Invisible Resume Editor. A minimalist, AI-powered tool for ATS-optimized resume and cover letter generation, offering a professional-grade document generation workflow.',
