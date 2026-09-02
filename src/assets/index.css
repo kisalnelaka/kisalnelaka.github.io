@@ -1,12 +1,18 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
+  * {
+    box-sizing: border-box;
+  }
+
   body {
     @apply bg-background text-primary font-sans antialiased overflow-x-hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
   html {
@@ -14,45 +20,67 @@
   }
 
   ::selection {
-    @apply bg-accent text-white;
+    background: rgba(232, 255, 71, 0.25);
+    color: #F0F0F0;
   }
 
-  .section-padding {
-    @apply py-24 md:py-32;
+  img {
+    @apply block;
   }
 }
 
 @layer components {
-  .minimal-card {
-    @apply bg-surface border border-borderLine rounded shadow-minimal transition-all duration-200 relative overflow-hidden;
-  }
-
-  .minimal-card:hover {
-    @apply shadow-minimal-hover -translate-y-0.5 border-primary/20;
-  }
-
+  /* Clean button — primary */
   .btn-primary {
-    @apply px-6 py-3 bg-primary text-surface rounded font-medium transition-all duration-200 hover:bg-black hover:-translate-y-0.5 active:translate-y-0 inline-flex items-center gap-2;
+    @apply inline-flex items-center gap-2 px-5 py-2.5 bg-primary text-background text-sm font-semibold rounded-sm
+           transition-all duration-150 hover:bg-accent hover:text-background active:scale-95;
   }
 
-  .btn-secondary {
-    @apply px-6 py-3 bg-surface border border-borderLine text-primary rounded font-medium transition-all duration-200 hover:bg-surfaceHover hover:border-primary/20 inline-flex items-center gap-2;
+  /* Ghost button */
+  .btn-ghost {
+    @apply inline-flex items-center gap-2 px-5 py-2.5 border border-borderLine text-secondary text-sm font-medium rounded-sm
+           transition-all duration-150 hover:border-primary/30 hover:text-primary active:scale-95;
+  }
+
+  /* Section divider label */
+  .section-label {
+    @apply text-[11px] font-mono tracking-[0.2em] uppercase text-secondary;
+  }
+
+  /* Card */
+  .card {
+    @apply bg-surface border border-borderLine rounded-sm overflow-hidden
+           transition-all duration-200 shadow-card hover:shadow-card-hover hover:border-tertiary;
+  }
+
+  /* Chip / tag */
+  .tag {
+    @apply inline-block text-[10px] font-mono px-2 py-0.5 rounded-sm
+           bg-surfaceHover text-secondary border border-borderLine;
   }
 }
 
-/* Custom Scrollbar */
+/* Scrollbar */
 ::-webkit-scrollbar {
-  width: 6px;
+  width: 4px;
 }
 
 ::-webkit-scrollbar-track {
-  @apply bg-background;
+  background: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
-  @apply bg-borderLine rounded-full;
+  background: #2a2a2a;
+  border-radius: 2px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  @apply bg-secondary;
+  background: #444444;
+}
+
+/* Sticky nav blur backdrop */
+.nav-blur {
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  background: rgba(10, 10, 10, 0.85);
 }
