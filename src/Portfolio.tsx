@@ -2,6 +2,7 @@ import React, { useMemo, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowUpRight, Github, Linkedin, Mail, MapPin, Circle } from 'lucide-react';
 import { useGitHubData } from './hooks/useGitHubData';
+import { useMediumArticles } from './hooks/useMediumArticles';
 
 // ─── Static Data ─────────────────────────────────────────────────────────────
 
@@ -71,32 +72,7 @@ const projects = [
   },
 ];
 
-const publications = [
-  {
-    title: 'Building InfraFlow: A Production-Grade Multi-Tenant MSP Platform',
-    link: 'https://medium.com/@kisalnelaka6',
-  },
-  {
-    title: 'Bunny: The Laravel Scaffolding Package That Makes Web Development a Hop',
-    link: 'https://medium.com/@kisalnelaka6',
-  },
-  {
-    title: 'PhishCatcher: Real-Time Phishing Detection with Chrome Extensions and ML',
-    link: 'https://medium.com/@kisalnelaka6',
-  },
-  {
-    title: 'Building a Blockchain-Powered Encrypted Chat Application with Python',
-    link: 'https://medium.com/@kisalnelaka6',
-  },
-  {
-    title: 'The Lifecycle of a Phishing Attack: How Cybercriminals Bait, Hook, and Exploit',
-    link: 'https://medium.com/@kisalnelaka6',
-  },
-  {
-    title: 'Demystifying Shellcode Generation: A Guide for Beginners',
-    link: 'https://medium.com/@kisalnelaka6',
-  },
-];
+// Publications are fetched dynamically from Medium — see useMediumArticles hook
 
 const stack = [
   'PHP', 'Python', 'TypeScript', 'Laravel', 'React', 'Next.js',
@@ -129,6 +105,7 @@ const Divider: React.FC = () => (
 
 const Portfolio: React.FC = () => {
   const { user, repos } = useGitHubData('kisalnelaka');
+  const { articles, loading: articlesLoading } = useMediumArticles('kisalnelaka6', 6);
   const headerRef = useRef<HTMLElement>(null);
 
   // Sticky nav blur on scroll
@@ -145,10 +122,18 @@ const Portfolio: React.FC = () => {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  // Derive top repos from live GitHub data
+  // Top repos by stars, excluding profile/portfolio repos
   const featuredRepos = useMemo(() => {
     return repos
       .filter(r => !['kisalnelaka', 'kisalnelaka.github.io'].includes(r.name))
+      .slice(0, 6);
+  }, [repos]);
+
+  // Latest repos by update date (for the "Latest" subsection)
+  const latestRepos = useMemo(() => {
+    return [...repos]
+      .filter(r => !['kisalnelaka', 'kisalnelaka.github.io'].includes(r.name))
+      .sort((a, b) => new Date(b.updated_at).getTime() - new Date(a.updated_at).getTime())
       .slice(0, 3);
   }, [repos]);
 
@@ -189,14 +174,6 @@ const Portfolio: React.FC = () => {
               aria-label="Email"
             >
               <Mail size={17} />
-            </a>
-            <a
-              href="https://knockknockneo.cloud/stuff/Kisal%20Nelaka%20-%20Resume.pdf"
-              target="_blank"
-              rel="noreferrer"
-              className="btn-ghost text-xs py-1.5 px-3"
-            >
-              Resume <ArrowUpRight size={12} />
             </a>
           </nav>
         </div>
@@ -358,36 +335,70 @@ const Portfolio: React.FC = () => {
             ))}
           </div>
 
-          {/* GitHub live data — top repos by stars */}
+          {/* GitHub: top by stars */}
           {featuredRepos.length > 0 && (
-            <motion.div variants={fadeUp} className="mt-4 grid md:grid-cols-3 gap-4">
-              {featuredRepos.map(repo => (
-                <a
-                  key={repo.id}
-                  href={repo.html_url}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="card p-5 flex flex-col gap-3 group cursor-pointer no-underline"
-                >
-                  <div className="flex items-start justify-between">
-                    <h3 className="text-sm font-semibold text-primary group-hover:text-accent transition-colors">
-                      {repo.name}
-                    </h3>
-                    <ArrowUpRight size={13} className="text-secondary group-hover:text-primary transition-all flex-shrink-0" />
-                  </div>
-                  {repo.language && (
-                    <span className="tag w-fit">{repo.language}</span>
-                  )}
-                  <p className="text-xs text-secondary leading-relaxed flex-1">
-                    {repo.description || 'Open source project.'}
-                  </p>
-                  <div className="flex gap-4 text-[10px] font-mono text-secondary mt-auto pt-2 border-t border-borderLine">
-                    <span>★ {repo.stargazers_count}</span>
-                    <span>{repo.forks_count} forks</span>
-                  </div>
-                </a>
-              ))}
-            </motion.div>
+            <>
+              <motion.p variants={fadeUp} className="section-label mt-14 mb-6">Top on GitHub</motion.p>
+              <motion.div variants={fadeUp} className="grid md:grid-cols-2 xl:grid-cols-3 gap-4">
+                {featuredRepos.map(repo => (
+                  <a
+                    key={repo.id}
+                    href={repo.html_url}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="card p-5 flex flex-col gap-3 group cursor-pointer no-underline"
+                  >
+                    <div className="flex items-start justify-between">
+                      <h3 className="text-sm font-semibold text-primary group-hover:text-accent transition-colors">
+                        {repo.name}
+                      </h3>
+                      <ArrowUpRight size={13} className="text-secondary group-hover:text-primary transition-all flex-shrink-0" />
+                    </div>
+                    <div className="flex flex-wrap gap-1.5">
+                      {repo.language && <span className="tag">{repo.language}</span>}
+                      {repo.topics?.slice(0, 2).map(t => <span key={t} className="tag">{t}</span>)}
+                    </div>
+                    <p className="text-xs text-secondary leading-relaxed flex-1">
+                      {repo.description || 'Open source project.'}
+                    </p>
+                    <div className="flex gap-4 text-[10px] font-mono text-secondary mt-auto pt-2 border-t border-borderLine">
+                      <span>★ {repo.stargazers_count}</span>
+                      <span>{repo.forks_count} forks</span>
+                      <span className="ml-auto">{new Date(repo.updated_at).toLocaleDateString('en-GB', { month: 'short', year: 'numeric' })}</span>
+                    </div>
+                  </a>
+                ))}
+              </motion.div>
+            </>
+          )}
+
+          {/* GitHub: recently updated */}
+          {latestRepos.length > 0 && (
+            <>
+              <motion.p variants={fadeUp} className="section-label mt-14 mb-6">Recently Updated</motion.p>
+              <motion.div variants={fadeUp} className="divide-y divide-borderLine">
+                {latestRepos.map(repo => (
+                  <a
+                    key={repo.id}
+                    href={repo.html_url}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="flex items-center justify-between gap-6 py-4 group no-underline"
+                  >
+                    <div className="flex items-center gap-4 min-w-0">
+                      <span className="text-xs font-mono text-secondary flex-shrink-0 w-24">
+                        {new Date(repo.updated_at).toLocaleDateString('en-GB', { day: 'numeric', month: 'short' })}
+                      </span>
+                      <span className="text-sm text-secondary group-hover:text-primary transition-colors truncate">
+                        {repo.name}
+                      </span>
+                      {repo.language && <span className="tag flex-shrink-0 hidden sm:inline">{repo.language}</span>}
+                    </div>
+                    <ArrowUpRight size={13} className="text-secondary flex-shrink-0 opacity-0 group-hover:opacity-100 transition-opacity" />
+                  </a>
+                ))}
+              </motion.div>
+            </>
           )}
         </motion.section>
 
@@ -421,29 +432,47 @@ const Portfolio: React.FC = () => {
           <SectionLabel>Writing</SectionLabel>
 
           <div className="max-w-3xl divide-y divide-borderLine">
-            {publications.map((pub, i) => (
-              <motion.a
-                key={i}
-                href={pub.link}
-                target="_blank"
-                rel="noreferrer"
-                variants={fadeUp}
-                className="flex items-center justify-between gap-6 py-4 group no-underline"
-              >
-                <div className="flex items-center gap-4">
-                  <span className="text-[10px] font-mono text-secondary w-5 flex-shrink-0">
-                    {String(i + 1).padStart(2, '0')}
-                  </span>
-                  <span className="text-sm text-secondary group-hover:text-primary transition-colors">
-                    {pub.title}
-                  </span>
+            {articlesLoading ? (
+              // Skeleton rows while loading
+              Array.from({ length: 4 }).map((_, i) => (
+                <div key={i} className="flex items-center gap-4 py-4">
+                  <span className="w-5 h-3 bg-surfaceHover rounded animate-pulse" />
+                  <span className="flex-1 h-3 bg-surfaceHover rounded animate-pulse" />
                 </div>
-                <ArrowUpRight
-                  size={13}
-                  className="text-secondary flex-shrink-0 opacity-0 group-hover:opacity-100 transition-opacity"
-                />
-              </motion.a>
-            ))}
+              ))
+            ) : articles.length > 0 ? (
+              articles.map((article, i) => (
+                <motion.a
+                  key={article.link}
+                  href={article.link}
+                  target="_blank"
+                  rel="noreferrer"
+                  variants={fadeUp}
+                  className="flex items-center justify-between gap-6 py-4 group no-underline"
+                >
+                  <div className="flex items-center gap-4 min-w-0">
+                    <span className="text-[10px] font-mono text-secondary w-5 flex-shrink-0">
+                      {String(i + 1).padStart(2, '0')}
+                    </span>
+                    <span className="text-sm text-secondary group-hover:text-primary transition-colors truncate">
+                      {article.title}
+                    </span>
+                  </div>
+                  <ArrowUpRight
+                    size={13}
+                    className="text-secondary flex-shrink-0 opacity-0 group-hover:opacity-100 transition-opacity"
+                  />
+                </motion.a>
+              ))
+            ) : (
+              // Fallback if Medium API unreachable
+              <p className="text-sm text-secondary py-4">
+                Articles available on{' '}
+                <a href="https://medium.com/@kisalnelaka6" target="_blank" rel="noreferrer" className="text-primary hover:text-accent transition-colors">
+                  Medium ↗
+                </a>
+              </p>
+            )}
           </div>
         </motion.section>
 
