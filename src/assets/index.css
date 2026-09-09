@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,500;0,600;1,400&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,600;1,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;1,8..60,400&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -7,12 +7,15 @@
 @layer base {
   * {
     box-sizing: border-box;
+    border-radius: 0px !important;
   }
 
   body {
-    @apply bg-background text-primary font-sans antialiased overflow-x-hidden;
+    @apply bg-background text-foreground font-body antialiased overflow-x-hidden;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    margin: 0;
+    padding: 0;
   }
 
   html {
@@ -20,67 +23,137 @@
   }
 
   ::selection {
-    background: rgba(232, 255, 71, 0.25);
-    color: #F0F0F0;
+    background: #000000;
+    color: #ffffff;
   }
 
-  img {
-    @apply block;
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-serif tracking-tight text-foreground;
   }
 }
 
 @layer components {
-  /* Clean button — primary */
+  /* Minimalist Monochrome Primary Button */
   .btn-primary {
-    @apply inline-flex items-center gap-2 px-5 py-2.5 bg-primary text-background text-sm font-semibold rounded-sm
-           transition-all duration-150 hover:bg-accent hover:text-background active:scale-95;
+    @apply inline-flex items-center justify-center gap-3 px-8 py-4 bg-foreground text-background
+           text-xs font-mono uppercase tracking-widest font-medium border border-foreground
+           transition-colors duration-100 hover:bg-background hover:text-foreground
+           focus-visible:outline focus-visible:outline-2 focus-visible:outline-foreground focus-visible:outline-offset-2
+           cursor-pointer select-none no-underline;
   }
 
-  /* Ghost button */
+  /* Secondary / Outline Button */
+  .btn-outline {
+    @apply inline-flex items-center justify-center gap-3 px-8 py-4 bg-transparent text-foreground
+           text-xs font-mono uppercase tracking-widest font-medium border-2 border-foreground
+           transition-colors duration-100 hover:bg-foreground hover:text-background
+           focus-visible:outline focus-visible:outline-2 focus-visible:outline-foreground focus-visible:outline-offset-2
+           cursor-pointer select-none no-underline;
+  }
+
+  /* Ghost Button */
   .btn-ghost {
-    @apply inline-flex items-center gap-2 px-5 py-2.5 border border-borderLine text-secondary text-sm font-medium rounded-sm
-           transition-all duration-150 hover:border-primary/30 hover:text-primary active:scale-95;
+    @apply inline-flex items-center gap-2 py-2 text-foreground font-mono text-xs uppercase tracking-widest
+           transition-all duration-100 hover:underline underline-offset-4
+           focus-visible:outline focus-visible:outline-2 focus-visible:outline-foreground
+           cursor-pointer no-underline;
   }
 
-  /* Section divider label */
+  /* Standard Editorial Card with Instant Hover Inversion */
+  .card-monochrome {
+    @apply bg-background border border-foreground p-8
+           transition-colors duration-100 hover:bg-foreground hover:text-background
+           relative block no-underline;
+  }
+
+  /* Section Title styling */
   .section-label {
-    @apply text-[11px] font-mono tracking-[0.2em] uppercase text-secondary;
+    @apply text-xs font-mono tracking-widest uppercase text-mutedForeground flex items-center gap-3;
   }
 
-  /* Card */
-  .card {
-    @apply bg-surface border border-borderLine rounded-sm overflow-hidden
-           transition-all duration-200 shadow-card hover:shadow-card-hover hover:border-tertiary;
+  /* Heavy 4px Horizontal Rule */
+  .heavy-rule {
+    @apply border-t-4 border-foreground w-full my-0;
   }
 
-  /* Chip / tag */
-  .tag {
-    @apply inline-block text-[10px] font-mono px-2 py-0.5 rounded-sm
-           bg-surfaceHover text-secondary border border-borderLine;
+  /* Boxed Drop Cap */
+  .boxed-drop-cap::first-letter {
+    float: left;
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 3.5rem;
+    line-height: 2.8rem;
+    padding: 0.5rem 0.75rem 0.25rem 0.75rem;
+    margin-right: 0.75rem;
+    margin-bottom: 0.25rem;
+    border: 2px solid #000000;
+    font-weight: 700;
+    color: #000000;
+    background-color: #ffffff;
+  }
+
+  /* Micro Tags / Badges */
+  .tag-monochrome {
+    @apply inline-block text-[11px] font-mono tracking-wider px-2 py-0.5 border border-foreground/30
+           bg-background text-foreground transition-colors duration-100;
   }
 }
 
-/* Scrollbar */
+/* Subtle Textures & Grid Overlays */
+.bg-scanlines {
+  background-image: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 1px,
+    #000000 1px,
+    #000000 2px
+  );
+  background-size: 100% 4px;
+}
+
+.bg-editorial-grid {
+  background-image: linear-gradient(#00000008 1px, transparent 1px),
+    linear-gradient(90deg, #00000008 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+.bg-noise {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+}
+
+.bg-stats-texture {
+  background-image: repeating-linear-gradient(
+    90deg,
+    transparent,
+    transparent 1px,
+    #ffffff 1px,
+    #ffffff 2px
+  );
+  background-size: 4px 100%;
+}
+
+.bg-cta-radial {
+  background-image: radial-gradient(
+    circle at top center,
+    #ffffff 0%,
+    transparent 70%
+  );
+}
+
+/* Scrollbar Minimalist */
 ::-webkit-scrollbar {
-  width: 4px;
+  width: 5px;
 }
 
 ::-webkit-scrollbar-track {
-  background: transparent;
+  background: #ffffff;
+  border-left: 1px solid #000000;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #2a2a2a;
-  border-radius: 2px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: #444444;
-}
-
-/* Sticky nav blur backdrop */
-.nav-blur {
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  background: rgba(10, 10, 10, 0.85);
+  background: #000000;
 }

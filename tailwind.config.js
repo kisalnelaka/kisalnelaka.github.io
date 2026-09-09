@@ -4,61 +4,87 @@ export default {
   theme: {
     extend: {
       colors: {
-        // Dark editorial palette
-        background: "#0A0A0A",      // Near-black canvas
-        surface: "#111111",         // Card / elevated surface
-        surfaceHover: "#1A1A1A",    // Hover state surface
-        primary: "#F0F0F0",         // Primary text — off-white
-        secondary: "#888888",       // Secondary / muted text
-        tertiary: "#444444",        // Borders and dividers
-        accent: "#E8FF47",          // Acid yellow — single pop color
-        accentDim: "rgba(232, 255, 71, 0.12)",
-        success: "#22c55e",
-        borderLine: "#1E1E1E",      // Subtle border
+        // Minimalist Monochrome Palette
+        background: '#FFFFFF',
+        foreground: '#000000',
+        muted: '#F5F5F5',
+        mutedForeground: '#525252',
+        accent: '#000000',
+        accentForeground: '#FFFFFF',
+        border: '#000000',
+        borderLight: '#E5E5E5',
+        card: '#FFFFFF',
+        cardForeground: '#000000',
+        ring: '#000000',
       },
       fontFamily: {
-        sans: ['Inter', 'system-ui', 'sans-serif'],
-        mono: ['JetBrains Mono', 'Menlo', 'monospace'],
+        serif: ['"Playfair Display"', 'Georgia', 'serif'],
+        body: ['"Source Serif 4"', 'Georgia', 'serif'],
+        mono: ['"JetBrains Mono"', 'monospace'],
+        sans: ['"Source Serif 4"', 'Georgia', 'serif'],
       },
       fontSize: {
-        'display': ['clamp(3rem, 8vw, 7rem)', { lineHeight: '1', letterSpacing: '-0.04em', fontWeight: '700' }],
-        'heading': ['clamp(1.5rem, 3vw, 2.5rem)', { lineHeight: '1.1', letterSpacing: '-0.02em', fontWeight: '600' }],
+        xs: ['0.75rem', { lineHeight: '1rem' }],
+        sm: ['0.875rem', { lineHeight: '1.25rem' }],
+        base: ['1rem', { lineHeight: '1.625rem' }],
+        lg: ['1.125rem', { lineHeight: '1.75rem' }],
+        xl: ['1.25rem', { lineHeight: '1.75rem' }],
+        '2xl': ['1.5rem', { lineHeight: '2rem' }],
+        '3xl': ['2rem', { lineHeight: '2.25rem' }],
+        '4xl': ['2.5rem', { lineHeight: '2.5rem' }],
+        '5xl': ['3.5rem', { lineHeight: '1' }],
+        '6xl': ['4.5rem', { lineHeight: '1' }],
+        '7xl': ['6rem', { lineHeight: '1' }],
+        '8xl': ['8rem', { lineHeight: '1' }],
+        '9xl': ['10rem', { lineHeight: '1' }],
+      },
+      letterSpacing: {
+        tighter: '-0.05em',
+        tight: '-0.025em',
+        normal: '0em',
+        wide: '0.025em',
+        wider: '0.05em',
+        widest: '0.1em',
+      },
+      borderWidth: {
+        hairline: '1px',
+        1: '1px',
+        2: '2px',
+        3: '3px',
+        4: '4px',
+        8: '8px',
+      },
+      borderRadius: {
+        none: '0px',
+        sm: '0px',
+        DEFAULT: '0px',
+        md: '0px',
+        lg: '0px',
+        xl: '0px',
+        '2xl': '0px',
+        '3xl': '0px',
+        full: '0px',
       },
       boxShadow: {
-        'card': '0 0 0 1px rgba(255,255,255,0.06)',
-        'card-hover': '0 0 0 1px rgba(255,255,255,0.12), 0 8px 32px rgba(0,0,0,0.4)',
+        none: 'none',
       },
-      animation: {
-        'fade-up': 'fadeUp 0.6s ease-out forwards',
-        'fade-in': 'fadeIn 0.4s ease-out forwards',
-        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-      },
-      keyframes: {
-        fadeUp: {
-          '0%': { opacity: '0', transform: 'translateY(16px)' },
-          '100%': { opacity: '1', transform: 'translateY(0)' },
-        },
-        fadeIn: {
-          '0%': { opacity: '0' },
-          '100%': { opacity: '1' },
-        },
+      transitionDuration: {
+        DEFAULT: '100ms',
+        100: '100ms',
       },
       container: {
         center: true,
         padding: {
           DEFAULT: '1.5rem',
           sm: '2rem',
-          lg: '4rem',
+          lg: '3rem',
         },
         screens: {
           sm: '100%',
           md: '100%',
           lg: '1024px',
-          xl: '1200px',
+          xl: '1152px', // max-w-6xl (72rem / 1152px)
         },
-      },
-      backdropBlur: {
-        xs: '4px',
       },
     },
   },
