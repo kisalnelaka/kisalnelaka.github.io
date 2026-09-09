@@ -10,6 +10,7 @@ import {
   CheckCircle2,
   RefreshCw,
   Terminal,
+  Layers,
 } from 'lucide-react';
 import { useGitHubData, MergedProject } from './hooks/useGitHubData';
 import { useMediumArticles } from './hooks/useMediumArticles';
@@ -171,7 +172,7 @@ const Portfolio: React.FC = () => {
           <div className="flex items-center gap-4">
             <a
               href="#top"
-              className="font-serif text-xl font-bold tracking-tighter uppercase text-foreground no-underline"
+              className="font-serif text-xl font-bold tracking-tighter uppercase text-foreground no-underline hover:opacity-75 transition-opacity"
             >
               KN.
             </a>
@@ -183,25 +184,25 @@ const Portfolio: React.FC = () => {
           <nav className="flex items-center gap-6 font-mono text-xs uppercase tracking-widest">
             <a
               href="#work"
-              className="text-foreground hover:underline underline-offset-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-foreground"
+              className="text-foreground hover:underline underline-offset-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-foreground transition-all"
             >
               Work
             </a>
             <a
               href="#experience"
-              className="text-foreground hover:underline underline-offset-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-foreground"
+              className="text-foreground hover:underline underline-offset-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-foreground transition-all"
             >
               History
             </a>
             <a
               href="#writing"
-              className="text-foreground hover:underline underline-offset-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-foreground"
+              className="text-foreground hover:underline underline-offset-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-foreground transition-all"
             >
               Writing
             </a>
             <a
               href="mailto:kisalnelaka6@gmail.com"
-              className="hidden sm:inline-block px-3 py-1 border border-foreground bg-foreground text-background hover:bg-background hover:text-foreground transition-colors duration-100"
+              className="hidden sm:inline-block px-3 py-1 border border-foreground bg-foreground text-background hover:bg-background hover:text-foreground transition-colors duration-150"
             >
               Contact
             </a>
@@ -313,7 +314,7 @@ const Portfolio: React.FC = () => {
                 </span>
                 <a
                   href="mailto:kisalnelaka6@gmail.com"
-                  className="inline-flex items-center gap-1.5 text-foreground underline underline-offset-2 hover:bg-foreground hover:text-background transition-colors duration-100"
+                  className="inline-flex items-center gap-1.5 text-foreground underline underline-offset-2 hover:bg-foreground hover:text-background p-1 -ml-1 transition-colors duration-150"
                 >
                   <Mail size={13} />
                   <span>kisalnelaka6@gmail.com</span>
@@ -382,7 +383,7 @@ const Portfolio: React.FC = () => {
             </div>
 
             {/* Live GitHub Sync Status Indicator */}
-            <div className="flex items-center gap-3 font-mono text-xs text-mutedForeground border border-foreground/30 px-3 py-1.5 self-start md:self-auto">
+            <div className="flex items-center gap-3 font-mono text-xs text-mutedForeground border border-foreground/40 px-3.5 py-1.5 self-start md:self-auto bg-muted/40">
               <RefreshCw
                 size={12}
                 className={
@@ -416,10 +417,10 @@ const Portfolio: React.FC = () => {
                 <button
                   key={cat}
                   onClick={() => setActiveCategory(cat)}
-                  className={`px-4 py-2 uppercase tracking-wider text-xs transition-colors duration-100 border ${
+                  className={`px-4 py-2 uppercase tracking-wider text-xs transition-all duration-150 border-2 ${
                     isSelected
-                      ? 'bg-foreground text-background border-foreground font-semibold'
-                      : 'bg-background text-foreground border-foreground/30 hover:border-foreground'
+                      ? 'bg-foreground text-background border-foreground font-bold shadow-sm'
+                      : 'bg-background text-foreground border-foreground/30 hover:border-foreground hover:bg-muted'
                   }`}
                 >
                   {labels[cat]}
@@ -428,7 +429,7 @@ const Portfolio: React.FC = () => {
             })}
           </div>
 
-          {/* Selected Work Grid with Instant Inversions */}
+          {/* Selected Work Grid with Bulletproof Contrast & Micro-interactions */}
           <div className="grid md:grid-cols-2 gap-8">
             {filteredSelected.map((project: MergedProject, idx) => (
               <motion.div
@@ -437,27 +438,27 @@ const Portfolio: React.FC = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.15, delay: idx * 0.04 }}
-                className="group border-2 border-foreground bg-background p-8 flex flex-col justify-between transition-colors duration-100 hover:bg-foreground hover:text-background relative"
+                className="group border-2 border-foreground bg-background p-8 flex flex-col justify-between transition-all duration-150 hover:bg-foreground relative hover:-translate-y-1 hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]"
               >
                 {/* Card Top Metadata */}
                 <div>
-                  <div className="flex items-start justify-between gap-4 border-b border-foreground/20 pb-4 mb-4">
+                  <div className="flex items-start justify-between gap-4 border-b border-foreground/20 group-hover:border-background/20 pb-4 mb-4 transition-colors duration-150">
                     <div>
-                      <span className="font-mono text-[10px] uppercase tracking-widest text-mutedForeground group-hover:text-background/70 block">
+                      <span className="font-mono text-[10px] uppercase tracking-widest text-mutedForeground group-hover:text-background/70 block transition-colors duration-150">
                         {project.category}
                       </span>
-                      <h3 className="font-serif text-2xl font-bold tracking-tight mt-1">
+                      <h3 className="font-serif text-2xl font-bold tracking-tight mt-1 text-foreground group-hover:text-background group-hover:underline underline-offset-4 transition-colors duration-150">
                         {project.name}
                       </h3>
                     </div>
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-2 flex-shrink-0">
                       {project.demo && (
                         <a
                           href={project.demo}
                           target="_blank"
                           rel="noreferrer"
                           title="Live Demonstration"
-                          className="p-1.5 border border-foreground group-hover:border-background text-foreground group-hover:text-background hover:bg-background hover:text-foreground transition-colors"
+                          className="p-2 border border-foreground group-hover:border-background text-foreground group-hover:text-background hover:!bg-background hover:!text-foreground transition-all duration-150"
                         >
                           <ExternalLink size={14} />
                         </a>
@@ -467,15 +468,18 @@ const Portfolio: React.FC = () => {
                         target="_blank"
                         rel="noreferrer"
                         title="Repository Source"
-                        className="p-1.5 border border-foreground group-hover:border-background text-foreground group-hover:text-background hover:bg-background hover:text-foreground transition-colors"
+                        className="p-2 border border-foreground group-hover:border-background text-foreground group-hover:text-background hover:!bg-background hover:!text-foreground transition-all duration-150"
                       >
-                        <ArrowUpRight size={14} />
+                        <ArrowUpRight
+                          size={14}
+                          className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-150"
+                        />
                       </a>
                     </div>
                   </div>
 
                   {/* Description */}
-                  <p className="font-body text-sm leading-relaxed text-foreground/90 group-hover:text-background/90 mb-6">
+                  <p className="font-body text-sm leading-relaxed text-foreground/90 group-hover:text-background/90 mb-6 transition-colors duration-150">
                     {project.desc}
                   </p>
                 </div>
@@ -486,14 +490,14 @@ const Portfolio: React.FC = () => {
                     {project.stack.map((tech) => (
                       <span
                         key={tech}
-                        className="font-mono text-[10px] tracking-wider px-2 py-0.5 border border-foreground/30 group-hover:border-background/40 group-hover:text-background"
+                        className="font-mono text-[10px] tracking-wider px-2 py-0.5 border border-foreground/30 text-foreground group-hover:border-background/40 group-hover:text-background group-hover:bg-background/10 transition-colors duration-150"
                       >
                         {tech}
                       </span>
                     ))}
                   </div>
 
-                  <div className="flex items-center justify-between font-mono text-[11px] text-mutedForeground group-hover:text-background/70 border-t border-foreground/20 pt-4">
+                  <div className="flex items-center justify-between font-mono text-[11px] text-mutedForeground group-hover:text-background/70 border-t border-foreground/20 group-hover:border-background/20 pt-4 transition-colors duration-150">
                     <div className="flex items-center gap-4">
                       <span>★ {project.stars}</span>
                       <span>⑂ {project.forks}</span>
@@ -515,7 +519,7 @@ const Portfolio: React.FC = () => {
           <div className="mt-14 border-2 border-foreground p-6 md:p-8 bg-muted">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
               <div>
-                <h4 className="font-serif text-xl font-bold tracking-tight uppercase">
+                <h4 className="font-serif text-xl font-bold tracking-tight uppercase text-foreground">
                   Complete Engineering Index ({allProjects.length} Repositories)
                 </h4>
                 <p className="font-mono text-xs text-mutedForeground mt-1">
@@ -525,11 +529,14 @@ const Portfolio: React.FC = () => {
               </div>
               <button
                 onClick={() => setShowFullCatalog(!showFullCatalog)}
-                className="btn-outline self-start sm:self-auto py-2.5 px-6 text-xs"
+                className="btn-outline self-start sm:self-auto py-2.5 px-6 text-xs flex items-center gap-2"
               >
-                {showFullCatalog
-                  ? 'Collapse Archive ▲'
-                  : 'Open Complete Archive (50+) ▼'}
+                <Layers size={13} />
+                <span>
+                  {showFullCatalog
+                    ? 'Collapse Archive ▲'
+                    : 'Open Complete Archive (50+) ▼'}
+                </span>
               </button>
             </div>
 
@@ -550,53 +557,53 @@ const Portfolio: React.FC = () => {
                   />
                 </div>
 
-                <div className="overflow-x-auto">
+                <div className="overflow-x-auto bg-background border border-foreground/20">
                   <table className="w-full text-left font-mono text-xs border-collapse">
                     <thead>
-                      <tr className="border-b-2 border-foreground text-[10px] uppercase text-mutedForeground">
-                        <th className="py-2.5 px-3">Project</th>
-                        <th className="py-2.5 px-3">Category</th>
-                        <th className="py-2.5 px-3">Stack</th>
-                        <th className="py-2.5 px-3">Updated</th>
-                        <th className="py-2.5 px-3 text-right">Link</th>
+                      <tr className="border-b-2 border-foreground bg-muted text-[10px] uppercase text-mutedForeground">
+                        <th className="py-3 px-4">Project</th>
+                        <th className="py-3 px-4">Category</th>
+                        <th className="py-3 px-4">Stack</th>
+                        <th className="py-3 px-4">Updated</th>
+                        <th className="py-3 px-4 text-right">Links</th>
                       </tr>
                     </thead>
                     <tbody className="divide-y divide-borderLight">
                       {searchableCatalog.map((repo) => (
                         <tr
                           key={repo.name}
-                          className="hover:bg-foreground hover:text-background transition-colors duration-100 group"
+                          className="hover:bg-muted/80 transition-colors duration-100 group"
                         >
-                          <td className="py-3 px-3 font-semibold">
-                            <span className="font-serif text-sm">
+                          <td className="py-3 px-4 font-semibold text-foreground">
+                            <span className="font-serif text-sm font-bold text-foreground">
                               {repo.name}
                             </span>
                             {repo.license && (
-                              <span className="ml-2 text-[10px] opacity-70">
+                              <span className="ml-2 text-[10px] text-mutedForeground">
                                 [{repo.license}]
                               </span>
                             )}
                           </td>
-                          <td className="py-3 px-3 text-[11px] opacity-80">
+                          <td className="py-3 px-4 text-[11px] text-mutedForeground">
                             {repo.category}
                           </td>
-                          <td className="py-3 px-3 text-[11px]">
+                          <td className="py-3 px-4 text-[11px] text-foreground/85">
                             {repo.stack.slice(0, 3).join(', ')}
                             {repo.stack.length > 3
                               ? ` +${repo.stack.length - 3}`
                               : ''}
                           </td>
-                          <td className="py-3 px-3 opacity-70">
+                          <td className="py-3 px-4 text-mutedForeground">
                             {new Date(repo.updated).toISOString().slice(0, 10)}
                           </td>
-                          <td className="py-3 px-3 text-right">
-                            <div className="flex items-center justify-end gap-3">
+                          <td className="py-3 px-4 text-right">
+                            <div className="flex items-center justify-end gap-3 font-semibold">
                               {repo.demo && (
                                 <a
                                   href={repo.demo}
                                   target="_blank"
                                   rel="noreferrer"
-                                  className="underline group-hover:text-background font-mono text-[11px]"
+                                  className="underline text-foreground hover:bg-foreground hover:text-background px-1 transition-colors font-mono text-[11px]"
                                 >
                                   Demo ↗
                                 </a>
@@ -605,7 +612,7 @@ const Portfolio: React.FC = () => {
                                 href={repo.url}
                                 target="_blank"
                                 rel="noreferrer"
-                                className="underline group-hover:text-background font-mono text-[11px]"
+                                className="underline text-foreground hover:bg-foreground hover:text-background px-1 transition-colors font-mono text-[11px]"
                               >
                                 Git ↗
                               </a>
@@ -630,7 +637,7 @@ const Portfolio: React.FC = () => {
             <span className="w-6 h-[2px] bg-foreground inline-block" />
             Track Record & Architecture History
           </div>
-          <h2 className="font-serif text-3xl md:text-5xl font-bold uppercase tracking-tight mb-12">
+          <h2 className="font-serif text-3xl md:text-5xl font-bold uppercase tracking-tight mb-12 text-foreground">
             Engineering Roles
           </h2>
 
@@ -642,7 +649,7 @@ const Portfolio: React.FC = () => {
                 whileInView={{ opacity: 1 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.2 }}
-                className="py-8 grid md:grid-cols-12 gap-6 group hover:bg-muted transition-colors duration-100 px-4"
+                className="py-8 grid md:grid-cols-12 gap-6 group hover:bg-muted/70 transition-colors duration-150 px-4"
               >
                 <div className="md:col-span-3">
                   <span className="font-mono text-xs uppercase tracking-widest text-mutedForeground">
@@ -676,7 +683,7 @@ const Portfolio: React.FC = () => {
             <span className="w-6 h-[2px] bg-foreground inline-block" />
             Capabilities Matrix
           </div>
-          <h2 className="font-serif text-3xl md:text-5xl font-bold uppercase tracking-tight mb-12">
+          <h2 className="font-serif text-3xl md:text-5xl font-bold uppercase tracking-tight mb-12 text-foreground">
             Technical Rigor
           </h2>
 
@@ -684,15 +691,15 @@ const Portfolio: React.FC = () => {
             {disciplineCategories.map((discipline) => (
               <div
                 key={discipline.title}
-                className="border-2 border-foreground p-6 bg-background hover:bg-foreground hover:text-background transition-colors duration-100 group"
+                className="border-2 border-foreground p-6 bg-background hover:bg-foreground transition-all duration-150 group hover:-translate-y-1 hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]"
               >
-                <h3 className="font-mono text-xs uppercase tracking-widest text-mutedForeground group-hover:text-background/70 border-b border-foreground/20 pb-3 mb-4">
+                <h3 className="font-mono text-xs uppercase tracking-widest text-mutedForeground group-hover:text-background/80 border-b border-foreground/20 group-hover:border-background/20 pb-3 mb-4 transition-colors duration-150">
                   {discipline.title}
                 </h3>
-                <ul className="space-y-2 font-mono text-xs">
+                <ul className="space-y-2 font-mono text-xs text-foreground group-hover:text-background transition-colors duration-150">
                   {discipline.items.map((item) => (
                     <li key={item} className="flex items-center gap-2">
-                      <span className="inline-block w-1.5 h-1.5 bg-foreground group-hover:bg-background" />
+                      <span className="inline-block w-1.5 h-1.5 bg-foreground group-hover:bg-background transition-colors duration-150" />
                       <span>{item}</span>
                     </li>
                   ))}
@@ -713,7 +720,7 @@ const Portfolio: React.FC = () => {
                 <span className="w-6 h-[2px] bg-foreground inline-block" />
                 Editorial & Deep Dives
               </div>
-              <h2 className="font-serif text-3xl md:text-5xl font-bold uppercase tracking-tight">
+              <h2 className="font-serif text-3xl md:text-5xl font-bold uppercase tracking-tight text-foreground">
                 Dispatches & Articles
               </h2>
             </div>
@@ -730,7 +737,10 @@ const Portfolio: React.FC = () => {
           <div className="divide-y-2 divide-foreground border-t-2 border-b-2 border-foreground">
             {articlesLoading ? (
               Array.from({ length: 4 }).map((_, i) => (
-                <div key={i} className="py-6 flex items-center justify-between">
+                <div
+                  key={i}
+                  className="py-6 flex items-center justify-between px-4"
+                >
                   <div className="w-48 h-5 bg-borderLight animate-pulse" />
                   <div className="w-20 h-4 bg-borderLight animate-pulse" />
                 </div>
@@ -742,19 +752,19 @@ const Portfolio: React.FC = () => {
                   href={art.link}
                   target="_blank"
                   rel="noreferrer"
-                  className="py-6 flex items-baseline justify-between gap-6 group hover:bg-foreground hover:text-background transition-colors duration-100 px-4 no-underline"
+                  className="py-6 flex items-baseline justify-between gap-6 group hover:bg-foreground transition-colors duration-150 px-4 no-underline"
                 >
                   <div className="flex items-baseline gap-6 min-w-0">
-                    <span className="font-mono text-xs text-mutedForeground group-hover:text-background/70 w-8 flex-shrink-0">
+                    <span className="font-mono text-xs text-mutedForeground group-hover:text-background/70 w-8 flex-shrink-0 transition-colors duration-150">
                       {String(idx + 1).padStart(2, '0')}
                     </span>
-                    <h3 className="font-serif text-lg md:text-xl font-bold tracking-tight truncate group-hover:underline underline-offset-4">
+                    <h3 className="font-serif text-lg md:text-xl font-bold tracking-tight truncate text-foreground group-hover:text-background group-hover:underline underline-offset-4 transition-colors duration-150">
                       {art.title}
                     </h3>
                   </div>
                   <ArrowUpRight
                     size={16}
-                    className="flex-shrink-0 text-mutedForeground group-hover:text-background"
+                    className="flex-shrink-0 text-mutedForeground group-hover:text-background group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all duration-150"
                   />
                 </a>
               ))
@@ -783,16 +793,16 @@ const Portfolio: React.FC = () => {
             <span className="w-6 h-[2px] bg-foreground inline-block" />
             Credentials
           </div>
-          <h2 className="font-serif text-3xl md:text-5xl font-bold uppercase tracking-tight mb-12">
+          <h2 className="font-serif text-3xl md:text-5xl font-bold uppercase tracking-tight mb-12 text-foreground">
             Formal Education
           </h2>
 
           <div className="grid md:grid-cols-2 gap-8">
-            <div className="border-2 border-foreground p-8 bg-background">
+            <div className="border-2 border-foreground p-8 bg-background hover:-translate-y-1 hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all duration-150">
               <span className="font-mono text-xs text-mutedForeground tracking-widest block uppercase mb-2">
                 2023 – 2024
               </span>
-              <h3 className="font-serif text-2xl font-bold tracking-tight">
+              <h3 className="font-serif text-2xl font-bold tracking-tight text-foreground">
                 BSc in Cybersecurity & Digital Forensics
               </h3>
               <p className="font-mono text-xs text-mutedForeground mt-2">
@@ -804,11 +814,11 @@ const Portfolio: React.FC = () => {
               </div>
             </div>
 
-            <div className="border-2 border-foreground p-8 bg-background">
+            <div className="border-2 border-foreground p-8 bg-background hover:-translate-y-1 hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all duration-150">
               <span className="font-mono text-xs text-mutedForeground tracking-widest block uppercase mb-2">
                 2016 – 2020
               </span>
-              <h3 className="font-serif text-2xl font-bold tracking-tight">
+              <h3 className="font-serif text-2xl font-bold tracking-tight text-foreground">
                 Higher National Diploma in Information Technology
               </h3>
               <p className="font-mono text-xs text-mutedForeground mt-2">
@@ -848,9 +858,11 @@ const Portfolio: React.FC = () => {
 
           <a
             href="mailto:kisalnelaka6@gmail.com"
-            className="inline-flex items-center gap-3 px-10 py-5 bg-background text-foreground font-mono text-xs uppercase tracking-widest font-semibold border-2 border-background hover:bg-transparent hover:text-background transition-colors duration-100"
+            className="inline-flex items-center gap-3 px-10 py-5 bg-background text-foreground font-mono text-xs uppercase tracking-widest font-semibold border-2 border-background hover:bg-transparent hover:text-background transition-colors duration-150"
           >
-            kisalnelaka6@gmail.com <ArrowUpRight size={16} />
+            <Mail size={16} />
+            <span>kisalnelaka6@gmail.com</span>
+            <ArrowUpRight size={16} />
           </a>
 
           {/* Direct Coordinates */}
@@ -860,7 +872,7 @@ const Portfolio: React.FC = () => {
                 href="https://github.com/kisalnelaka"
                 target="_blank"
                 rel="noreferrer"
-                className="hover:text-background hover:underline"
+                className="hover:text-background hover:underline transition-colors"
               >
                 GitHub
               </a>
@@ -869,7 +881,7 @@ const Portfolio: React.FC = () => {
                 href="https://linkedin.com/in/kisalnelaka"
                 target="_blank"
                 rel="noreferrer"
-                className="hover:text-background hover:underline"
+                className="hover:text-background hover:underline transition-colors"
               >
                 LinkedIn
               </a>
@@ -878,7 +890,7 @@ const Portfolio: React.FC = () => {
                 href="https://medium.com/@kisalnelaka6"
                 target="_blank"
                 rel="noreferrer"
-                className="hover:text-background hover:underline"
+                className="hover:text-background hover:underline transition-colors"
               >
                 Medium
               </a>
