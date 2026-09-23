@@ -1,878 +1,406 @@
-import React, { useState, useMemo } from 'react';
-import { motion } from 'framer-motion';
+import React, { useState } from 'react';
 import {
   ArrowUpRight,
   Github,
-  Linkedin,
   Mail,
-  ExternalLink,
-  Search,
-  CheckCircle2,
-  RefreshCw,
-  Terminal,
-  Layers,
+  Copy,
+  Check,
+  Download,
+  BookOpen,
+  Sparkles,
+  MapPin,
 } from 'lucide-react';
-import { useGitHubData, MergedProject } from './hooks/useGitHubData';
+import { useGitHubData } from './hooks/useGitHubData';
 import { useMediumArticles } from './hooks/useMediumArticles';
-
-// ─── Career Milestones ────────────────────────────────────────────────────────
-
-const experiences = [
-  {
-    company: 'ASMORPHIC',
-    role: 'Senior Full-Stack Developer & Systems Architect',
-    period: '2025 – PRESENT',
-    impact:
-      'Architected high-availability DID management systems and high-throughput data processing pipelines for enterprise telecom infrastructure using Python, Laravel, and distributed messaging.',
-  },
-  {
-    company: 'AMPLIFYD',
-    role: 'Lead Full-Stack Developer',
-    period: '2024 – 2025',
-    impact:
-      'Led adversarial security auditing and database optimization on high-traffic production platforms — maintained 99.99% uptime under extreme distributed load spikes.',
-  },
-  {
-    company: 'CORE IT SOLUTIONS',
-    role: 'Full-Stack Software Engineer',
-    period: '2023 – 2024',
-    impact:
-      'Engineered resilient RESTful architectures, continuous deployment pipelines, and multi-tenant telemetry dashboards with real-time WebSocket analytics.',
-  },
-  {
-    company: 'MEDFUTURE',
-    role: 'Manager Website Development & Maintenance',
-    period: '2022',
-    impact:
-      'Migrated legacy monolithic systems to modern modular architectures, accelerating response latencies by 42% and establishing strict zero-trust operational protocols.',
-  },
-];
-
-// ─── Core Architecture & Tooling ──────────────────────────────────────────────
-
-const disciplineCategories = [
-  {
-    title: 'Languages & Runtimes',
-    items: [
-      'Kotlin',
-      'TypeScript',
-      'Dart',
-      'PHP 8.3',
-      'Python',
-      'C++',
-      'Swift',
-      'Assembly x86',
-    ],
-  },
-  {
-    title: 'Platforms & Frameworks',
-    items: [
-      'Android Jetpack',
-      'Flutter',
-      'React',
-      'Next.js',
-      'Laravel',
-      'FastAPI',
-      'Express',
-      'Three.js',
-    ],
-  },
-  {
-    title: 'Systems & Infrastructure',
-    items: [
-      'Docker Compose',
-      'PostgreSQL',
-      'Redis',
-      'Linux / DBus',
-      'Supabase',
-      'WebRTC',
-      'Firebase',
-      'CI/CD',
-    ],
-  },
-  {
-    title: 'Security & Forensics',
-    items: [
-      'Threat Modeling',
-      'DPI Camouflage',
-      'Cryptographic Auditing',
-      'SIEM',
-      'Heuristic ML',
-      'Binaural DSP',
-    ],
-  },
-];
-
-// ─── Category Filter Definitions ─────────────────────────────────────────────
-
-type CategoryFilter = 'ALL' | 'MOBILE' | 'WEB' | 'BACKEND' | 'INFRA';
-
-const FILTER_MAPPING: Record<CategoryFilter, string[]> = {
-  ALL: [],
-  MOBILE: ['Mobile & Cross-Platform'],
-  WEB: ['Web Applications & Frontend'],
-  BACKEND: [
-    'Backend & Distributed Systems',
-    'Libraries & SDKs',
-    'AI, ML & Data Science',
-  ],
-  INFRA: ['DevOps & Cloud Infrastructure', 'Software Engineering & Tools'],
-};
-
-// ─── Main Portfolio Component ─────────────────────────────────────────────────
+import { FlagshipBento } from './components/FlagshipBento';
+import { SystemsTopologyGraph } from './components/interactive/SystemsTopologyGraph';
+import { RepositoryCatalog } from './components/RepositoryCatalog';
+import { ArchitectureTimeline } from './components/ArchitectureTimeline';
+import { SecurityDossier } from './components/SecurityDossier';
 
 const Portfolio: React.FC = () => {
   const {
     user,
     allProjects,
-    selectedProjects,
     loading: githubLoading,
   } = useGitHubData('kisalnelaka');
   const { articles, loading: articlesLoading } = useMediumArticles(
     'kisalnelaka6',
     6,
   );
+  const [copiedEmail, setCopiedEmail] = useState(false);
 
-  const [activeCategory, setActiveCategory] = useState<CategoryFilter>('ALL');
-  const [searchQuery, setSearchQuery] = useState('');
-  const [showFullCatalog, setShowFullCatalog] = useState(false);
-
-  // Filtered projects for the interactive Selected Work section
-  const filteredSelected = useMemo(() => {
-    let list = selectedProjects;
-    if (activeCategory !== 'ALL') {
-      const allowed = FILTER_MAPPING[activeCategory];
-      list = list.filter((p) => allowed.includes(p.category));
-    }
-    return list.slice(0, 8); // Top 8 in curated showcase
-  }, [selectedProjects, activeCategory]);
-
-  // Full catalog search filter
-  const searchableCatalog = useMemo(() => {
-    if (!searchQuery.trim()) return allProjects;
-    const q = searchQuery.toLowerCase();
-    return allProjects.filter(
-      (p) =>
-        p.name.toLowerCase().includes(q) ||
-        p.desc.toLowerCase().includes(q) ||
-        p.category.toLowerCase().includes(q) ||
-        p.stack.some((s) => s.toLowerCase().includes(q)),
-    );
-  }, [allProjects, searchQuery]);
+  const handleCopyEmail = () => {
+    navigator.clipboard.writeText('kisalnelaka6@gmail.com');
+    setCopiedEmail(true);
+    setTimeout(() => setCopiedEmail(false), 2000);
+  };
 
   return (
-    <div className="min-h-screen bg-background text-foreground font-body selection:bg-black selection:text-white relative">
-      {/* Background Micro Textures */}
-      <div className="fixed inset-0 bg-scanlines opacity-[0.012] pointer-events-none z-0" />
-      <div className="fixed inset-0 bg-editorial-grid opacity-[0.01] pointer-events-none z-0" />
+    <div className="min-h-screen bg-canvas text-slate-800 font-sans relative selection:bg-brand-indigo selection:text-white">
+      {/* ─── Multi-chromatic Ambient Mesh Background Blobs ─── */}
+      <div className="fixed inset-0 bg-mesh-luminous pointer-events-none z-0" />
+      <div className="fixed inset-0 bg-dot-pattern opacity-40 pointer-events-none z-0" />
 
-      {/* ─── Top Editorial Masthead ─────────────────────────────────────── */}
-      <header className="sticky top-0 z-40 bg-background/95 border-b border-foreground backdrop-blur-sm">
-        <div className="max-w-6xl mx-auto px-6 md:px-8 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-4">
+      {/* Floating Ambient Glowing Orbs */}
+      <div className="fixed top-[-10%] left-[-10%] w-[55vw] h-[55vw] rounded-full bg-gradient-to-tr from-brand-indigo/15 via-brand-purple/10 to-transparent blur-[120px] pointer-events-none z-0" />
+      <div className="fixed top-[30%] right-[-15%] w-[50vw] h-[50vw] rounded-full bg-gradient-to-br from-brand-pink/10 via-brand-coral/10 to-transparent blur-[140px] pointer-events-none z-0" />
+      <div className="fixed bottom-[-10%] left-[20%] w-[60vw] h-[60vw] rounded-full bg-gradient-to-tr from-brand-cyan/10 via-brand-teal/10 to-transparent blur-[150px] pointer-events-none z-0" />
+
+      {/* ─── Glassmorphic Top Navbar ─────────────────────────────────── */}
+      <header className="glass-nav">
+        <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+          <div className="flex items-center gap-3">
             <a
               href="#top"
-              className="font-serif text-xl font-bold tracking-tighter uppercase text-foreground no-underline hover:opacity-75 transition-opacity"
+              className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-brand-indigo via-brand-purple to-brand-pink text-white flex items-center justify-center font-heading font-black text-lg shadow-glow-indigo no-underline hover:scale-105 transition-transform"
             >
-              KN.
+              KN
             </a>
-            <span className="hidden sm:inline-block font-mono text-[11px] text-mutedForeground tracking-widest uppercase border-l border-borderLight pl-4">
-              Systems Architect & Security Engineer
-            </span>
+            <div className="hidden sm:block">
+              <span className="font-heading font-bold text-slate-900 text-sm block">
+                Kisal Nelaka
+              </span>
+              <span className="text-[11px] font-mono text-slate-500 block">
+                Systems Architect & Security Engineer
+              </span>
+            </div>
           </div>
 
-          <nav className="flex items-center gap-6 font-mono text-xs uppercase tracking-widest">
+          <nav className="flex items-center gap-6 text-xs font-semibold uppercase tracking-wider text-slate-600 font-mono">
             <a
               href="#work"
-              className="text-foreground hover:underline underline-offset-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-foreground transition-all"
+              className="hover:text-brand-indigo transition-colors"
             >
               Work
             </a>
             <a
+              href="#topology"
+              className="hover:text-brand-indigo transition-colors hidden md:inline"
+            >
+              Topology
+            </a>
+            <a
+              href="#directory"
+              className="hover:text-brand-indigo transition-colors"
+            >
+              Catalog
+            </a>
+            <a
               href="#experience"
-              className="text-foreground hover:underline underline-offset-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-foreground transition-all"
+              className="hover:text-brand-indigo transition-colors"
             >
               History
             </a>
             <a
+              href="#credentials"
+              className="hover:text-brand-indigo transition-colors hidden sm:inline"
+            >
+              Credentials
+            </a>
+            <a
               href="#writing"
-              className="text-foreground hover:underline underline-offset-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-foreground transition-all"
+              className="hover:text-brand-indigo transition-colors hidden lg:inline"
             >
               Writing
             </a>
             <a
               href="mailto:kisalnelaka6@gmail.com"
-              className="hidden sm:inline-block px-3 py-1 border border-foreground bg-foreground text-background hover:bg-background hover:text-foreground transition-colors duration-150"
+              className="btn-vibrant py-2 px-4 text-xs font-mono uppercase tracking-wider"
             >
-              Contact
+              Get in Touch
             </a>
           </nav>
         </div>
       </header>
 
-      {/* ─── Main Content Canvas ─────────────────────────────────────────── */}
-      <main className="max-w-6xl mx-auto px-6 md:px-8 relative z-10" id="top">
-        {/* ─── Hero Section ─────────────────────────────────────────────── */}
-        <section className="pt-20 md:pt-32 pb-20">
-          <div className="flex items-center justify-between mb-8">
-            <div className="flex items-center gap-2 font-mono text-xs text-mutedForeground tracking-widest uppercase">
-              <span className="inline-block w-2 h-2 bg-foreground" />
-              <span>Issue No. 2026 // Active Engineering Index</span>
-            </div>
-            <div className="font-mono text-xs text-mutedForeground tracking-widest hidden sm:block">
-              Coordinates: 6.9271° N, 79.8612° E
-            </div>
+      {/* ─── Main Content Canvas ─────────────────────────────────────── */}
+      <main
+        className="max-w-6xl mx-auto px-6 relative z-10 space-y-24 pt-12 pb-24"
+        id="top"
+      >
+        {/* ─── Hero Section ─────────────────────────────────────────── */}
+        <section className="pt-8 md:pt-16 pb-6">
+          {/* Eyebrow Status Badge */}
+          <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-white/90 border border-slate-200/90 shadow-sm text-xs font-mono font-medium text-slate-700 mb-8 backdrop-blur-md">
+            <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
+            <span className="text-slate-900 font-semibold">STATUS: ACTIVE</span>
+            <span className="text-slate-400">·</span>
+            <span className="flex items-center gap-1 text-slate-500">
+              <MapPin size={12} className="text-brand-indigo" />
+              6.9271° N, 79.8612° E // London / Colombo
+            </span>
           </div>
 
-          {/* Oversized Display Typography */}
-          <h1
-            className="font-serif font-black tracking-tighter leading-none text-foreground uppercase select-none mb-8"
-            style={{ fontSize: 'clamp(4.2rem, 11vw, 9.8rem)' }}
-          >
-            Kisal
-            <br />
-            Nelaka
+          {/* Large Hero Title with Luminous Gradient Accent */}
+          <h1 className="font-heading font-black text-5xl sm:text-7xl lg:text-8xl tracking-tight leading-[0.95] text-slate-900 mb-6">
+            Building systems with{' '}
+            <span className="bg-gradient-to-r from-brand-indigo via-brand-purple to-brand-rose bg-clip-text text-transparent">
+              deterministic control
+            </span>{' '}
+            and zero trust.
           </h1>
 
-          {/* Visual Punctuation: Heavy rule with bordered square */}
-          <div className="relative w-full h-[4px] bg-foreground my-10 flex items-center">
-            <div className="absolute left-1/4 -top-[6px] w-4 h-4 bg-background border-2 border-foreground" />
-            <div className="absolute right-12 -top-[6px] w-4 h-4 bg-foreground border border-background" />
-          </div>
+          <p className="text-lg md:text-xl text-slate-600 max-w-3xl leading-relaxed mb-10 font-normal">
+            I am a{' '}
+            <strong className="text-slate-900 font-semibold">
+              Systems Architect & Security Engineer
+            </strong>{' '}
+            holding a{' '}
+            <strong className="text-slate-900 font-semibold">
+              BSc in Cybersecurity & Digital Forensics
+            </strong>{' '}
+            from Kingston University London. I architect high-availability
+            distributed telecom backends, hardened cross-platform runtimes, and
+            acoustic signal processing engines.
+          </p>
 
-          {/* Editorial Philosophy & Drop Cap */}
-          <div className="grid md:grid-cols-12 gap-8 items-start pt-4">
-            <div className="md:col-span-8">
-              <p className="boxed-drop-cap text-lg md:text-xl text-foreground font-body leading-relaxed mb-6">
-                Engineering software is fundamentally an exercise in discipline,
-                structural isolation, and deterministic control. Specializing in
-                high-performance backends, hardened cross-platform runtimes, and
-                distributed telemetry, I design systems with threat vectors
-                considered from the initial commit.
-              </p>
-              <p className="text-base text-mutedForeground leading-relaxed mb-8">
-                Holding a BSc in Cybersecurity & Digital Forensics from Kingston
-                University (UK), every architectural decision prioritizes
-                low-overhead execution, memory safety, and impenetrable
-                defensive boundaries.
-              </p>
-
-              {/* Action Triggers */}
-              <div className="flex flex-wrap items-center gap-4 pt-2">
-                <a href="#work" className="btn-primary">
-                  Explore Selected Work <ArrowUpRight size={14} />
-                </a>
-                <a
-                  href="https://github.com/kisalnelaka"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="btn-outline"
-                >
-                  <Github size={15} /> GitHub Archive
-                </a>
-                <a
-                  href="https://linkedin.com/in/kisalnelaka"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="btn-ghost"
-                >
-                  <Linkedin size={15} /> LinkedIn ↗
-                </a>
-              </div>
-            </div>
-
-            {/* Quick Metadata Column */}
-            <div className="md:col-span-4 border-l-2 border-foreground pl-6 space-y-4 font-mono text-xs">
-              <div>
-                <span className="text-mutedForeground block uppercase tracking-wider text-[10px]">
-                  Title
-                </span>
-                <span className="text-foreground font-semibold">
-                  Senior Systems Architect
-                </span>
-              </div>
-              <div className="border-t border-borderLight pt-3">
-                <span className="text-mutedForeground block uppercase tracking-wider text-[10px]">
-                  Primary Stacks
-                </span>
-                <span className="text-foreground">
-                  Kotlin · Flutter · Laravel · Python · C++
-                </span>
-              </div>
-              <div className="border-t border-borderLight pt-3">
-                <span className="text-mutedForeground block uppercase tracking-wider text-[10px]">
-                  Verification
-                </span>
-                <span className="text-foreground flex items-center gap-1.5">
-                  <CheckCircle2 size={13} className="text-foreground" />{' '}
-                  Security & Forensics Verified
-                </span>
-              </div>
-              <div className="border-t border-borderLight pt-3">
-                <span className="text-mutedForeground block uppercase tracking-wider text-[10px]">
-                  Direct Channel
-                </span>
-                <a
-                  href="mailto:kisalnelaka6@gmail.com"
-                  className="inline-flex items-center gap-1.5 text-foreground underline underline-offset-2 hover:bg-foreground hover:text-background p-1 -ml-1 transition-colors duration-150"
-                >
-                  <Mail size={13} />
-                  <span>kisalnelaka6@gmail.com</span>
-                </a>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* ─── Heavy Section Rule ───────────────────────────────────────── */}
-        <hr className="heavy-rule" />
-
-        {/* ─── Inverted Stats Section ───────────────────────────────────── */}
-        <section className="bg-foreground text-background p-8 md:p-14 relative my-16">
-          <div className="absolute inset-0 bg-stats-texture opacity-5 pointer-events-none" />
-          <div className="relative z-10 grid grid-cols-2 md:grid-cols-4 gap-8">
-            <div className="border-b md:border-b-0 md:border-r border-background/20 pb-6 md:pb-0 md:pr-6">
-              <span className="block font-serif text-4xl md:text-5xl font-bold tracking-tight">
-                {user ? `${user.public_repos}+` : '50+'}
-              </span>
-              <span className="block font-mono text-[11px] uppercase tracking-widest text-background/70 mt-2">
-                Public Repositories
-              </span>
-            </div>
-            <div className="border-b md:border-b-0 md:border-r border-background/20 pb-6 md:pb-0 md:pr-6">
-              <span className="block font-serif text-4xl md:text-5xl font-bold tracking-tight">
-                06+
-              </span>
-              <span className="block font-mono text-[11px] uppercase tracking-widest text-background/70 mt-2">
-                Years Architecture
-              </span>
-            </div>
-            <div className="border-r border-background/20 pr-6">
-              <span className="block font-serif text-4xl md:text-5xl font-bold tracking-tight">
-                07
-              </span>
-              <span className="block font-mono text-[11px] uppercase tracking-widest text-background/70 mt-2">
-                Core Domains
-              </span>
-            </div>
-            <div>
-              <span className="block font-serif text-4xl md:text-5xl font-bold tracking-tight">
-                100%
-              </span>
-              <span className="block font-mono text-[11px] uppercase tracking-widest text-background/70 mt-2">
-                Privacy-First / Deterministic
-              </span>
-            </div>
-          </div>
-        </section>
-
-        {/* ─── Heavy Section Rule ───────────────────────────────────────── */}
-        <hr className="heavy-rule" />
-
-        {/* ─── Automated Selected Work Section ──────────────────────────── */}
-        <section className="py-20" id="work">
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-10">
-            <div>
-              <div className="section-label mb-3">
-                <span className="w-6 h-[2px] bg-foreground inline-block" />
-                Portfolio & Engineering Deliverables
-              </div>
-              <h2 className="font-serif text-3xl md:text-5xl font-bold uppercase tracking-tight">
-                Selected Work
-              </h2>
-            </div>
-
-            {/* Live GitHub Sync Status Indicator */}
-            <div className="flex items-center gap-3 font-mono text-xs text-mutedForeground border border-foreground/40 px-3.5 py-1.5 self-start md:self-auto bg-muted/40">
-              <RefreshCw
-                size={12}
-                className={
-                  githubLoading
-                    ? 'animate-spin text-foreground'
-                    : 'text-foreground'
-                }
-              />
-              <span>
-                {githubLoading
-                  ? 'Syncing GitHub API...'
-                  : 'Live Synced with GitHub API'}
-              </span>
-            </div>
-          </div>
-
-          {/* Monochromatic Category Filter Tabs */}
-          <div className="flex flex-wrap gap-2 border-b-2 border-foreground pb-4 mb-10 font-mono text-xs">
-            {(
-              ['ALL', 'MOBILE', 'WEB', 'BACKEND', 'INFRA'] as CategoryFilter[]
-            ).map((cat) => {
-              const labels: Record<CategoryFilter, string> = {
-                ALL: 'All Disciplines',
-                MOBILE: 'Mobile & DSP',
-                WEB: 'Web & 3D',
-                BACKEND: 'Distributed Systems',
-                INFRA: 'Tools & Security',
-              };
-              const isSelected = activeCategory === cat;
-              return (
-                <button
-                  key={cat}
-                  onClick={() => setActiveCategory(cat)}
-                  className={`px-4 py-2 uppercase tracking-wider text-xs transition-all duration-150 border-2 ${
-                    isSelected
-                      ? 'bg-foreground text-background border-foreground font-bold shadow-sm'
-                      : 'bg-background text-foreground border-foreground/30 hover:border-foreground hover:bg-muted'
-                  }`}
-                >
-                  {labels[cat]}
-                </button>
-              );
-            })}
-          </div>
-
-          {/* Selected Work Grid with Bulletproof Contrast & Micro-interactions */}
-          <div className="grid md:grid-cols-2 gap-8">
-            {filteredSelected.map((project: MergedProject, idx) => (
-              <motion.div
-                key={project.name}
-                initial={{ opacity: 0, y: 15 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.15, delay: idx * 0.04 }}
-                className="group border-2 border-foreground bg-background p-8 flex flex-col justify-between transition-all duration-150 hover:bg-foreground relative hover:-translate-y-1 hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]"
-              >
-                {/* Card Top Metadata */}
-                <div>
-                  <div className="flex items-start justify-between gap-4 border-b border-foreground/20 group-hover:border-background/20 pb-4 mb-4 transition-colors duration-150">
-                    <div>
-                      <span className="font-mono text-[10px] uppercase tracking-widest text-mutedForeground group-hover:text-background/70 block transition-colors duration-150">
-                        {project.category}
-                      </span>
-                      <h3 className="font-serif text-2xl font-bold tracking-tight mt-1 text-foreground group-hover:text-background group-hover:underline underline-offset-4 transition-colors duration-150">
-                        {project.name}
-                      </h3>
-                    </div>
-                    <div className="flex items-center gap-2 flex-shrink-0">
-                      {project.demo && (
-                        <a
-                          href={project.demo}
-                          target="_blank"
-                          rel="noreferrer"
-                          title="Live Demonstration"
-                          className="p-2 border border-foreground group-hover:border-background text-foreground group-hover:text-background hover:!bg-background hover:!text-foreground transition-all duration-150"
-                        >
-                          <ExternalLink size={14} />
-                        </a>
-                      )}
-                      <a
-                        href={project.url}
-                        target="_blank"
-                        rel="noreferrer"
-                        title="Repository Source"
-                        className="p-2 border border-foreground group-hover:border-background text-foreground group-hover:text-background hover:!bg-background hover:!text-foreground transition-all duration-150"
-                      >
-                        <ArrowUpRight
-                          size={14}
-                          className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-150"
-                        />
-                      </a>
-                    </div>
-                  </div>
-
-                  {/* Description */}
-                  <p className="font-body text-sm leading-relaxed text-foreground/90 group-hover:text-background/90 mb-6 transition-colors duration-150">
-                    {project.desc}
-                  </p>
-                </div>
-
-                {/* Card Bottom: Stack Tags & Live Repo Metrics */}
-                <div>
-                  <div className="flex flex-wrap gap-1.5 mb-6">
-                    {project.stack.map((tech) => (
-                      <span
-                        key={tech}
-                        className="font-mono text-[10px] tracking-wider px-2 py-0.5 border border-foreground/30 text-foreground group-hover:border-background/40 group-hover:text-background group-hover:bg-background/10 transition-colors duration-150"
-                      >
-                        {tech}
-                      </span>
-                    ))}
-                  </div>
-
-                  <div className="flex items-center justify-between font-mono text-[11px] text-mutedForeground group-hover:text-background/70 border-t border-foreground/20 group-hover:border-background/20 pt-4 transition-colors duration-150">
-                    <div className="flex items-center gap-4">
-                      <span>★ {project.stars}</span>
-                      <span>⑂ {project.forks}</span>
-                      {project.license && <span>[{project.license}]</span>}
-                    </div>
-                    <span>
-                      {new Date(project.updated).toLocaleDateString('en-GB', {
-                        year: 'numeric',
-                        month: 'short',
-                      })}
-                    </span>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-
-          {/* Full Repository Catalog Drawer / Accordion */}
-          <div className="mt-14 border-2 border-foreground p-6 md:p-8 bg-muted">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-              <div>
-                <h4 className="font-serif text-xl font-bold tracking-tight uppercase text-foreground">
-                  Complete Engineering Index ({allProjects.length} Repositories)
-                </h4>
-                <p className="font-mono text-xs text-mutedForeground mt-1">
-                  Access every historical repository, low-level experiment, and
-                  open-source project.
-                </p>
-              </div>
-              <button
-                onClick={() => setShowFullCatalog(!showFullCatalog)}
-                className="btn-outline self-start sm:self-auto py-2.5 px-6 text-xs flex items-center gap-2"
-              >
-                <Layers size={13} />
-                <span>
-                  {showFullCatalog
-                    ? 'Collapse Archive ▲'
-                    : 'Open Complete Archive (50+) ▼'}
-                </span>
-              </button>
-            </div>
-
-            {/* Expandable Search and Table */}
-            {showFullCatalog && (
-              <div className="mt-8 pt-6 border-t-2 border-foreground">
-                <div className="relative mb-6">
-                  <Search
-                    size={16}
-                    className="absolute left-4 top-1/2 -translate-y-1/2 text-mutedForeground"
-                  />
-                  <input
-                    type="text"
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                    placeholder="Search by keyword, language, or domain (e.g. Flutter, DSP, C++, Laravel)..."
-                    className="w-full pl-12 pr-4 py-3 bg-background border-2 border-foreground font-mono text-xs text-foreground placeholder:text-mutedForeground focus:border-b-4 focus:outline-none"
-                  />
-                </div>
-
-                <div className="overflow-x-auto bg-background border border-foreground/20">
-                  <table className="w-full text-left font-mono text-xs border-collapse">
-                    <thead>
-                      <tr className="border-b-2 border-foreground bg-muted text-[10px] uppercase text-mutedForeground">
-                        <th className="py-3 px-4">Project</th>
-                        <th className="py-3 px-4">Category</th>
-                        <th className="py-3 px-4">Stack</th>
-                        <th className="py-3 px-4">Updated</th>
-                        <th className="py-3 px-4 text-right">Links</th>
-                      </tr>
-                    </thead>
-                    <tbody className="divide-y divide-borderLight">
-                      {searchableCatalog.map((repo) => (
-                        <tr
-                          key={repo.name}
-                          className="hover:bg-muted/80 transition-colors duration-100 group"
-                        >
-                          <td className="py-3 px-4 font-semibold text-foreground">
-                            <span className="font-serif text-sm font-bold text-foreground">
-                              {repo.name}
-                            </span>
-                            {repo.license && (
-                              <span className="ml-2 text-[10px] text-mutedForeground">
-                                [{repo.license}]
-                              </span>
-                            )}
-                          </td>
-                          <td className="py-3 px-4 text-[11px] text-mutedForeground">
-                            {repo.category}
-                          </td>
-                          <td className="py-3 px-4 text-[11px] text-foreground/85">
-                            {repo.stack.slice(0, 3).join(', ')}
-                            {repo.stack.length > 3
-                              ? ` +${repo.stack.length - 3}`
-                              : ''}
-                          </td>
-                          <td className="py-3 px-4 text-mutedForeground">
-                            {new Date(repo.updated).toISOString().slice(0, 10)}
-                          </td>
-                          <td className="py-3 px-4 text-right">
-                            <div className="flex items-center justify-end gap-3 font-semibold">
-                              {repo.demo && (
-                                <a
-                                  href={repo.demo}
-                                  target="_blank"
-                                  rel="noreferrer"
-                                  className="underline text-foreground hover:bg-foreground hover:text-background px-1 transition-colors font-mono text-[11px]"
-                                >
-                                  Demo ↗
-                                </a>
-                              )}
-                              <a
-                                href={repo.url}
-                                target="_blank"
-                                rel="noreferrer"
-                                className="underline text-foreground hover:bg-foreground hover:text-background px-1 transition-colors font-mono text-[11px]"
-                              >
-                                Git ↗
-                              </a>
-                            </div>
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            )}
-          </div>
-        </section>
-
-        {/* ─── Heavy Section Rule ───────────────────────────────────────── */}
-        <hr className="heavy-rule" />
-
-        {/* ─── Experience Section ───────────────────────────────────────── */}
-        <section className="py-20" id="experience">
-          <div className="section-label mb-3">
-            <span className="w-6 h-[2px] bg-foreground inline-block" />
-            Track Record & Architecture History
-          </div>
-          <h2 className="font-serif text-3xl md:text-5xl font-bold uppercase tracking-tight mb-12 text-foreground">
-            Engineering Roles
-          </h2>
-
-          <div className="divide-y-2 divide-foreground">
-            {experiences.map((exp, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.2 }}
-                className="py-8 grid md:grid-cols-12 gap-6 group hover:bg-muted/70 transition-colors duration-150 px-4"
-              >
-                <div className="md:col-span-3">
-                  <span className="font-mono text-xs uppercase tracking-widest text-mutedForeground">
-                    {exp.period}
-                  </span>
-                </div>
-                <div className="md:col-span-4">
-                  <h3 className="font-serif text-xl font-bold tracking-tight text-foreground">
-                    {exp.company}
-                  </h3>
-                  <span className="font-mono text-xs text-mutedForeground block mt-1">
-                    {exp.role}
-                  </span>
-                </div>
-                <div className="md:col-span-5">
-                  <p className="font-body text-sm leading-relaxed text-foreground/90">
-                    {exp.impact}
-                  </p>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </section>
-
-        {/* ─── Heavy Section Rule ───────────────────────────────────────── */}
-        <hr className="heavy-rule" />
-
-        {/* ─── Disciplines & Stack Section ──────────────────────────────── */}
-        <section className="py-20" id="stack">
-          <div className="section-label mb-3">
-            <span className="w-6 h-[2px] bg-foreground inline-block" />
-            Capabilities Matrix
-          </div>
-          <h2 className="font-serif text-3xl md:text-5xl font-bold uppercase tracking-tight mb-12 text-foreground">
-            Technical Rigor
-          </h2>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {disciplineCategories.map((discipline) => (
-              <div
-                key={discipline.title}
-                className="border-2 border-foreground p-6 bg-background hover:bg-foreground transition-all duration-150 group hover:-translate-y-1 hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]"
-              >
-                <h3 className="font-mono text-xs uppercase tracking-widest text-mutedForeground group-hover:text-background/80 border-b border-foreground/20 group-hover:border-background/20 pb-3 mb-4 transition-colors duration-150">
-                  {discipline.title}
-                </h3>
-                <ul className="space-y-2 font-mono text-xs text-foreground group-hover:text-background transition-colors duration-150">
-                  {discipline.items.map((item) => (
-                    <li key={item} className="flex items-center gap-2">
-                      <span className="inline-block w-1.5 h-1.5 bg-foreground group-hover:bg-background transition-colors duration-150" />
-                      <span>{item}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        {/* ─── Heavy Section Rule ───────────────────────────────────────── */}
-        <hr className="heavy-rule" />
-
-        {/* ─── Publications & Writing Section ───────────────────────────── */}
-        <section className="py-20" id="writing">
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-12">
-            <div>
-              <div className="section-label mb-3">
-                <span className="w-6 h-[2px] bg-foreground inline-block" />
-                Editorial & Deep Dives
-              </div>
-              <h2 className="font-serif text-3xl md:text-5xl font-bold uppercase tracking-tight text-foreground">
-                Dispatches & Articles
-              </h2>
-            </div>
+          {/* Action CTAs */}
+          <div className="flex flex-wrap items-center gap-4 mb-14">
+            <a href="#work" className="btn-vibrant">
+              <Sparkles size={16} />
+              <span>Explore Selected Work</span>
+            </a>
             <a
-              href="https://medium.com/@kisalnelaka6"
+              href="https://github.com/kisalnelaka"
               target="_blank"
               rel="noreferrer"
-              className="btn-ghost self-start md:self-auto"
+              className="btn-vibrant-outline"
             >
-              Medium Publication ↗
+              <Github size={16} />
+              <span>GitHub Archive</span>
+              <ArrowUpRight size={14} className="text-slate-400" />
+            </a>
+            <a
+              href="https://knockknockneo.cloud/stuff/Kisal%20Nelaka%20-%20Resume.pdf"
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-2 px-5 py-3 rounded-xl text-sm font-semibold text-slate-600 hover:text-slate-900 hover:bg-white/80 transition-all font-mono"
+            >
+              <Download size={15} />
+              <span>Resume (.PDF)</span>
             </a>
           </div>
 
-          <div className="divide-y-2 divide-foreground border-t-2 border-b-2 border-foreground">
-            {articlesLoading ? (
-              Array.from({ length: 4 }).map((_, i) => (
-                <div
-                  key={i}
-                  className="py-6 flex items-center justify-between px-4"
-                >
-                  <div className="w-48 h-5 bg-borderLight animate-pulse" />
-                  <div className="w-20 h-4 bg-borderLight animate-pulse" />
-                </div>
-              ))
-            ) : articles.length > 0 ? (
-              articles.map((art, idx) => (
-                <a
-                  key={art.link}
-                  href={art.link}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="py-6 flex items-baseline justify-between gap-6 group hover:bg-foreground transition-colors duration-150 px-4 no-underline"
-                >
-                  <div className="flex items-baseline gap-6 min-w-0">
-                    <span className="font-mono text-xs text-mutedForeground group-hover:text-background/70 w-8 flex-shrink-0 transition-colors duration-150">
-                      {String(idx + 1).padStart(2, '0')}
-                    </span>
-                    <h3 className="font-serif text-lg md:text-xl font-bold tracking-tight truncate text-foreground group-hover:text-background group-hover:underline underline-offset-4 transition-colors duration-150">
-                      {art.title}
-                    </h3>
-                  </div>
-                  <ArrowUpRight
-                    size={16}
-                    className="flex-shrink-0 text-mutedForeground group-hover:text-background group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all duration-150"
-                  />
-                </a>
-              ))
-            ) : (
-              <div className="py-8 font-mono text-xs text-mutedForeground text-center">
-                Check publications directly on{' '}
-                <a
-                  href="https://medium.com/@kisalnelaka6"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="underline text-foreground"
-                >
-                  medium.com/@kisalnelaka6
-                </a>
-              </div>
-            )}
+          {/* KPI Statistics Row */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 p-6 bg-white/70 backdrop-blur-xl rounded-3xl border border-slate-200/80 shadow-card">
+            <div className="p-4">
+              <span className="block font-heading font-black text-3xl md:text-4xl text-slate-900">
+                {user ? `${user.public_repos}+` : '50+'}
+              </span>
+              <span className="block text-xs font-mono font-medium text-slate-500 uppercase tracking-wider mt-1">
+                Public Repositories
+              </span>
+            </div>
+            <div className="p-4 border-l border-slate-200/60">
+              <span className="block font-heading font-black text-3xl md:text-4xl text-brand-indigo">
+                06+
+              </span>
+              <span className="block text-xs font-mono font-medium text-slate-500 uppercase tracking-wider mt-1">
+                Years Architecture
+              </span>
+            </div>
+            <div className="p-4 border-t md:border-t-0 md:border-l border-slate-200/60">
+              <span className="block font-heading font-black text-3xl md:text-4xl text-brand-emerald">
+                99.99%
+              </span>
+              <span className="block text-xs font-mono font-medium text-slate-500 uppercase tracking-wider mt-1">
+                Production Uptime
+              </span>
+            </div>
+            <div className="p-4 border-t md:border-t-0 md:border-l border-slate-200/60">
+              <span className="block font-heading font-black text-3xl md:text-4xl text-brand-rose">
+                BSc Hons
+              </span>
+              <span className="block text-xs font-mono font-medium text-slate-500 uppercase tracking-wider mt-1">
+                Cybersecurity (Kingston UK)
+              </span>
+            </div>
           </div>
         </section>
 
-        {/* ─── Heavy Section Rule ───────────────────────────────────────── */}
-        <hr className="heavy-rule" />
-
-        {/* ─── Education Section ────────────────────────────────────────── */}
-        <section className="py-20" id="education">
-          <div className="section-label mb-3">
-            <span className="w-6 h-[2px] bg-foreground inline-block" />
-            Credentials
-          </div>
-          <h2 className="font-serif text-3xl md:text-5xl font-bold uppercase tracking-tight mb-12 text-foreground">
-            Formal Education
-          </h2>
-
-          <div className="grid md:grid-cols-2 gap-8">
-            <div className="border-2 border-foreground p-8 bg-background hover:-translate-y-1 hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all duration-150">
-              <span className="font-mono text-xs text-mutedForeground tracking-widest block uppercase mb-2">
-                2023 – 2024
-              </span>
-              <h3 className="font-serif text-2xl font-bold tracking-tight text-foreground">
-                BSc in Cybersecurity & Digital Forensics
-              </h3>
-              <p className="font-mono text-xs text-mutedForeground mt-2">
-                Kingston University · London, United Kingdom
-              </p>
-              <div className="border-t border-borderLight mt-4 pt-4 font-body text-xs text-mutedForeground leading-relaxed">
-                Focused on defensive threat intelligence, memory corruption
-                defenses, cryptographic protocols, and reverse engineering.
+        {/* ─── Flagship Bento Showcase ──────────────────────────────── */}
+        <section id="work" className="space-y-6">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
+            <div>
+              <div className="badge-colorful bg-amber-100 text-amber-800 font-mono text-xs mb-2">
+                Flagship Engineering Works
               </div>
+              <h2 className="font-heading text-3xl md:text-4xl font-extrabold text-slate-900">
+                Live Interactive Deliverables
+              </h2>
+            </div>
+            <p className="text-sm text-slate-500 max-w-md">
+              Interact directly with real algorithms in the browser — from Web
+              Audio binaural synthesis to deep packet inspection simulation.
+            </p>
+          </div>
+
+          <FlagshipBento />
+        </section>
+
+        {/* ─── Interactive Systems Topology Graph ───────────────────── */}
+        <section id="topology" className="space-y-6">
+          <SystemsTopologyGraph />
+        </section>
+
+        {/* ─── Complete Repository Catalog ──────────────────────────── */}
+        <section id="directory" className="space-y-6">
+          <RepositoryCatalog projects={allProjects} loading={githubLoading} />
+        </section>
+
+        {/* ─── Career Architecture Milestones ───────────────────────── */}
+        <section id="experience" className="space-y-6">
+          <ArchitectureTimeline />
+        </section>
+
+        {/* ─── Cybersecurity & Forensics Dossier ─────────────────────── */}
+        <section id="credentials" className="space-y-6">
+          <SecurityDossier />
+        </section>
+
+        {/* ─── Dispatches & Writing (Medium) ────────────────────────── */}
+        <section id="writing" className="space-y-6">
+          <div className="glass-card p-6 md:p-8">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+              <div>
+                <div className="flex items-center gap-2 mb-1">
+                  <span className="w-8 h-8 rounded-lg bg-brand-indigo/10 text-brand-indigo flex items-center justify-center">
+                    <BookOpen size={18} />
+                  </span>
+                  <span className="text-xs font-mono font-semibold uppercase tracking-wider text-brand-indigo">
+                    Publications & Deep Dives
+                  </span>
+                </div>
+                <h3 className="font-heading text-2xl font-bold text-slate-900">
+                  Engineering Dispatches
+                </h3>
+              </div>
+
+              <a
+                href="https://medium.com/@kisalnelaka6"
+                target="_blank"
+                rel="noreferrer"
+                className="btn-vibrant-outline py-2 px-4 text-xs font-mono"
+              >
+                <span>Medium Channel</span>
+                <ArrowUpRight size={13} />
+              </a>
             </div>
 
-            <div className="border-2 border-foreground p-8 bg-background hover:-translate-y-1 hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all duration-150">
-              <span className="font-mono text-xs text-mutedForeground tracking-widest block uppercase mb-2">
-                2016 – 2020
-              </span>
-              <h3 className="font-serif text-2xl font-bold tracking-tight text-foreground">
-                Higher National Diploma in Information Technology
-              </h3>
-              <p className="font-mono text-xs text-mutedForeground mt-2">
-                SLIIT · Sri Lanka
-              </p>
-              <div className="border-t border-borderLight mt-4 pt-4 font-body text-xs text-mutedForeground leading-relaxed">
-                Data structures, computer architecture, distributed databases,
-                network administration, and algorithm analysis.
-              </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {articlesLoading ? (
+                Array.from({ length: 3 }).map((_, i) => (
+                  <div
+                    key={i}
+                    className="p-5 rounded-2xl bg-white border border-slate-200 animate-pulse space-y-3"
+                  >
+                    <div className="h-4 bg-slate-200 rounded w-3/4" />
+                    <div className="h-3 bg-slate-100 rounded w-full" />
+                    <div className="h-3 bg-slate-100 rounded w-1/2" />
+                  </div>
+                ))
+              ) : articles.length > 0 ? (
+                articles.map((art) => (
+                  <a
+                    key={art.link}
+                    href={art.link}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="p-5 rounded-2xl bg-white border border-slate-200/90 shadow-sm hover:shadow-card hover:border-brand-indigo/50 hover:-translate-y-1 transition-all duration-200 flex flex-col justify-between group no-underline"
+                  >
+                    <div>
+                      <div className="flex items-center justify-between text-xs font-mono text-slate-400 mb-2.5">
+                        <span>DISPATCH</span>
+                        <ArrowUpRight
+                          size={14}
+                          className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-brand-indigo transition-all"
+                        />
+                      </div>
+                      <h4 className="font-heading font-bold text-slate-900 text-base group-hover:text-brand-indigo transition-colors line-clamp-2 mb-2">
+                        {art.title}
+                      </h4>
+                    </div>
+                    <div className="pt-3 border-t border-slate-100 text-xs font-mono text-slate-400">
+                      Read on Medium ↗
+                    </div>
+                  </a>
+                ))
+              ) : (
+                <div className="col-span-full py-8 text-center text-slate-400 font-mono text-xs">
+                  Access articles directly at{' '}
+                  <a
+                    href="https://medium.com/@kisalnelaka6"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="text-brand-indigo underline"
+                  >
+                    medium.com/@kisalnelaka6
+                  </a>
+                </div>
+              )}
             </div>
           </div>
         </section>
       </main>
 
-      {/* ─── Full-Bleed Inverted Final Section & Masthead Footer ───────── */}
-      <footer className="bg-foreground text-background border-t-8 border-foreground mt-20 relative">
-        <div className="absolute inset-0 bg-cta-radial opacity-10 pointer-events-none" />
-        <div className="max-w-6xl mx-auto px-6 md:px-8 py-24 relative z-10 text-center">
-          <div className="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-background/70 border border-background/40 px-4 py-1.5 mb-8">
-            <Terminal size={13} />
-            <span>Operational Availability: Open for Architecture Roles</span>
+      {/* ─── Luminous Footer ─────────────────────────────────────────── */}
+      <footer className="border-t border-slate-200/80 bg-white/70 backdrop-blur-xl relative z-10 py-16">
+        <div className="max-w-6xl mx-auto px-6 text-center">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-100 border border-slate-200 text-xs font-mono text-slate-600 mb-6">
+            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-ping" />
+            <span>
+              Operational Availability: Open for Architecture Engagements
+            </span>
           </div>
 
-          <h2
-            className="font-serif font-black tracking-tighter uppercase leading-none text-background mb-8"
-            style={{ fontSize: 'clamp(2.5rem, 7vw, 6rem)' }}
-          >
-            Let's Engineer
-            <br />
-            Superior Systems.
+          <h2 className="font-heading font-black text-3xl sm:text-5xl text-slate-900 tracking-tight mb-4">
+            Let's Engineer Superior Systems.
           </h2>
 
-          <p className="font-body text-base md:text-lg text-background/80 max-w-xl mx-auto mb-10 leading-relaxed">
-            Available for principal engineering engagements, high-concurrency
-            systems development, and defensive security consulting.
+          <p className="text-slate-600 max-w-lg mx-auto text-sm md:text-base leading-relaxed mb-8">
+            Available for principal systems design, high-concurrency cloud
+            pipelines, and defensive security consulting.
           </p>
 
-          <a
-            href="mailto:kisalnelaka6@gmail.com"
-            className="inline-flex items-center gap-3 px-10 py-5 bg-background text-foreground font-mono text-xs uppercase tracking-widest font-semibold border-2 border-background hover:bg-transparent hover:text-background transition-colors duration-150"
-          >
-            <Mail size={16} />
-            <span>kisalnelaka6@gmail.com</span>
-            <ArrowUpRight size={16} />
-          </a>
+          {/* Quick Copy / Email CTAs */}
+          <div className="flex flex-wrap items-center justify-center gap-3 mb-12">
+            <a
+              href="mailto:kisalnelaka6@gmail.com"
+              className="btn-vibrant text-sm"
+            >
+              <Mail size={16} />
+              <span>kisalnelaka6@gmail.com</span>
+            </a>
+            <button
+              onClick={handleCopyEmail}
+              className="btn-vibrant-outline text-sm"
+              title="Copy Email to Clipboard"
+            >
+              {copiedEmail ? (
+                <>
+                  <Check size={16} className="text-emerald-500" />
+                  <span className="text-emerald-600 font-semibold">
+                    Email Address Copied!
+                  </span>
+                </>
+              ) : (
+                <>
+                  <Copy size={16} />
+                  <span>Copy Address</span>
+                </>
+              )}
+            </button>
+          </div>
 
-          {/* Direct Coordinates */}
-          <div className="mt-16 pt-10 border-t border-background/20 flex flex-col sm:flex-row items-center justify-between gap-6 font-mono text-xs text-background/70">
+          {/* Footer Bottom Links */}
+          <div className="pt-8 border-t border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-4 font-mono text-xs text-slate-500">
             <div className="flex items-center gap-6">
               <a
                 href="https://github.com/kisalnelaka"
                 target="_blank"
                 rel="noreferrer"
-                className="hover:text-background hover:underline transition-colors"
+                className="hover:text-brand-indigo transition-colors"
               >
                 GitHub
               </a>
@@ -881,7 +409,7 @@ const Portfolio: React.FC = () => {
                 href="https://linkedin.com/in/kisalnelaka"
                 target="_blank"
                 rel="noreferrer"
-                className="hover:text-background hover:underline transition-colors"
+                className="hover:text-brand-indigo transition-colors"
               >
                 LinkedIn
               </a>
@@ -890,17 +418,24 @@ const Portfolio: React.FC = () => {
                 href="https://medium.com/@kisalnelaka6"
                 target="_blank"
                 rel="noreferrer"
-                className="hover:text-background hover:underline transition-colors"
+                className="hover:text-brand-indigo transition-colors"
               >
                 Medium
+              </a>
+              <span>·</span>
+              <a
+                href="https://www.knockknockneo.cloud"
+                target="_blank"
+                rel="noreferrer"
+                className="hover:text-brand-indigo transition-colors"
+              >
+                Website
               </a>
             </div>
 
             <div>
-              <span>
-                © {new Date().getFullYear()} Kisal Nelaka. Zero Tracking.
-                Deterministic Execution.
-              </span>
+              © {new Date().getFullYear()} Kisal Nelaka · Deterministic Systems
+              & Cryptographic Rigor
             </div>
           </div>
         </div>
