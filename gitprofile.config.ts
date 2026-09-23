@@ -75,8 +75,7 @@ const CONFIG = {
     email: 'kisalnelaka6@gmail.com',
   },
   resume: {
-    fileUrl:
-      'https://knockknockneo.cloud/stuff/Kisal%20Nelaka%20-%20Resume.pdf', // Empty fileUrl will hide the `Download Resume` button.
+    fileUrl: '', // Empty fileUrl will hide the `Download Resume` button.
   },
   skills: [
     'PHP',

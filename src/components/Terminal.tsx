@@ -194,11 +194,7 @@ const Terminal: React.FC = () => {
                 res = 'Matrix protocol injected. OVERLAY ACTIVE. Press [Ctrl+C] to terminate.';
                 break;
             case 'resume':
-                res = (
-                    <a href="https://knockknockneo.cloud/stuff/Kisal%20Nelaka%20-%20Resume.pdf" target="_blank" rel="noreferrer" className="text-[#00F0FF] hover:underline hover:text-white">
-                        Downloading resume.pdf...
-                    </a>
-                );
+                res = 'Resume undergoing revision. Contact directly at kisalnelaka6@gmail.com';
                 break;
             case 'contact':
                 res = 'Email: kisalnelaka6@gmail.com | Phone: +974 7753 3967';
